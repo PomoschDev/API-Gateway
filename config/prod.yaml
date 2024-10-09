@@ -1,0 +1,12 @@
+env: "prod" #Прод конфиг
+grpc:
+  port: 44044
+  timeout: 5s
+database:
+  host: localhost
+  user: postgres
+  password: postgres
+  name: postgres
+  port: 3050
+  sslmode: disable
+  migrations: true
