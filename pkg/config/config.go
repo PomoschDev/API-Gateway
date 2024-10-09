@@ -14,8 +14,9 @@ type ServerConfig struct {
 }
 
 type GRPCServerConfig struct {
-	Host string `yaml:"host"`
-	Port int    `yaml:"port"`
+	Host    string        `yaml:"host"`
+	Port    int           `yaml:"port"`
+	Timeout time.Duration `yaml:"timeout"`
 }
 
 type Config struct {
