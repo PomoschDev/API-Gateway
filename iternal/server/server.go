@@ -44,6 +44,7 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	privateRouter.Use(cors.Default().Handler, route.middleware)
 
 	usersRoute := route.r.PathPrefix(getEndpoint("users")).Subrouter()
+	usersRoute.Use(cors.Default().Handler, route.middleware)
 
 	//Swagger
 	{
@@ -59,7 +60,9 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	{
 		usersRoute.HandleFunc("", route.GetUsers).Methods(http.MethodGet, http.MethodOptions)
 		usersRoute.HandleFunc("/{id:[0-9]+}", route.GetUser).Methods(http.MethodGet, http.MethodOptions)
-		usersRoute.HandleFunc("/{id:[0-9]+}", route.GetUser).Methods(http.MethodPut, http.MethodOptions)
+		usersRoute.HandleFunc("/{id:[0-9]+}", route.UpdateUser).Methods(http.MethodPut, http.MethodOptions)
+		usersRoute.HandleFunc("", route.CreateUser).Methods(http.MethodPost, http.MethodOptions)
+		usersRoute.HandleFunc("/{id:[0-9]+}", route.DeleteUserByID).Methods(http.MethodDelete, http.MethodOptions)
 
 	}
 

@@ -19,55 +19,64 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	DatabaseService_CreateUser_FullMethodName               = "/service.DatabaseService/CreateUser"
-	DatabaseService_Users_FullMethodName                    = "/service.DatabaseService/Users"
-	DatabaseService_IsRole_FullMethodName                   = "/service.DatabaseService/IsRole"
-	DatabaseService_ComparePassword_FullMethodName          = "/service.DatabaseService/ComparePassword"
-	DatabaseService_UserIsExists_FullMethodName             = "/service.DatabaseService/UserIsExists"
-	DatabaseService_FindUserById_FullMethodName             = "/service.DatabaseService/FindUserById"
-	DatabaseService_FindUserByEmail_FullMethodName          = "/service.DatabaseService/FindUserByEmail"
-	DatabaseService_FindUserByPhone_FullMethodName          = "/service.DatabaseService/FindUserByPhone"
-	DatabaseService_ChangeUserType_FullMethodName           = "/service.DatabaseService/ChangeUserType"
-	DatabaseService_FindUserCompany_FullMethodName          = "/service.DatabaseService/FindUserCompany"
-	DatabaseService_FindUserDonations_FullMethodName        = "/service.DatabaseService/FindUserDonations"
-	DatabaseService_FindUserCard_FullMethodName             = "/service.DatabaseService/FindUserCard"
-	DatabaseService_AddCardToUser_FullMethodName            = "/service.DatabaseService/AddCardToUser"
-	DatabaseService_DeleteUserByModel_FullMethodName        = "/service.DatabaseService/DeleteUserByModel"
-	DatabaseService_DeleteUserById_FullMethodName           = "/service.DatabaseService/DeleteUserById"
-	DatabaseService_UpdateUser_FullMethodName               = "/service.DatabaseService/UpdateUser"
-	DatabaseService_Companies_FullMethodName                = "/service.DatabaseService/Companies"
-	DatabaseService_CreateCompany_FullMethodName            = "/service.DatabaseService/CreateCompany"
-	DatabaseService_FindCompanyById_FullMethodName          = "/service.DatabaseService/FindCompanyById"
-	DatabaseService_FindCompanyByPhone_FullMethodName       = "/service.DatabaseService/FindCompanyByPhone"
-	DatabaseService_FindCompanyCard_FullMethodName          = "/service.DatabaseService/FindCompanyCard"
-	DatabaseService_DeleteCompanyByModel_FullMethodName     = "/service.DatabaseService/DeleteCompanyByModel"
-	DatabaseService_DeleteCompanyById_FullMethodName        = "/service.DatabaseService/DeleteCompanyById"
-	DatabaseService_UpdateCompany_FullMethodName            = "/service.DatabaseService/UpdateCompany"
-	DatabaseService_Cards_FullMethodName                    = "/service.DatabaseService/Cards"
-	DatabaseService_CreateCard_FullMethodName               = "/service.DatabaseService/CreateCard"
-	DatabaseService_FindCardById_FullMethodName             = "/service.DatabaseService/FindCardById"
-	DatabaseService_DeleteCardByModel_FullMethodName        = "/service.DatabaseService/DeleteCardByModel"
-	DatabaseService_DeleteCardById_FullMethodName           = "/service.DatabaseService/DeleteCardById"
-	DatabaseService_UpdateCard_FullMethodName               = "/service.DatabaseService/UpdateCard"
-	DatabaseService_CardsCompanies_FullMethodName           = "/service.DatabaseService/CardsCompanies"
-	DatabaseService_CreateCardCompany_FullMethodName        = "/service.DatabaseService/CreateCardCompany"
-	DatabaseService_FindCardCompanyByID_FullMethodName      = "/service.DatabaseService/FindCardCompanyByID"
-	DatabaseService_DeleteCardCompanyByModel_FullMethodName = "/service.DatabaseService/DeleteCardCompanyByModel"
-	DatabaseService_DeleteCardCompanyById_FullMethodName    = "/service.DatabaseService/DeleteCardCompanyById"
-	DatabaseService_UpdateCardCompany_FullMethodName        = "/service.DatabaseService/UpdateCardCompany"
-	DatabaseService_Donations_FullMethodName                = "/service.DatabaseService/Donations"
-	DatabaseService_CreateDonations_FullMethodName          = "/service.DatabaseService/CreateDonations"
-	DatabaseService_FindDonationWards_FullMethodName        = "/service.DatabaseService/FindDonationWards"
-	DatabaseService_FindDonationById_FullMethodName         = "/service.DatabaseService/FindDonationById"
-	DatabaseService_DeleteDonationByModel_FullMethodName    = "/service.DatabaseService/DeleteDonationByModel"
-	DatabaseService_DeleteDonationById_FullMethodName       = "/service.DatabaseService/DeleteDonationById"
-	DatabaseService_UpdateDonation_FullMethodName           = "/service.DatabaseService/UpdateDonation"
-	DatabaseService_Wards_FullMethodName                    = "/service.DatabaseService/Wards"
-	DatabaseService_CreateWard_FullMethodName               = "/service.DatabaseService/CreateWard"
-	DatabaseService_FindWardById_FullMethodName             = "/service.DatabaseService/FindWardById"
-	DatabaseService_DeleteWardByModel_FullMethodName        = "/service.DatabaseService/DeleteWardByModel"
-	DatabaseService_DeleteWardById_FullMethodName           = "/service.DatabaseService/DeleteWardById"
-	DatabaseService_UpdateWard_FullMethodName               = "/service.DatabaseService/UpdateWard"
+	DatabaseService_CreateUser_FullMethodName                 = "/service.DatabaseService/CreateUser"
+	DatabaseService_Users_FullMethodName                      = "/service.DatabaseService/Users"
+	DatabaseService_IsRole_FullMethodName                     = "/service.DatabaseService/IsRole"
+	DatabaseService_ComparePassword_FullMethodName            = "/service.DatabaseService/ComparePassword"
+	DatabaseService_UserIsExists_FullMethodName               = "/service.DatabaseService/UserIsExists"
+	DatabaseService_FindUserById_FullMethodName               = "/service.DatabaseService/FindUserById"
+	DatabaseService_FindUserByEmail_FullMethodName            = "/service.DatabaseService/FindUserByEmail"
+	DatabaseService_FindUserByPhone_FullMethodName            = "/service.DatabaseService/FindUserByPhone"
+	DatabaseService_ChangeUserType_FullMethodName             = "/service.DatabaseService/ChangeUserType"
+	DatabaseService_FindUserCompany_FullMethodName            = "/service.DatabaseService/FindUserCompany"
+	DatabaseService_FindUserDonations_FullMethodName          = "/service.DatabaseService/FindUserDonations"
+	DatabaseService_FindUserCard_FullMethodName               = "/service.DatabaseService/FindUserCard"
+	DatabaseService_AddCardToUser_FullMethodName              = "/service.DatabaseService/AddCardToUser"
+	DatabaseService_DeleteUserByModel_FullMethodName          = "/service.DatabaseService/DeleteUserByModel"
+	DatabaseService_DeleteUserById_FullMethodName             = "/service.DatabaseService/DeleteUserById"
+	DatabaseService_UpdateUser_FullMethodName                 = "/service.DatabaseService/UpdateUser"
+	DatabaseService_Companies_FullMethodName                  = "/service.DatabaseService/Companies"
+	DatabaseService_CreateCompany_FullMethodName              = "/service.DatabaseService/CreateCompany"
+	DatabaseService_FindCompanyById_FullMethodName            = "/service.DatabaseService/FindCompanyById"
+	DatabaseService_FindCompanyByPhone_FullMethodName         = "/service.DatabaseService/FindCompanyByPhone"
+	DatabaseService_FindCompanyCard_FullMethodName            = "/service.DatabaseService/FindCompanyCard"
+	DatabaseService_DeleteCompanyByModel_FullMethodName       = "/service.DatabaseService/DeleteCompanyByModel"
+	DatabaseService_DeleteCompanyById_FullMethodName          = "/service.DatabaseService/DeleteCompanyById"
+	DatabaseService_UpdateCompany_FullMethodName              = "/service.DatabaseService/UpdateCompany"
+	DatabaseService_Cards_FullMethodName                      = "/service.DatabaseService/Cards"
+	DatabaseService_CreateCard_FullMethodName                 = "/service.DatabaseService/CreateCard"
+	DatabaseService_FindCardById_FullMethodName               = "/service.DatabaseService/FindCardById"
+	DatabaseService_DeleteCardByModel_FullMethodName          = "/service.DatabaseService/DeleteCardByModel"
+	DatabaseService_DeleteCardById_FullMethodName             = "/service.DatabaseService/DeleteCardById"
+	DatabaseService_UpdateCard_FullMethodName                 = "/service.DatabaseService/UpdateCard"
+	DatabaseService_CardsCompanies_FullMethodName             = "/service.DatabaseService/CardsCompanies"
+	DatabaseService_CreateCardCompany_FullMethodName          = "/service.DatabaseService/CreateCardCompany"
+	DatabaseService_FindCardCompanyByID_FullMethodName        = "/service.DatabaseService/FindCardCompanyByID"
+	DatabaseService_DeleteCardCompanyByModel_FullMethodName   = "/service.DatabaseService/DeleteCardCompanyByModel"
+	DatabaseService_DeleteCardCompanyById_FullMethodName      = "/service.DatabaseService/DeleteCardCompanyById"
+	DatabaseService_UpdateCardCompany_FullMethodName          = "/service.DatabaseService/UpdateCardCompany"
+	DatabaseService_Donations_FullMethodName                  = "/service.DatabaseService/Donations"
+	DatabaseService_CreateDonations_FullMethodName            = "/service.DatabaseService/CreateDonations"
+	DatabaseService_FindDonationWards_FullMethodName          = "/service.DatabaseService/FindDonationWards"
+	DatabaseService_FindDonationById_FullMethodName           = "/service.DatabaseService/FindDonationById"
+	DatabaseService_DeleteDonationByModel_FullMethodName      = "/service.DatabaseService/DeleteDonationByModel"
+	DatabaseService_DeleteDonationById_FullMethodName         = "/service.DatabaseService/DeleteDonationById"
+	DatabaseService_UpdateDonation_FullMethodName             = "/service.DatabaseService/UpdateDonation"
+	DatabaseService_Wards_FullMethodName                      = "/service.DatabaseService/Wards"
+	DatabaseService_CreateWard_FullMethodName                 = "/service.DatabaseService/CreateWard"
+	DatabaseService_FindWardById_FullMethodName               = "/service.DatabaseService/FindWardById"
+	DatabaseService_DeleteWardByModel_FullMethodName          = "/service.DatabaseService/DeleteWardByModel"
+	DatabaseService_DeleteWardById_FullMethodName             = "/service.DatabaseService/DeleteWardById"
+	DatabaseService_UpdateWard_FullMethodName                 = "/service.DatabaseService/UpdateWard"
+	DatabaseService_CreateSessions_FullMethodName             = "/service.DatabaseService/CreateSessions"
+	DatabaseService_Sessions_FullMethodName                   = "/service.DatabaseService/Sessions"
+	DatabaseService_FindSessionsById_FullMethodName           = "/service.DatabaseService/FindSessionsById"
+	DatabaseService_FindSessionsByUserId_FullMethodName       = "/service.DatabaseService/FindSessionsByUserId"
+	DatabaseService_ChangeRefreshTokenById_FullMethodName     = "/service.DatabaseService/ChangeRefreshTokenById"
+	DatabaseService_ChangeRefreshTokenByUserId_FullMethodName = "/service.DatabaseService/ChangeRefreshTokenByUserId"
+	DatabaseService_DeleteSessionByModel_FullMethodName       = "/service.DatabaseService/DeleteSessionByModel"
+	DatabaseService_DeleteSessionById_FullMethodName          = "/service.DatabaseService/DeleteSessionById"
+	DatabaseService_DeleteSessionByUserId_FullMethodName      = "/service.DatabaseService/DeleteSessionByUserId"
 )
 
 // DatabaseServiceClient is the client API for DatabaseService service.
@@ -224,6 +233,33 @@ type DatabaseServiceClient interface {
 	// *
 	// Обновление подопечного
 	UpdateWard(ctx context.Context, in *Ward, opts ...grpc.CallOption) (*Ward, error)
+	// *
+	// Создание новой сессии
+	CreateSessions(ctx context.Context, in *CreateSessionRequest, opts ...grpc.CallOption) (*CreateSessionResponse, error)
+	// *
+	// Список всех сессии
+	Sessions(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*SessionsResponse, error)
+	// *
+	// Поиск сессии по его ID
+	FindSessionsById(ctx context.Context, in *FindSessionsByIdRequest, opts ...grpc.CallOption) (*FindSessionsByIdResponse, error)
+	// *
+	// Поиск сессии по UserID
+	FindSessionsByUserId(ctx context.Context, in *FindSessionsByUserIdRequest, opts ...grpc.CallOption) (*FindSessionsByUserIdResponse, error)
+	// *
+	// Обновление поля RefreshToken по ID сессии
+	ChangeRefreshTokenById(ctx context.Context, in *ChangeRefreshTokenByIdRequest, opts ...grpc.CallOption) (*ChangeRefreshTokenByIdResponse, error)
+	// *
+	// Обновление поля RefreshToken по UserID пользователя
+	ChangeRefreshTokenByUserId(ctx context.Context, in *ChangeRefreshTokenByUserIdRequest, opts ...grpc.CallOption) (*ChangeRefreshTokenByUserIdResponse, error)
+	// *
+	// Удаление сессии по полной модели (например полученной с помощью FindSessionById)
+	DeleteSessionByModel(ctx context.Context, in *DeleteSessionByModelRequest, opts ...grpc.CallOption) (*HTTPCodes, error)
+	// *
+	// Удаляет сессию по ее ID
+	DeleteSessionById(ctx context.Context, in *DeleteSessionByIdRequest, opts ...grpc.CallOption) (*HTTPCodes, error)
+	// *
+	// Удаляет сессию по ее UserID
+	DeleteSessionByUserId(ctx context.Context, in *DeleteSessionByUserIdRequest, opts ...grpc.CallOption) (*HTTPCodes, error)
 }
 
 type databaseServiceClient struct {
@@ -724,6 +760,96 @@ func (c *databaseServiceClient) UpdateWard(ctx context.Context, in *Ward, opts .
 	return out, nil
 }
 
+func (c *databaseServiceClient) CreateSessions(ctx context.Context, in *CreateSessionRequest, opts ...grpc.CallOption) (*CreateSessionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateSessionResponse)
+	err := c.cc.Invoke(ctx, DatabaseService_CreateSessions_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *databaseServiceClient) Sessions(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*SessionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SessionsResponse)
+	err := c.cc.Invoke(ctx, DatabaseService_Sessions_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *databaseServiceClient) FindSessionsById(ctx context.Context, in *FindSessionsByIdRequest, opts ...grpc.CallOption) (*FindSessionsByIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FindSessionsByIdResponse)
+	err := c.cc.Invoke(ctx, DatabaseService_FindSessionsById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *databaseServiceClient) FindSessionsByUserId(ctx context.Context, in *FindSessionsByUserIdRequest, opts ...grpc.CallOption) (*FindSessionsByUserIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FindSessionsByUserIdResponse)
+	err := c.cc.Invoke(ctx, DatabaseService_FindSessionsByUserId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *databaseServiceClient) ChangeRefreshTokenById(ctx context.Context, in *ChangeRefreshTokenByIdRequest, opts ...grpc.CallOption) (*ChangeRefreshTokenByIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ChangeRefreshTokenByIdResponse)
+	err := c.cc.Invoke(ctx, DatabaseService_ChangeRefreshTokenById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *databaseServiceClient) ChangeRefreshTokenByUserId(ctx context.Context, in *ChangeRefreshTokenByUserIdRequest, opts ...grpc.CallOption) (*ChangeRefreshTokenByUserIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ChangeRefreshTokenByUserIdResponse)
+	err := c.cc.Invoke(ctx, DatabaseService_ChangeRefreshTokenByUserId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *databaseServiceClient) DeleteSessionByModel(ctx context.Context, in *DeleteSessionByModelRequest, opts ...grpc.CallOption) (*HTTPCodes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HTTPCodes)
+	err := c.cc.Invoke(ctx, DatabaseService_DeleteSessionByModel_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *databaseServiceClient) DeleteSessionById(ctx context.Context, in *DeleteSessionByIdRequest, opts ...grpc.CallOption) (*HTTPCodes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HTTPCodes)
+	err := c.cc.Invoke(ctx, DatabaseService_DeleteSessionById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *databaseServiceClient) DeleteSessionByUserId(ctx context.Context, in *DeleteSessionByUserIdRequest, opts ...grpc.CallOption) (*HTTPCodes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HTTPCodes)
+	err := c.cc.Invoke(ctx, DatabaseService_DeleteSessionByUserId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DatabaseServiceServer is the server API for DatabaseService service.
 // All implementations must embed UnimplementedDatabaseServiceServer
 // for forward compatibility.
@@ -878,6 +1004,33 @@ type DatabaseServiceServer interface {
 	// *
 	// Обновление подопечного
 	UpdateWard(context.Context, *Ward) (*Ward, error)
+	// *
+	// Создание новой сессии
+	CreateSessions(context.Context, *CreateSessionRequest) (*CreateSessionResponse, error)
+	// *
+	// Список всех сессии
+	Sessions(context.Context, *Empty) (*SessionsResponse, error)
+	// *
+	// Поиск сессии по его ID
+	FindSessionsById(context.Context, *FindSessionsByIdRequest) (*FindSessionsByIdResponse, error)
+	// *
+	// Поиск сессии по UserID
+	FindSessionsByUserId(context.Context, *FindSessionsByUserIdRequest) (*FindSessionsByUserIdResponse, error)
+	// *
+	// Обновление поля RefreshToken по ID сессии
+	ChangeRefreshTokenById(context.Context, *ChangeRefreshTokenByIdRequest) (*ChangeRefreshTokenByIdResponse, error)
+	// *
+	// Обновление поля RefreshToken по UserID пользователя
+	ChangeRefreshTokenByUserId(context.Context, *ChangeRefreshTokenByUserIdRequest) (*ChangeRefreshTokenByUserIdResponse, error)
+	// *
+	// Удаление сессии по полной модели (например полученной с помощью FindSessionById)
+	DeleteSessionByModel(context.Context, *DeleteSessionByModelRequest) (*HTTPCodes, error)
+	// *
+	// Удаляет сессию по ее ID
+	DeleteSessionById(context.Context, *DeleteSessionByIdRequest) (*HTTPCodes, error)
+	// *
+	// Удаляет сессию по ее UserID
+	DeleteSessionByUserId(context.Context, *DeleteSessionByUserIdRequest) (*HTTPCodes, error)
 	mustEmbedUnimplementedDatabaseServiceServer()
 }
 
@@ -1034,6 +1187,33 @@ func (UnimplementedDatabaseServiceServer) DeleteWardById(context.Context, *Delet
 }
 func (UnimplementedDatabaseServiceServer) UpdateWard(context.Context, *Ward) (*Ward, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateWard not implemented")
+}
+func (UnimplementedDatabaseServiceServer) CreateSessions(context.Context, *CreateSessionRequest) (*CreateSessionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSessions not implemented")
+}
+func (UnimplementedDatabaseServiceServer) Sessions(context.Context, *Empty) (*SessionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Sessions not implemented")
+}
+func (UnimplementedDatabaseServiceServer) FindSessionsById(context.Context, *FindSessionsByIdRequest) (*FindSessionsByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindSessionsById not implemented")
+}
+func (UnimplementedDatabaseServiceServer) FindSessionsByUserId(context.Context, *FindSessionsByUserIdRequest) (*FindSessionsByUserIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindSessionsByUserId not implemented")
+}
+func (UnimplementedDatabaseServiceServer) ChangeRefreshTokenById(context.Context, *ChangeRefreshTokenByIdRequest) (*ChangeRefreshTokenByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeRefreshTokenById not implemented")
+}
+func (UnimplementedDatabaseServiceServer) ChangeRefreshTokenByUserId(context.Context, *ChangeRefreshTokenByUserIdRequest) (*ChangeRefreshTokenByUserIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeRefreshTokenByUserId not implemented")
+}
+func (UnimplementedDatabaseServiceServer) DeleteSessionByModel(context.Context, *DeleteSessionByModelRequest) (*HTTPCodes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSessionByModel not implemented")
+}
+func (UnimplementedDatabaseServiceServer) DeleteSessionById(context.Context, *DeleteSessionByIdRequest) (*HTTPCodes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSessionById not implemented")
+}
+func (UnimplementedDatabaseServiceServer) DeleteSessionByUserId(context.Context, *DeleteSessionByUserIdRequest) (*HTTPCodes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSessionByUserId not implemented")
 }
 func (UnimplementedDatabaseServiceServer) mustEmbedUnimplementedDatabaseServiceServer() {}
 func (UnimplementedDatabaseServiceServer) testEmbeddedByValue()                         {}
@@ -1938,6 +2118,168 @@ func _DatabaseService_UpdateWard_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatabaseService_CreateSessions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateSessionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).CreateSessions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_CreateSessions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).CreateSessions(ctx, req.(*CreateSessionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatabaseService_Sessions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).Sessions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_Sessions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).Sessions(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatabaseService_FindSessionsById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindSessionsByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).FindSessionsById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_FindSessionsById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).FindSessionsById(ctx, req.(*FindSessionsByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatabaseService_FindSessionsByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindSessionsByUserIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).FindSessionsByUserId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_FindSessionsByUserId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).FindSessionsByUserId(ctx, req.(*FindSessionsByUserIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatabaseService_ChangeRefreshTokenById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeRefreshTokenByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).ChangeRefreshTokenById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_ChangeRefreshTokenById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).ChangeRefreshTokenById(ctx, req.(*ChangeRefreshTokenByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatabaseService_ChangeRefreshTokenByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeRefreshTokenByUserIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).ChangeRefreshTokenByUserId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_ChangeRefreshTokenByUserId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).ChangeRefreshTokenByUserId(ctx, req.(*ChangeRefreshTokenByUserIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatabaseService_DeleteSessionByModel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteSessionByModelRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).DeleteSessionByModel(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_DeleteSessionByModel_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).DeleteSessionByModel(ctx, req.(*DeleteSessionByModelRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatabaseService_DeleteSessionById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteSessionByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).DeleteSessionById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_DeleteSessionById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).DeleteSessionById(ctx, req.(*DeleteSessionByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatabaseService_DeleteSessionByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteSessionByUserIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).DeleteSessionByUserId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_DeleteSessionByUserId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).DeleteSessionByUserId(ctx, req.(*DeleteSessionByUserIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DatabaseService_ServiceDesc is the grpc.ServiceDesc for DatabaseService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -2140,6 +2482,42 @@ var DatabaseService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateWard",
 			Handler:    _DatabaseService_UpdateWard_Handler,
+		},
+		{
+			MethodName: "CreateSessions",
+			Handler:    _DatabaseService_CreateSessions_Handler,
+		},
+		{
+			MethodName: "Sessions",
+			Handler:    _DatabaseService_Sessions_Handler,
+		},
+		{
+			MethodName: "FindSessionsById",
+			Handler:    _DatabaseService_FindSessionsById_Handler,
+		},
+		{
+			MethodName: "FindSessionsByUserId",
+			Handler:    _DatabaseService_FindSessionsByUserId_Handler,
+		},
+		{
+			MethodName: "ChangeRefreshTokenById",
+			Handler:    _DatabaseService_ChangeRefreshTokenById_Handler,
+		},
+		{
+			MethodName: "ChangeRefreshTokenByUserId",
+			Handler:    _DatabaseService_ChangeRefreshTokenByUserId_Handler,
+		},
+		{
+			MethodName: "DeleteSessionByModel",
+			Handler:    _DatabaseService_DeleteSessionByModel_Handler,
+		},
+		{
+			MethodName: "DeleteSessionById",
+			Handler:    _DatabaseService_DeleteSessionById_Handler,
+		},
+		{
+			MethodName: "DeleteSessionByUserId",
+			Handler:    _DatabaseService_DeleteSessionByUserId_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

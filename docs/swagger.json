@@ -46,6 +46,55 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "description": "Создание новой сущности пользователя",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Создание пользователя",
+                "parameters": [
+                    {
+                        "description": "Сущность пользователя",
+                        "name": "user",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateUserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
             }
         },
         "/api/v1/users/{id}": {
@@ -75,6 +124,104 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/DatabaseServicev1.CreateUserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Обновление сущности пользователя",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Обновление пользователя",
+                "parameters": [
+                    {
+                        "description": "Модель для обновления",
+                        "name": "Пользователь",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.UpdateUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateUserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Удаление пользователя по ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Удаление пользователя",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID пользователя",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     "400": {
@@ -231,6 +378,151 @@
                 }
             }
         },
+        "DatabaseServicev1.CreateCardRequest": {
+            "type": "object",
+            "properties": {
+                "cvv": {
+                    "description": "* CVV код карты",
+                    "type": "integer"
+                },
+                "date": {
+                    "description": "* Дата до которой активна карта",
+                    "type": "string"
+                },
+                "fullName": {
+                    "description": "* ФИО с банковской карты",
+                    "type": "string"
+                },
+                "number": {
+                    "description": "* Номер карты",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "* ID пользователя кому принадлежит карта",
+                    "type": "integer"
+                }
+            }
+        },
+        "DatabaseServicev1.CreateCompanyRequest": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "* Адрес офиса компании",
+                    "type": "string"
+                },
+                "card": {
+                    "description": "* Банковская карта компании",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.CardCompany"
+                        }
+                    ]
+                },
+                "inn": {
+                    "description": "* ИНН юридического лица",
+                    "type": "string"
+                },
+                "kpp": {
+                    "description": "* КПП юридического лица",
+                    "type": "string"
+                },
+                "okpo": {
+                    "description": "* ОКПО предприятия/организации",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "* Номер телефона компании",
+                    "type": "string"
+                },
+                "site": {
+                    "description": "* Сайт компании",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "* Название компании",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "* ID пользователя к которому относится данная компания",
+                    "type": "integer"
+                }
+            }
+        },
+        "DatabaseServicev1.CreateDonationsRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "description": "* Сумма пожертвования",
+                    "type": "number"
+                },
+                "title": {
+                    "description": "* Произвольное название пожертвования, примерно так: \"На лекарства\"",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "* ID пользователя, чье это пожертвование",
+                    "type": "integer"
+                },
+                "wards": {
+                    "description": "* Подопечный данного пожертвования",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.Ward"
+                        }
+                    ]
+                }
+            }
+        },
+        "DatabaseServicev1.CreateUserRequest": {
+            "type": "object",
+            "properties": {
+                "card": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DatabaseServicev1.CreateCardRequest"
+                    }
+                },
+                "company": {
+                    "description": "* Компания пользователя, если он является юридическим лицом",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateCompanyRequest"
+                        }
+                    ]
+                },
+                "donations": {
+                    "description": "* Пожертвования пользователя",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DatabaseServicev1.CreateDonationsRequest"
+                    }
+                },
+                "email": {
+                    "description": "* Email пользователя (обязательно проверяем на формат email@email.com)",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "* Пароль пользователя (необходимо дополнительно валидировать корректность пароля)",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "* Номер телефона (необходимо дополнительно валидировать формат)",
+                    "type": "string"
+                },
+                "role": {
+                    "description": "* Роль пользователя",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "* Тип пользователя, 0 - физическое лицо, 1 - юридическое лицо",
+                    "type": "integer"
+                },
+                "username": {
+                    "description": "* Имя (никнейм) пользователя",
+                    "type": "string"
+                }
+            }
+        },
         "DatabaseServicev1.CreateUserResponse": {
             "type": "object",
             "properties": {
@@ -332,6 +624,73 @@
                             "$ref": "#/definitions/DatabaseServicev1.Ward"
                         }
                     ]
+                }
+            }
+        },
+        "DatabaseServicev1.UpdateUserRequest": {
+            "type": "object",
+            "properties": {
+                "AvatarPath": {
+                    "description": "* Локальный путь к аватару пользователя",
+                    "type": "string"
+                },
+                "card": {
+                    "description": "* Массив банковских карт пользователя",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DatabaseServicev1.Card"
+                    }
+                },
+                "company": {
+                    "description": "* Компания пользователя, если он является юридическим лицом (type = 1)",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.Company"
+                        }
+                    ]
+                },
+                "createdAt": {
+                    "description": "* Дата создания сущности в базе данных",
+                    "type": "string"
+                },
+                "donations": {
+                    "description": "* Массив пожертвований пользователя",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DatabaseServicev1.Donations"
+                    }
+                },
+                "email": {
+                    "description": "* Email пользователя",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "* ID пользователя в базе данных",
+                    "type": "integer"
+                },
+                "password": {
+                    "description": "* Пароль пользователя (закодирован в MD5Hash)",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "* Номер телефона пользователя",
+                    "type": "string"
+                },
+                "role": {
+                    "description": "* Роль пользователя",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "* Тип пользователя (0 - физическое лицо, 1 - юридическое лицо)",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "* Дата последнего обновления сущности в базе данных",
+                    "type": "string"
+                },
+                "username": {
+                    "description": "* Имя (никнейм) пользователя",
+                    "type": "string"
                 }
             }
         },

@@ -93,6 +93,106 @@ definitions:
         description: '* ID пользователя к которому относится данная компания'
         type: integer
     type: object
+  DatabaseServicev1.CreateCardRequest:
+    properties:
+      cvv:
+        description: '* CVV код карты'
+        type: integer
+      date:
+        description: '* Дата до которой активна карта'
+        type: string
+      fullName:
+        description: '* ФИО с банковской карты'
+        type: string
+      number:
+        description: '* Номер карты'
+        type: string
+      userId:
+        description: '* ID пользователя кому принадлежит карта'
+        type: integer
+    type: object
+  DatabaseServicev1.CreateCompanyRequest:
+    properties:
+      address:
+        description: '* Адрес офиса компании'
+        type: string
+      card:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.CardCompany'
+        description: '* Банковская карта компании'
+      inn:
+        description: '* ИНН юридического лица'
+        type: string
+      kpp:
+        description: '* КПП юридического лица'
+        type: string
+      okpo:
+        description: '* ОКПО предприятия/организации'
+        type: string
+      phone:
+        description: '* Номер телефона компании'
+        type: string
+      site:
+        description: '* Сайт компании'
+        type: string
+      title:
+        description: '* Название компании'
+        type: string
+      userId:
+        description: '* ID пользователя к которому относится данная компания'
+        type: integer
+    type: object
+  DatabaseServicev1.CreateDonationsRequest:
+    properties:
+      amount:
+        description: '* Сумма пожертвования'
+        type: number
+      title:
+        description: '* Произвольное название пожертвования, примерно так: "На лекарства"'
+        type: string
+      userId:
+        description: '* ID пользователя, чье это пожертвование'
+        type: integer
+      wards:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.Ward'
+        description: '* Подопечный данного пожертвования'
+    type: object
+  DatabaseServicev1.CreateUserRequest:
+    properties:
+      card:
+        items:
+          $ref: '#/definitions/DatabaseServicev1.CreateCardRequest'
+        type: array
+      company:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.CreateCompanyRequest'
+        description: '* Компания пользователя, если он является юридическим лицом'
+      donations:
+        description: '* Пожертвования пользователя'
+        items:
+          $ref: '#/definitions/DatabaseServicev1.CreateDonationsRequest'
+        type: array
+      email:
+        description: '* Email пользователя (обязательно проверяем на формат email@email.com)'
+        type: string
+      password:
+        description: '* Пароль пользователя (необходимо дополнительно валидировать
+          корректность пароля)'
+        type: string
+      phone:
+        description: '* Номер телефона (необходимо дополнительно валидировать формат)'
+        type: string
+      role:
+        description: '* Роль пользователя'
+        type: string
+      type:
+        description: '* Тип пользователя, 0 - физическое лицо, 1 - юридическое лицо'
+        type: integer
+      username:
+        description: '* Имя (никнейм) пользователя'
+        type: string
+    type: object
   DatabaseServicev1.CreateUserResponse:
     properties:
       AvatarPath:
@@ -164,6 +264,54 @@ definitions:
         allOf:
         - $ref: '#/definitions/DatabaseServicev1.Ward'
         description: '* Подопечный этого пожертвования'
+    type: object
+  DatabaseServicev1.UpdateUserRequest:
+    properties:
+      AvatarPath:
+        description: '* Локальный путь к аватару пользователя'
+        type: string
+      card:
+        description: '* Массив банковских карт пользователя'
+        items:
+          $ref: '#/definitions/DatabaseServicev1.Card'
+        type: array
+      company:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.Company'
+        description: '* Компания пользователя, если он является юридическим лицом
+          (type = 1)'
+      createdAt:
+        description: '* Дата создания сущности в базе данных'
+        type: string
+      donations:
+        description: '* Массив пожертвований пользователя'
+        items:
+          $ref: '#/definitions/DatabaseServicev1.Donations'
+        type: array
+      email:
+        description: '* Email пользователя'
+        type: string
+      id:
+        description: '* ID пользователя в базе данных'
+        type: integer
+      password:
+        description: '* Пароль пользователя (закодирован в MD5Hash)'
+        type: string
+      phone:
+        description: '* Номер телефона пользователя'
+        type: string
+      role:
+        description: '* Роль пользователя'
+        type: string
+      type:
+        description: '* Тип пользователя (0 - физическое лицо, 1 - юридическое лицо)'
+        type: integer
+      updatedAt:
+        description: '* Дата последнего обновления сущности в базе данных'
+        type: string
+      username:
+        description: '* Имя (никнейм) пользователя'
+        type: string
     type: object
   DatabaseServicev1.UsersResponse:
     properties:
@@ -244,7 +392,71 @@ paths:
       summary: Список всех пользователей
       tags:
       - users
+    post:
+      consumes:
+      - application/json
+      description: Создание новой сущности пользователя
+      parameters:
+      - description: Сущность пользователя
+        in: body
+        name: user
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CreateUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Создание пользователя
+      tags:
+      - users
   /api/v1/users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление пользователя по ID
+      parameters:
+      - description: ID пользователя
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление пользователя
+      tags:
+      - users
     get:
       consumes:
       - application/json
@@ -275,6 +487,39 @@ paths:
           schema:
             $ref: '#/definitions/server.HTTPError'
       summary: Поиск пользователя
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Обновление сущности пользователя
+      parameters:
+      - description: Модель для обновления
+        in: body
+        name: Пользователь
+        required: true
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CreateUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Обновление пользователя
       tags:
       - users
 swagger: "2.0"
