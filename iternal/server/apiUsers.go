@@ -171,3 +171,46 @@ func (route Router) DeleteUserByID(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(int(response.Code))
 }
+
+// UserIsExists godoc
+// @Summary      Проверка существует ли пользователь
+// @Description  Проверка существует ли пользователь, проверка по номеру телефона
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        phone body DatabaseServicev1.UserIsExistsRequest true "Номер телефона"
+// @Success      200  {object}  DatabaseServicev1.UserIsExistsResponse
+// @Failure      400  {object}	HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/users/isexists [post]
+func (route Router) UserIsExists(w http.ResponseWriter, r *http.Request) {
+	request := new(DatabaseServicev1.UserIsExistsRequest)
+
+	if err := json.NewDecoder(r.Body).Decode(request); err != nil {
+		http.Error(w, "invalid request", http.StatusBadRequest)
+		return
+	}
+
+	logger.Info("request: %+v", request)
+
+	response, err := route.databaseService.UserIsExists(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		code, errStr := utilities.GRPCErrToHttpErr(err)
+		http.Error(w, errStr, code)
+		return
+	}
+
+	resp := struct {
+		IsExists bool
+	}{
+		IsExists: response.IsExists,
+	}
+
+	str := utilities.ToJSON(resp)
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}

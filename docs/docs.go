@@ -105,6 +105,58 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/users/isexists": {
+            "post": {
+                "description": "Проверка существует ли пользователь, проверка по номеру телефона",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Проверка существует ли пользователь",
+                "parameters": [
+                    {
+                        "description": "Номер телефона",
+                        "name": "phone",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.UserIsExistsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.UserIsExistsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/users/{id}": {
             "get": {
                 "description": "Поиск пользователя по ID",
@@ -699,6 +751,24 @@ const docTemplate = `{
                 "username": {
                     "description": "* Имя (никнейм) пользователя",
                     "type": "string"
+                }
+            }
+        },
+        "DatabaseServicev1.UserIsExistsRequest": {
+            "type": "object",
+            "properties": {
+                "phone": {
+                    "description": "* Номер телефона пользователя, по которому будем искать сущность",
+                    "type": "string"
+                }
+            }
+        },
+        "DatabaseServicev1.UserIsExistsResponse": {
+            "type": "object",
+            "properties": {
+                "isExists": {
+                    "description": "* Существует ли пользователь в базе данных (true/false)",
+                    "type": "boolean"
                 }
             }
         },

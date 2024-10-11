@@ -313,6 +313,18 @@ definitions:
         description: '* Имя (никнейм) пользователя'
         type: string
     type: object
+  DatabaseServicev1.UserIsExistsRequest:
+    properties:
+      phone:
+        description: '* Номер телефона пользователя, по которому будем искать сущность'
+        type: string
+    type: object
+  DatabaseServicev1.UserIsExistsResponse:
+    properties:
+      isExists:
+        description: '* Существует ли пользователь в базе данных (true/false)'
+        type: boolean
+    type: object
   DatabaseServicev1.UsersResponse:
     properties:
       users:
@@ -520,6 +532,40 @@ paths:
           schema:
             $ref: '#/definitions/server.HTTPError'
       summary: Обновление пользователя
+      tags:
+      - users
+  /api/v1/users/isexists:
+    post:
+      consumes:
+      - application/json
+      description: Проверка существует ли пользователь, проверка по номеру телефона
+      parameters:
+      - description: Номер телефона
+        in: body
+        name: phone
+        required: true
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.UserIsExistsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.UserIsExistsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Проверка существует ли пользователь
       tags:
       - users
 swagger: "2.0"

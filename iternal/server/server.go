@@ -63,7 +63,7 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 		usersRoute.HandleFunc("/{id:[0-9]+}", route.UpdateUser).Methods(http.MethodPut, http.MethodOptions)
 		usersRoute.HandleFunc("", route.CreateUser).Methods(http.MethodPost, http.MethodOptions)
 		usersRoute.HandleFunc("/{id:[0-9]+}", route.DeleteUserByID).Methods(http.MethodDelete, http.MethodOptions)
-
+		usersRoute.HandleFunc("/isexists", route.UserIsExists).Methods(http.MethodPost, http.MethodOptions)
 	}
 
 	route.r.Use(cors.Default().Handler, mux.CORSMethodMiddleware(route.r))
