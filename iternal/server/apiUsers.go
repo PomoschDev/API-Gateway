@@ -74,7 +74,7 @@ func (route Router) GetUser(w http.ResponseWriter, r *http.Request) {
 // @Tags         users
 // @Accept       json
 // @Produce      json
-// @Param        Пользователь body DatabaseServicev1.UpdateUserRequest true "Модель для обновления"
+// @Param        user body DatabaseServicev1.UpdateUserRequest true "Модель для обновления"
 // @Success      200  {object}  DatabaseServicev1.CreateUserResponse
 // @Failure      400  {object}	HTTPError
 // @Failure      404  {object}  HTTPError
@@ -209,6 +209,43 @@ func (route Router) UserIsExists(w http.ResponseWriter, r *http.Request) {
 	}
 
 	str := utilities.ToJSON(resp)
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// UserIsRole godoc
+// @Summary      Проверяет принадлежность к роли
+// @Description  Проверяет пользователя на принадлежность к определенной роли
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        request body DatabaseServicev1.IsRoleRequest true "Request"
+// @Success      200  {object}  DatabaseServicev1.IsRoleResponse
+// @Failure      400  {object}	HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/users/isrole [post]
+func (route Router) UserIsRole(w http.ResponseWriter, r *http.Request) {
+	request := new(DatabaseServicev1.IsRoleRequest)
+
+	if err := json.NewDecoder(r.Body).Decode(request); err != nil {
+		http.Error(w, "invalid request", http.StatusBadRequest)
+		return
+	}
+
+	logger.Info("request: %+v", request)
+
+	response, err := route.databaseService.IsRole(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		code, errStr := utilities.GRPCErrToHttpErr(err)
+		http.Error(w, errStr, code)
+		return
+	}
+
+	str := utilities.ToJSON(response)
 	_, err = w.Write([]byte(str))
 	if err != nil {
 		logger.Error("%s", err.Error())

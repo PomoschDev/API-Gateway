@@ -157,6 +157,58 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/users/isrole": {
+            "post": {
+                "description": "Проверяет пользователя на принадлежность к определенной роли",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Проверяет принадлежность к роли",
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.IsRoleRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.IsRoleResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/users/{id}": {
             "get": {
                 "description": "Поиск пользователя по ID",
@@ -221,7 +273,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Модель для обновления",
-                        "name": "Пользователь",
+                        "name": "user",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -684,6 +736,28 @@ const docTemplate = `{
                             "$ref": "#/definitions/DatabaseServicev1.Ward"
                         }
                     ]
+                }
+            }
+        },
+        "DatabaseServicev1.IsRoleRequest": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "* ID пользователя",
+                    "type": "integer"
+                },
+                "role": {
+                    "description": "* Роль пользователя которую мы ожиданием",
+                    "type": "string"
+                }
+            }
+        },
+        "DatabaseServicev1.IsRoleResponse": {
+            "type": "object",
+            "properties": {
+                "accessory": {
+                    "description": "* Принадлежность к роли (true/false)",
+                    "type": "boolean"
                 }
             }
         },
