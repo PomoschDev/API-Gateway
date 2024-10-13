@@ -76,6 +76,7 @@ func Transformation(forModel any, toModel any) error {
 
 func GRPCErrToHttpErr(grpcErr error) (int, string) {
 	statusCode, _ := status.FromError(grpcErr)
+	logger.Info("Status code: %+v", statusCode)
 	errStr := statusCode.Message()
 	httpCode := 0
 

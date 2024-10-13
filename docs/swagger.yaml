@@ -53,6 +53,12 @@ definitions:
         description: '* Дата последнего обновления сущности в базе данных'
         type: string
     type: object
+  DatabaseServicev1.ChangeUserTypeResponse:
+    properties:
+      accessory:
+        description: '* Успешность операции изменения типа (true/false)'
+        type: boolean
+    type: object
   DatabaseServicev1.Company:
     properties:
       address:
@@ -92,6 +98,21 @@ definitions:
       userId:
         description: '* ID пользователя к которому относится данная компания'
         type: integer
+    type: object
+  DatabaseServicev1.ComparePasswordRequest:
+    properties:
+      password:
+        description: '* Пароль который будем сравнивать с тем, что есть в базе данных'
+        type: string
+      phone:
+        description: '* Номер телефона пользователя, чей пароль будем искать для сравнения'
+        type: string
+    type: object
+  DatabaseServicev1.ComparePasswordResponse:
+    properties:
+      accessory:
+        description: '* Совпадает ли пароль (true/false)'
+        type: boolean
     type: object
   DatabaseServicev1.CreateCardRequest:
     properties:
@@ -451,6 +472,39 @@ paths:
       summary: Создание пользователя
       tags:
       - users
+  /api/v1/users/:
+    get:
+      consumes:
+      - application/json
+      description: Поиск пользователя по его phone
+      parameters:
+      - description: Phone
+        in: query
+        name: phone
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CreateUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Поиск пользователя по номеру телефона
+      tags:
+      - users
   /api/v1/users/{id}:
     delete:
       consumes:
@@ -466,9 +520,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: ok
+          description: OK
           schema:
-            type: string
+            type: int
         "400":
           description: Bad Request
           schema:
@@ -516,6 +570,45 @@ paths:
       summary: Поиск пользователя
       tags:
       - users
+    patch:
+      consumes:
+      - multipart/form-data
+      description: Обновление типа пользователя (0 - юридическое лицо, 1 - физическое
+        лицо)
+      parameters:
+      - description: ID пользователя
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Type поле пользователя, 0 - юридическое лицо, 1 - физическое
+          лицо
+        in: formData
+        name: type
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.ChangeUserTypeResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Меняет тип пользователя
+      tags:
+      - users
     put:
       consumes:
       - application/json
@@ -549,7 +642,42 @@ paths:
       summary: Обновление пользователя
       tags:
       - users
-  /api/v1/users/isexists:
+  /api/v1/users/comparePassword:
+    post:
+      consumes:
+      - application/json
+      description: Сравнивает пароль что ввел пользователь, с тем что есть в базе
+        данных у его аккаунта
+      parameters:
+      - description: Данные пользователя
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.ComparePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.ComparePasswordResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Сравнение вводимого пароля от пользователя
+      tags:
+      - users
+  /api/v1/users/isExists:
     post:
       consumes:
       - application/json
@@ -583,7 +711,7 @@ paths:
       summary: Проверка существует ли пользователь
       tags:
       - users
-  /api/v1/users/isrole:
+  /api/v1/users/isRole:
     post:
       consumes:
       - application/json

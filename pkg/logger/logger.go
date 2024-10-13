@@ -19,6 +19,7 @@ var fullPathToFile string
 var blue = color.New(color.FgBlue).SprintFunc()
 var red = color.New(color.FgRed).SprintFunc()
 var yellow = color.New(color.FgYellow).SprintFunc()
+var green = color.New(color.FgGreen).SprintFunc()
 
 // getFuncName - получаем имя функции из которой вызван логгер
 func getFuncName() string {
@@ -159,6 +160,7 @@ func Error(format string, a ...any) {
 		date := time.Now().In(loc)
 		dateFormat := fmt.Sprintf("[%s]", date.Format("02.01.2006 15.04"))
 		str := fmt.Sprintf("%s %s [%s]: %s", dateFormat, funcName, red("ERROR"), format)
+
 		if Console {
 			fmt.Printf(str, a...)
 			fmt.Println()

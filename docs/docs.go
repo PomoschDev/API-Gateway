@@ -105,7 +105,109 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/users/isexists": {
+        "/api/v1/users/": {
+            "get": {
+                "description": "Поиск пользователя по его phone",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Поиск пользователя по номеру телефона",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Phone",
+                        "name": "phone",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateUserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/users/comparePassword": {
+            "post": {
+                "description": "Сравнивает пароль что ввел пользователь, с тем что есть в базе данных у его аккаунта",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Сравнение вводимого пароля от пользователя",
+                "parameters": [
+                    {
+                        "description": "Данные пользователя",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.ComparePasswordRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.ComparePasswordResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/users/isExists": {
             "post": {
                 "description": "Проверка существует ли пользователь, проверка по номеру телефона",
                 "consumes": [
@@ -157,7 +259,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/users/isrole": {
+        "/api/v1/users/isRole": {
             "post": {
                 "description": "Проверяет пользователя на принадлежность к определенной роли",
                 "consumes": [
@@ -331,9 +433,64 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "ok",
+                        "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "type": "int"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Обновление типа пользователя (0 - юридическое лицо, 1 - физическое лицо)",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Меняет тип пользователя",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID пользователя",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Type поле пользователя, 0 - юридическое лицо, 1 - физическое лицо",
+                        "name": "type",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.ChangeUserTypeResponse"
                         }
                     },
                     "400": {
@@ -433,6 +590,15 @@ const docTemplate = `{
                 }
             }
         },
+        "DatabaseServicev1.ChangeUserTypeResponse": {
+            "type": "object",
+            "properties": {
+                "accessory": {
+                    "description": "* Успешность операции изменения типа (true/false)",
+                    "type": "boolean"
+                }
+            }
+        },
         "DatabaseServicev1.Company": {
             "type": "object",
             "properties": {
@@ -487,6 +653,28 @@ const docTemplate = `{
                 "userId": {
                     "description": "* ID пользователя к которому относится данная компания",
                     "type": "integer"
+                }
+            }
+        },
+        "DatabaseServicev1.ComparePasswordRequest": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "description": "* Пароль который будем сравнивать с тем, что есть в базе данных",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "* Номер телефона пользователя, чей пароль будем искать для сравнения",
+                    "type": "string"
+                }
+            }
+        },
+        "DatabaseServicev1.ComparePasswordResponse": {
+            "type": "object",
+            "properties": {
+                "accessory": {
+                    "description": "* Совпадает ли пароль (true/false)",
+                    "type": "boolean"
                 }
             }
         },

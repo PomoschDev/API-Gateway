@@ -40,11 +40,13 @@ func getEndpoint(endpoint string) string {
 func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	addr := fmt.Sprintf(":%d", cfg.APIServer.Port)
 
-	privateRouter := route.r.PathPrefix(apiStr).Subrouter()
-	privateRouter.Use(cors.Default().Handler, route.middleware)
+	//Эндпоинты usersPrivate
+	usersPrivateRoute := route.r.PathPrefix(getEndpoint("users")).Subrouter()
+	usersPrivateRoute.Use(cors.Default().Handler, route.authMiddleware)
 
-	usersRoute := route.r.PathPrefix(getEndpoint("users")).Subrouter()
-	usersRoute.Use(cors.Default().Handler, route.middleware)
+	//Эндпоинты usersPrivate
+	usersPublicRoute := route.r.PathPrefix(getEndpoint("users")).Subrouter()
+	usersPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
 
 	//Swagger
 	{
@@ -58,13 +60,26 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 
 	//Пользователи
 	{
-		usersRoute.HandleFunc("", route.GetUsers).Methods(http.MethodGet, http.MethodOptions)
-		usersRoute.HandleFunc("/{id:[0-9]+}", route.GetUser).Methods(http.MethodGet, http.MethodOptions)
-		usersRoute.HandleFunc("/{id:[0-9]+}", route.UpdateUser).Methods(http.MethodPut, http.MethodOptions)
-		usersRoute.HandleFunc("", route.CreateUser).Methods(http.MethodPost, http.MethodOptions)
-		usersRoute.HandleFunc("/{id:[0-9]+}", route.DeleteUserByID).Methods(http.MethodDelete, http.MethodOptions)
-		usersRoute.HandleFunc("/isexists", route.UserIsExists).Methods(http.MethodPost, http.MethodOptions)
-		usersRoute.HandleFunc("/isrole", route.UserIsRole).Methods(http.MethodPost, http.MethodOptions)
+		//Приватные
+		{
+			usersPrivateRoute.HandleFunc("", route.GetUsers).Methods(http.MethodGet, http.MethodOptions)
+			usersPrivateRoute.HandleFunc("", route.CreateUser).Methods(http.MethodPost, http.MethodOptions)
+			usersPrivateRoute.HandleFunc("/{id:[0-9]+}", route.ChangeUserType).Methods(http.MethodPatch, http.MethodOptions)
+		}
+
+		//Публичные
+		{
+			usersPublicRoute.HandleFunc("/{id:[0-9]+}", route.GetUser).Methods(http.MethodGet, http.MethodOptions)
+			usersPublicRoute.HandleFunc("/{id:[0-9]+}", route.UpdateUser).Methods(http.MethodPut, http.MethodOptions)
+			usersPublicRoute.HandleFunc("/{id:[0-9]+}", route.DeleteUserByID).Methods(http.MethodDelete, http.MethodOptions)
+			usersPublicRoute.HandleFunc("/isExists", route.UserIsExists).Methods(http.MethodPost, http.MethodOptions)
+			usersPublicRoute.HandleFunc("/isRole", route.UserIsRole).Methods(http.MethodPost, http.MethodOptions)
+			usersPublicRoute.HandleFunc("/comparePassword", route.ComparePassword).Methods(http.MethodPost, http.MethodOptions)
+			usersPublicRoute.HandleFunc("/", route.FindUserByEmail).Queries("email", "{email}").Methods(http.MethodGet,
+				http.MethodOptions)
+			usersPublicRoute.HandleFunc("/", route.FindUserByPhone).Queries("phone", "{phone}").Methods(http.MethodGet,
+				http.MethodOptions)
+		}
 	}
 
 	route.r.Use(cors.Default().Handler, mux.CORSMethodMiddleware(route.r))
@@ -72,7 +87,7 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	// CORS обработчик
 	crs := cors.New(cors.Options{
 		AllowedOrigins: []string{"*"},
-		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "PATCH"},
 		AllowedHeaders: []string{"Content-Type", "application/json"},
 	})
 	handler := crs.Handler(route.r)
