@@ -44,9 +44,17 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	usersPrivateRoute := route.r.PathPrefix(getEndpoint("users")).Subrouter()
 	usersPrivateRoute.Use(cors.Default().Handler, route.authMiddleware)
 
-	//Эндпоинты usersPrivate
+	//Эндпоинты usersPublic
 	usersPublicRoute := route.r.PathPrefix(getEndpoint("users")).Subrouter()
 	usersPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
+
+	//Эндпоинты companiesPrivate
+	companiesPrivateRoute := route.r.PathPrefix(getEndpoint("companies")).Subrouter()
+	companiesPrivateRoute.Use(cors.Default().Handler, route.authMiddleware)
+
+	//Эндпоинты companiesPublic
+	companiesPublicRoute := route.r.PathPrefix(getEndpoint("companies")).Subrouter()
+	companiesPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
 
 	//Swagger
 	{
@@ -65,6 +73,18 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 			usersPrivateRoute.HandleFunc("", route.GetUsers).Methods(http.MethodGet, http.MethodOptions)
 			usersPrivateRoute.HandleFunc("", route.CreateUser).Methods(http.MethodPost, http.MethodOptions)
 			usersPrivateRoute.HandleFunc("/{id:[0-9]+}", route.ChangeUserType).Methods(http.MethodPatch, http.MethodOptions)
+			usersPrivateRoute.HandleFunc("/{id:[0-9]+}/company", route.FindUserCompany).Methods(http.MethodGet,
+				http.MethodOptions)
+			usersPrivateRoute.HandleFunc("/{id:[0-9]+}/donation", route.FindUserDonations).Methods(http.MethodGet,
+				http.MethodOptions)
+			usersPrivateRoute.HandleFunc("/{id:[0-9]+}/card", route.FindUserCard).Methods(http.MethodGet,
+				http.MethodOptions)
+			usersPrivateRoute.HandleFunc("/addCard", route.AddCardToUser).Methods(http.MethodPost,
+				http.MethodOptions)
+			usersPrivateRoute.HandleFunc("/addCard", route.AddCardToUser).Methods(http.MethodPost,
+				http.MethodOptions)
+			usersPrivateRoute.HandleFunc("/deleteModel", route.DeleteUserByModel).Methods(http.MethodPost,
+				http.MethodOptions)
 		}
 
 		//Публичные
@@ -78,6 +98,22 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 			usersPublicRoute.HandleFunc("/", route.FindUserByEmail).Queries("email", "{email}").Methods(http.MethodGet,
 				http.MethodOptions)
 			usersPublicRoute.HandleFunc("/", route.FindUserByPhone).Queries("phone", "{phone}").Methods(http.MethodGet,
+				http.MethodOptions)
+		}
+	}
+
+	//Компании
+	{
+		//Приватные
+		{
+			companiesPrivateRoute.HandleFunc("", route.Companies).Methods(http.MethodGet, http.MethodOptions)
+			companiesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.Company).Methods(http.MethodGet, http.MethodOptions)
+		}
+
+		//Публичные
+		{
+			companiesPublicRoute.HandleFunc("", route.CreateCompany).Methods(http.MethodPost, http.MethodOptions)
+			companiesPublicRoute.HandleFunc("/", route.FindCompanyByPhone).Queries("phone", "{phone}").Methods(http.MethodGet,
 				http.MethodOptions)
 		}
 	}

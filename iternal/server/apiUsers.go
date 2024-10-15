@@ -12,7 +12,7 @@ import (
 // GetUsers godoc
 // @Summary      Список всех пользователей
 // @Description  Массив пользователей в базе данных
-// @Tags         users
+// @Tags         Users
 // @Accept       json
 // @Produce      json
 // @Success      200  {object}  DatabaseServicev1.UsersResponse
@@ -39,7 +39,7 @@ func (route Router) GetUsers(w http.ResponseWriter, r *http.Request) {
 // GetUser godoc
 // @Summary      Поиск пользователя
 // @Description  Поиск пользователя по ID
-// @Tags         users
+// @Tags         Users
 // @Accept       json
 // @Produce      json
 // @Param        id   path      int  true  "User ID"
@@ -69,7 +69,7 @@ func (route Router) GetUser(w http.ResponseWriter, r *http.Request) {
 // UpdateUser godoc
 // @Summary      Обновление пользователя
 // @Description  Обновление сущности пользователя
-// @Tags         users
+// @Tags         Users
 // @Accept       json
 // @Produce      json
 // @Param        user body DatabaseServicev1.UpdateUserRequest true "Модель для обновления"
@@ -109,7 +109,7 @@ func (route Router) UpdateUser(w http.ResponseWriter, r *http.Request) {
 // CreateUser godoc
 // @Summary      Создание пользователя
 // @Description  Создание новой сущности пользователя
-// @Tags         users
+// @Tags         Users
 // @Accept       json
 // @Produce      json
 // @Param        user body DatabaseServicev1.CreateUserRequest false "Сущность пользователя"
@@ -143,11 +143,11 @@ func (route Router) CreateUser(w http.ResponseWriter, r *http.Request) {
 // DeleteUserByID godoc
 // @Summary      Удаление пользователя
 // @Description  Удаление пользователя по ID
-// @Tags         users
+// @Tags         Users
 // @Accept       json
 // @Produce      json
 // @Param        id   path      int  true  "ID пользователя"
-// @Success      200  {int}  int
+// @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
 // @Failure      404  {object}  HTTPError
 // @Failure      500  {object}  HTTPError
@@ -165,13 +165,14 @@ func (route Router) DeleteUserByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(int(response.Code))
+	str := utilities.ToJSON(response)
+	_, _ = w.Write([]byte(str))
 }
 
 // UserIsExists godoc
 // @Summary      Проверка существует ли пользователь
 // @Description  Проверка существует ли пользователь, проверка по номеру телефона
-// @Tags         users
+// @Tags         Users
 // @Accept       json
 // @Produce      json
 // @Param        phone body DatabaseServicev1.UserIsExistsRequest true "Номер телефона"
@@ -213,7 +214,7 @@ func (route Router) UserIsExists(w http.ResponseWriter, r *http.Request) {
 // UserIsRole godoc
 // @Summary      Проверяет принадлежность к роли
 // @Description  Проверяет пользователя на принадлежность к определенной роли
-// @Tags         users
+// @Tags         Users
 // @Accept       json
 // @Produce      json
 // @Param        request body DatabaseServicev1.IsRoleRequest true "Request"
@@ -255,7 +256,7 @@ func (route Router) UserIsRole(w http.ResponseWriter, r *http.Request) {
 // FindUserByEmail godoc
 // @Summary      Поиск пользователя по email
 // @Description  Поиск пользователя по его email
-// @Tags         users
+// @Tags         Users
 // @Accept       json
 // @Produce      json
 // @Param        email query string true "Email" Format(email)
@@ -290,7 +291,7 @@ func (route Router) FindUserByEmail(w http.ResponseWriter, r *http.Request) {
 // ComparePassword godoc
 // @Summary      Сравнение вводимого пароля от пользователя
 // @Description  Сравнивает пароль что ввел пользователь, с тем что есть в базе данных у его аккаунта
-// @Tags         users
+// @Tags         Users
 // @Accept       json
 // @Produce      json
 // @Param        request body DatabaseServicev1.ComparePasswordRequest true "Данные пользователя"
@@ -330,7 +331,7 @@ func (route Router) ComparePassword(w http.ResponseWriter, r *http.Request) {
 // ChangeUserType godoc
 // @Summary      Меняет тип пользователя
 // @Description  Обновление типа пользователя (0 - юридическое лицо, 1 - физическое лицо)
-// @Tags         users
+// @Tags         Users
 // @Accept       mpfd
 // @Produce      json
 // @Param        id   path      uint64  true  "ID пользователя"
@@ -390,7 +391,7 @@ func (route Router) ChangeUserType(w http.ResponseWriter, r *http.Request) {
 // FindUserByPhone godoc
 // @Summary      Поиск пользователя по номеру телефона
 // @Description  Поиск пользователя по его phone
-// @Tags         users
+// @Tags         Users
 // @Accept       json
 // @Produce      json
 // @Param        phone query string true "Phone"
@@ -411,6 +412,188 @@ func (route Router) FindUserByPhone(w http.ResponseWriter, r *http.Request) {
 	logger.Info("request: %+v", request)
 
 	response, err := route.databaseService.FindUserByPhone(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// FindUserCompany godoc
+// @Summary      Извлечение компании пользователя
+// @Description  Извлечение компании пользователя по его ID
+// @Tags         Users
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "User ID"
+// @Success      200  {object}  DatabaseServicev1.Company
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/users/{id}/company [get]
+func (route Router) FindUserCompany(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)["id"]
+	id := utilities.StrToUint(vars)
+
+	if id <= 0 {
+		SetHTTPError(w, "Поле \"ID\" не может быть меньше или равно 0", http.StatusBadRequest)
+		return
+	}
+
+	request := &DatabaseServicev1.FindUserCompanyRequest{Id: id}
+
+	response, err := route.databaseService.FindUserCompany(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// FindUserDonations godoc
+// @Summary      Извлечение пожертвований пользователя
+// @Description  Извлечение пожертвований пользователя по его ID
+// @Tags         Users
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "User ID"
+// @Success      200  {object}  DatabaseServicev1.FindUserDonationsResponse
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/users/{id}/donation [get]
+func (route Router) FindUserDonations(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)["id"]
+	id := utilities.StrToUint(vars)
+
+	if id <= 0 {
+		SetHTTPError(w, "Поле \"ID\" не может быть меньше или равно 0", http.StatusBadRequest)
+		return
+	}
+
+	request := &DatabaseServicev1.FindUserDonationsRequest{Id: id}
+
+	response, err := route.databaseService.FindUserDonations(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// FindUserCard godoc
+// @Summary      Извлечение карт пользователя
+// @Description  Извлечение карт пользователя по его ID
+// @Tags         Users
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "User ID"
+// @Success      200  {object}  DatabaseServicev1.FindUserCardResponse
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/users/{id}/card [get]
+func (route Router) FindUserCard(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)["id"]
+	id := utilities.StrToUint(vars)
+
+	if id <= 0 {
+		SetHTTPError(w, "Поле \"ID\" не может быть меньше или равно 0", http.StatusBadRequest)
+		return
+	}
+
+	request := &DatabaseServicev1.FindUserCardRequest{Id: id}
+
+	response, err := route.databaseService.FindUserCard(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// AddCardToUser godoc
+// @Summary      Добавляет банковскую карту пользователю
+// @Description  Добавляет банковскую карту пользователю, поле userId это ID пользователя в базе данных, которому будем добавлять карту
+// @Tags         Users
+// @Accept       json
+// @Produce      json
+// @Param        card body DatabaseServicev1.AddCardToUserRequest false "Сущность банковской карты"
+// @Success      200  {object}  DatabaseServicev1.CreateUserResponse
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/users/addCard [post]
+func (route Router) AddCardToUser(w http.ResponseWriter, r *http.Request) {
+	request := new(DatabaseServicev1.AddCardToUserRequest)
+
+	if err := json.NewDecoder(r.Body).Decode(request); err != nil {
+		SetHTTPError(w, "Неверные аргументы", http.StatusBadRequest)
+		return
+	}
+
+	response, err := route.databaseService.AddCardToUser(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// DeleteUserByModel godoc
+// @Summary      Удаление пользователя по модели
+// @Description  Удаляет пользователя опираясь на всю сущность модели
+// @Tags         Users
+// @Accept       json
+// @Produce      json
+// @Param        card body DatabaseServicev1.DeleteUserByModelRequest false "Сущность банковской карты"
+// @Success      200  {object}  DatabaseServicev1.HTTPCodes
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/users/deleteModel [post]
+func (route Router) DeleteUserByModel(w http.ResponseWriter, r *http.Request) {
+	request := new(DatabaseServicev1.DeleteUserByModelRequest)
+
+	if err := json.NewDecoder(r.Body).Decode(request); err != nil {
+		SetHTTPError(w, "Неверные аргументы", http.StatusBadRequest)
+		return
+	}
+
+	response, err := route.databaseService.DeleteUserByModel(r.Context(), request)
 	if err != nil {
 		logger.Error("Ошибка при выполнении запроса: %v", err)
 		SetGRPCError(w, err)

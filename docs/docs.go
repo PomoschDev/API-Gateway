@@ -15,6 +15,196 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/v1/companies": {
+            "get": {
+                "description": "Массив компаний в базе данных",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Список всех компаний",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CompaniesResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Создание новой сущности компании",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Создание компании",
+                "parameters": [
+                    {
+                        "description": "Сущность компании",
+                        "name": "company",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateCompanyRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.Company"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/companies/": {
+            "get": {
+                "description": "Поиск компании по ее phone",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Поиск компании по номеру телефона",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Phone",
+                        "name": "phone",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateUserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/companies/{id}": {
+            "get": {
+                "description": "Поиск компании по ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Поиск компании",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Company ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.Company"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/users": {
             "get": {
                 "description": "Массив пользователей в базе данных",
@@ -25,7 +215,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Список всех пользователей",
                 "responses": {
@@ -64,7 +254,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Создание пользователя",
                 "parameters": [
@@ -115,7 +305,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Поиск пользователя по номеру телефона",
                 "parameters": [
@@ -125,6 +315,57 @@ const docTemplate = `{
                         "name": "phone",
                         "in": "query",
                         "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateUserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/users/addCard": {
+            "post": {
+                "description": "Добавляет банковскую карту пользователю, поле userId это ID пользователя в базе данных, которому будем добавлять карту",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Добавляет банковскую карту пользователю",
+                "parameters": [
+                    {
+                        "description": "Сущность банковской карты",
+                        "name": "card",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.AddCardToUserRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -165,7 +406,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Сравнение вводимого пароля от пользователя",
                 "parameters": [
@@ -207,6 +448,57 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/users/deleteModel": {
+            "post": {
+                "description": "Удаляет пользователя опираясь на всю сущность модели",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Удаление пользователя по модели",
+                "parameters": [
+                    {
+                        "description": "Сущность банковской карты",
+                        "name": "card",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.DeleteUserByModelRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/users/isExists": {
             "post": {
                 "description": "Проверка существует ли пользователь, проверка по номеру телефона",
@@ -217,7 +509,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Проверка существует ли пользователь",
                 "parameters": [
@@ -269,7 +561,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Проверяет принадлежность к роли",
                 "parameters": [
@@ -321,7 +613,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Поиск пользователя",
                 "parameters": [
@@ -369,7 +661,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Обновление пользователя",
                 "parameters": [
@@ -419,7 +711,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Удаление пользователя",
                 "parameters": [
@@ -435,7 +727,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "int"
+                            "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
                         }
                     },
                     "400": {
@@ -467,7 +759,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Меняет тип пользователя",
                 "parameters": [
@@ -513,9 +805,172 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/v1/users/{id}/card": {
+            "get": {
+                "description": "Извлечение карт пользователя по его ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Извлечение карт пользователя",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.FindUserCardResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/users/{id}/company": {
+            "get": {
+                "description": "Извлечение компании пользователя по его ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Извлечение компании пользователя",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.Company"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/users/{id}/donation": {
+            "get": {
+                "description": "Извлечение пожертвований пользователя по его ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Извлечение пожертвований пользователя",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.FindUserDonationsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "DatabaseServicev1.AddCardToUserRequest": {
+            "type": "object",
+            "properties": {
+                "card": {
+                    "description": "* Банковская карта",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateCardRequest"
+                        }
+                    ]
+                }
+            }
+        },
         "DatabaseServicev1.Card": {
             "type": "object",
             "properties": {
@@ -596,6 +1051,18 @@ const docTemplate = `{
                 "accessory": {
                     "description": "* Успешность операции изменения типа (true/false)",
                     "type": "boolean"
+                }
+            }
+        },
+        "DatabaseServicev1.CompaniesResponse": {
+            "type": "object",
+            "properties": {
+                "companies": {
+                    "description": "* Массив компаний",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DatabaseServicev1.Company"
+                    }
                 }
             }
         },
@@ -890,6 +1357,19 @@ const docTemplate = `{
                 }
             }
         },
+        "DatabaseServicev1.DeleteUserByModelRequest": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "description": "* Сущность пользователя для удаления (полная модель пользователя)",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateUserResponse"
+                        }
+                    ]
+                }
+            }
+        },
         "DatabaseServicev1.Donations": {
             "type": "object",
             "properties": {
@@ -924,6 +1404,39 @@ const docTemplate = `{
                             "$ref": "#/definitions/DatabaseServicev1.Ward"
                         }
                     ]
+                }
+            }
+        },
+        "DatabaseServicev1.FindUserCardResponse": {
+            "type": "object",
+            "properties": {
+                "cards": {
+                    "description": "* Массив банковских карт",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DatabaseServicev1.Card"
+                    }
+                }
+            }
+        },
+        "DatabaseServicev1.FindUserDonationsResponse": {
+            "type": "object",
+            "properties": {
+                "donations": {
+                    "description": "* Массив пожертвований пользователя",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DatabaseServicev1.Donations"
+                    }
+                }
+            }
+        },
+        "DatabaseServicev1.HTTPCodes": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "* HTTP код ответа",
+                    "type": "integer"
                 }
             }
         },

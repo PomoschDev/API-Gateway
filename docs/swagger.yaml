@@ -1,4 +1,11 @@
 definitions:
+  DatabaseServicev1.AddCardToUserRequest:
+    properties:
+      card:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.CreateCardRequest'
+        description: '* Банковская карта'
+    type: object
   DatabaseServicev1.Card:
     properties:
       createdAt:
@@ -58,6 +65,14 @@ definitions:
       accessory:
         description: '* Успешность операции изменения типа (true/false)'
         type: boolean
+    type: object
+  DatabaseServicev1.CompaniesResponse:
+    properties:
+      companies:
+        description: '* Массив компаний'
+        items:
+          $ref: '#/definitions/DatabaseServicev1.Company'
+        type: array
     type: object
   DatabaseServicev1.Company:
     properties:
@@ -261,6 +276,13 @@ definitions:
         description: '* Имя (никнейм) пользователя'
         type: string
     type: object
+  DatabaseServicev1.DeleteUserByModelRequest:
+    properties:
+      user:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.CreateUserResponse'
+        description: '* Сущность пользователя для удаления (полная модель пользователя)'
+    type: object
   DatabaseServicev1.Donations:
     properties:
       amount:
@@ -285,6 +307,28 @@ definitions:
         allOf:
         - $ref: '#/definitions/DatabaseServicev1.Ward'
         description: '* Подопечный этого пожертвования'
+    type: object
+  DatabaseServicev1.FindUserCardResponse:
+    properties:
+      cards:
+        description: '* Массив банковских карт'
+        items:
+          $ref: '#/definitions/DatabaseServicev1.Card'
+        type: array
+    type: object
+  DatabaseServicev1.FindUserDonationsResponse:
+    properties:
+      donations:
+        description: '* Массив пожертвований пользователя'
+        items:
+          $ref: '#/definitions/DatabaseServicev1.Donations'
+        type: array
+    type: object
+  DatabaseServicev1.HTTPCodes:
+    properties:
+      code:
+        description: '* HTTP код ответа'
+        type: integer
     type: object
   DatabaseServicev1.IsRoleRequest:
     properties:
@@ -413,6 +457,131 @@ info:
   title: API Gateway
   version: "1.0"
 paths:
+  /api/v1/companies:
+    get:
+      consumes:
+      - application/json
+      description: Массив компаний в базе данных
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CompaniesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Список всех компаний
+      tags:
+      - Company
+    post:
+      consumes:
+      - application/json
+      description: Создание новой сущности компании
+      parameters:
+      - description: Сущность компании
+        in: body
+        name: company
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.CreateCompanyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.Company'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Создание компании
+      tags:
+      - Company
+  /api/v1/companies/:
+    get:
+      consumes:
+      - application/json
+      description: Поиск компании по ее phone
+      parameters:
+      - description: Phone
+        in: query
+        name: phone
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CreateUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Поиск компании по номеру телефона
+      tags:
+      - Company
+  /api/v1/companies/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Поиск компании по ID
+      parameters:
+      - description: Company ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.Company'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Поиск компании
+      tags:
+      - Company
   /api/v1/users:
     get:
       consumes:
@@ -439,7 +608,7 @@ paths:
             $ref: '#/definitions/server.HTTPError'
       summary: Список всех пользователей
       tags:
-      - users
+      - Users
     post:
       consumes:
       - application/json
@@ -471,7 +640,7 @@ paths:
             $ref: '#/definitions/server.HTTPError'
       summary: Создание пользователя
       tags:
-      - users
+      - Users
   /api/v1/users/:
     get:
       consumes:
@@ -504,7 +673,7 @@ paths:
             $ref: '#/definitions/server.HTTPError'
       summary: Поиск пользователя по номеру телефона
       tags:
-      - users
+      - Users
   /api/v1/users/{id}:
     delete:
       consumes:
@@ -522,7 +691,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: int
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
         "400":
           description: Bad Request
           schema:
@@ -537,7 +706,7 @@ paths:
             $ref: '#/definitions/server.HTTPError'
       summary: Удаление пользователя
       tags:
-      - users
+      - Users
     get:
       consumes:
       - application/json
@@ -569,7 +738,7 @@ paths:
             $ref: '#/definitions/server.HTTPError'
       summary: Поиск пользователя
       tags:
-      - users
+      - Users
     patch:
       consumes:
       - multipart/form-data
@@ -608,7 +777,7 @@ paths:
             $ref: '#/definitions/server.HTTPError'
       summary: Меняет тип пользователя
       tags:
-      - users
+      - Users
     put:
       consumes:
       - application/json
@@ -641,7 +810,140 @@ paths:
             $ref: '#/definitions/server.HTTPError'
       summary: Обновление пользователя
       tags:
-      - users
+      - Users
+  /api/v1/users/{id}/card:
+    get:
+      consumes:
+      - application/json
+      description: Извлечение карт пользователя по его ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.FindUserCardResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Извлечение карт пользователя
+      tags:
+      - Users
+  /api/v1/users/{id}/company:
+    get:
+      consumes:
+      - application/json
+      description: Извлечение компании пользователя по его ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.Company'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Извлечение компании пользователя
+      tags:
+      - Users
+  /api/v1/users/{id}/donation:
+    get:
+      consumes:
+      - application/json
+      description: Извлечение пожертвований пользователя по его ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.FindUserDonationsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Извлечение пожертвований пользователя
+      tags:
+      - Users
+  /api/v1/users/addCard:
+    post:
+      consumes:
+      - application/json
+      description: Добавляет банковскую карту пользователю, поле userId это ID пользователя
+        в базе данных, которому будем добавлять карту
+      parameters:
+      - description: Сущность банковской карты
+        in: body
+        name: card
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.AddCardToUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CreateUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Добавляет банковскую карту пользователю
+      tags:
+      - Users
   /api/v1/users/comparePassword:
     post:
       consumes:
@@ -676,7 +978,40 @@ paths:
             $ref: '#/definitions/server.HTTPError'
       summary: Сравнение вводимого пароля от пользователя
       tags:
-      - users
+      - Users
+  /api/v1/users/deleteModel:
+    post:
+      consumes:
+      - application/json
+      description: Удаляет пользователя опираясь на всю сущность модели
+      parameters:
+      - description: Сущность банковской карты
+        in: body
+        name: card
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.DeleteUserByModelRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление пользователя по модели
+      tags:
+      - Users
   /api/v1/users/isExists:
     post:
       consumes:
@@ -710,7 +1045,7 @@ paths:
             $ref: '#/definitions/server.HTTPError'
       summary: Проверка существует ли пользователь
       tags:
-      - users
+      - Users
   /api/v1/users/isRole:
     post:
       consumes:
@@ -744,5 +1079,5 @@ paths:
             $ref: '#/definitions/server.HTTPError'
       summary: Проверяет принадлежность к роли
       tags:
-      - users
+      - Users
 swagger: "2.0"
