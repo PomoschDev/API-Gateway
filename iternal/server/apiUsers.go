@@ -579,7 +579,7 @@ func (route Router) AddCardToUser(w http.ResponseWriter, r *http.Request) {
 // @Tags         Users
 // @Accept       json
 // @Produce      json
-// @Param        card body DatabaseServicev1.DeleteUserByModelRequest false "Сущность банковской карты"
+// @Param        user body DatabaseServicev1.DeleteUserByModelRequest false "Модель пользователя"
 // @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
 // @Failure      404  {object}  HTTPError

@@ -123,7 +123,58 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/DatabaseServicev1.CreateUserResponse"
+                            "$ref": "#/definitions/DatabaseServicev1.Company"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/companies/deleteModel": {
+            "post": {
+                "description": "Удаляет компании опираясь на всю сущность модели",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Удаление компании по модели",
+                "parameters": [
+                    {
+                        "description": "Модель компании",
+                        "name": "company",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.DeleteCompanyByModelRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
                         }
                     },
                     "400": {
@@ -174,6 +225,106 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/DatabaseServicev1.Company"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/companies/{id}/card": {
+            "get": {
+                "description": "Извлечение банковской карты компании по ее ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Извлечение банковской карты компании",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Company ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CardCompany"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/company/{id}": {
+            "delete": {
+                "description": "Удаление компании по ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Удаление компании",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID компании",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
                         }
                     },
                     "400": {
@@ -455,8 +606,8 @@
                 "summary": "Удаление пользователя по модели",
                 "parameters": [
                     {
-                        "description": "Сущность банковской карты",
-                        "name": "card",
+                        "description": "Модель пользователя",
+                        "name": "user",
                         "in": "body",
                         "schema": {
                             "$ref": "#/definitions/DatabaseServicev1.DeleteUserByModelRequest"
@@ -1346,6 +1497,19 @@
                 "username": {
                     "description": "* Имя (никнейм) пользователя",
                     "type": "string"
+                }
+            }
+        },
+        "DatabaseServicev1.DeleteCompanyByModelRequest": {
+            "type": "object",
+            "properties": {
+                "company": {
+                    "description": "* Полная сущность модели для удаления",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.Company"
+                        }
+                    ]
                 }
             }
         },

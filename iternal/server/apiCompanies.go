@@ -128,7 +128,7 @@ func (route Router) Company(w http.ResponseWriter, r *http.Request) {
 // @Accept       json
 // @Produce      json
 // @Param        phone query string true "Phone"
-// @Success      200  {object}  DatabaseServicev1.CreateUserResponse
+// @Success      200  {object}  DatabaseServicev1.Company
 // @Failure      400  {object}  HTTPError
 // @Failure      404  {object}  HTTPError
 // @Failure      500  {object}  HTTPError
@@ -154,6 +154,150 @@ func (route Router) FindCompanyByPhone(w http.ResponseWriter, r *http.Request) {
 	}
 
 	str := utilities.ToJSON(response)
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// FindCompanyCard godoc
+// @Summary      Извлечение банковской карты компании
+// @Description  Извлечение банковской карты компании по ее ID
+// @Tags         Company
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "Company ID"
+// @Success      200  {object}  DatabaseServicev1.CardCompany
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/companies/{id}/card [get]
+func (route Router) FindCompanyCard(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)["id"]
+	id := utilities.StrToUint(vars)
+
+	if id <= 0 {
+		SetHTTPError(w, "Поле \"ID\" не может быть меньше или равно 0", http.StatusBadRequest)
+		return
+	}
+
+	request := &DatabaseServicev1.FindCompanyCardRequest{Id: id}
+
+	response, err := route.databaseService.FindCompanyCard(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// DeleteCompanyByModel godoc
+// @Summary      Удаление компании по модели
+// @Description  Удаляет компании опираясь на всю сущность модели
+// @Tags         Company
+// @Accept       json
+// @Produce      json
+// @Param        company body DatabaseServicev1.DeleteCompanyByModelRequest false "Модель компании"
+// @Success      200  {object}  DatabaseServicev1.HTTPCodes
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/companies/deleteModel [post]
+func (route Router) DeleteCompanyByModel(w http.ResponseWriter, r *http.Request) {
+	request := new(DatabaseServicev1.DeleteCompanyByModelRequest)
+
+	if err := json.NewDecoder(r.Body).Decode(request); err != nil {
+		SetHTTPError(w, "Неверные аргументы", http.StatusBadRequest)
+		return
+	}
+
+	response, err := route.databaseService.DeleteCompanyByModel(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// DeleteCompanyByID godoc
+// @Summary      Удаление компании
+// @Description  Удаление компании по ID
+// @Tags         Company
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "ID компании"
+// @Success      200  {object}  DatabaseServicev1.HTTPCodes
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/company/{id} [delete]
+func (route Router) DeleteCompanyByID(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)["id"]
+	id := utilities.StrToUint(vars)
+
+	request := &DatabaseServicev1.DeleteCompanyByIdRequest{Id: id}
+
+	response, err := route.databaseService.DeleteCompanyById(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// UpdateCompany godoc
+// @Summary      Обновление компании
+// @Description  Обновление сущности компании
+// @Tags         Company
+// @Accept       json
+// @Produce      json
+// @Param        company body DatabaseServicev1.UpdateUserRequest true "Модель для обновления"
+// @Success      200  {object}  DatabaseServicev1.CreateUserResponse
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/users/{id} [put]
+func (route Router) UpdateCompany(w http.ResponseWriter, r *http.Request) {
+	id := utilities.StrToUint(mux.Vars(r)["id"])
+
+	request := new(DatabaseServicev1.UpdateCompanyRequest)
+
+	if err := json.NewDecoder(r.Body).Decode(request); err != nil {
+		http.Error(w, "invalid request", http.StatusBadRequest)
+		SetHTTPError(w, "Неверные аргументы", http.StatusBadRequest)
+		return
+	}
+
+	request.Company.Id = id
+
+	response, err := route.databaseService.UpdateCompany(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+
 	_, err = w.Write([]byte(str))
 	if err != nil {
 		logger.Error("%s", err.Error())

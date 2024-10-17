@@ -81,8 +81,8 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 				http.MethodOptions)
 			usersPrivateRoute.HandleFunc("/addCard", route.AddCardToUser).Methods(http.MethodPost,
 				http.MethodOptions)
-			usersPrivateRoute.HandleFunc("/addCard", route.AddCardToUser).Methods(http.MethodPost,
-				http.MethodOptions)
+			/*usersPrivateRoute.HandleFunc("/addCard", route.AddCardToUser).Methods(http.MethodPost,
+			http.MethodOptions)*/
 			usersPrivateRoute.HandleFunc("/deleteModel", route.DeleteUserByModel).Methods(http.MethodPost,
 				http.MethodOptions)
 		}
@@ -108,6 +108,12 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 		{
 			companiesPrivateRoute.HandleFunc("", route.Companies).Methods(http.MethodGet, http.MethodOptions)
 			companiesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.Company).Methods(http.MethodGet, http.MethodOptions)
+			companiesPrivateRoute.HandleFunc("/{id:[0-9]+}/card", route.FindCompanyCard).Methods(http.MethodGet,
+				http.MethodOptions)
+			companiesPrivateRoute.HandleFunc("/deleteModel", route.DeleteCompanyByModel).Methods(http.MethodPost,
+				http.MethodOptions)
+			companiesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.DeleteCompanyByID).Methods(http.MethodDelete, http.MethodOptions)
+			companiesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.UpdateCompany).Methods(http.MethodPut, http.MethodOptions)
 		}
 
 		//Публичные

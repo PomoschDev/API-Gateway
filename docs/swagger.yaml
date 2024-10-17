@@ -276,6 +276,13 @@ definitions:
         description: '* Имя (никнейм) пользователя'
         type: string
     type: object
+  DatabaseServicev1.DeleteCompanyByModelRequest:
+    properties:
+      company:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.Company'
+        description: '* Полная сущность модели для удаления'
+    type: object
   DatabaseServicev1.DeleteUserByModelRequest:
     properties:
       user:
@@ -533,7 +540,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/DatabaseServicev1.CreateUserResponse'
+            $ref: '#/definitions/DatabaseServicev1.Company'
         "400":
           description: Bad Request
           schema:
@@ -580,6 +587,105 @@ paths:
           schema:
             $ref: '#/definitions/server.HTTPError'
       summary: Поиск компании
+      tags:
+      - Company
+  /api/v1/companies/{id}/card:
+    get:
+      consumes:
+      - application/json
+      description: Извлечение банковской карты компании по ее ID
+      parameters:
+      - description: Company ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CardCompany'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Извлечение банковской карты компании
+      tags:
+      - Company
+  /api/v1/companies/deleteModel:
+    post:
+      consumes:
+      - application/json
+      description: Удаляет компании опираясь на всю сущность модели
+      parameters:
+      - description: Модель компании
+        in: body
+        name: company
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.DeleteCompanyByModelRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление компании по модели
+      tags:
+      - Company
+  /api/v1/company/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление компании по ID
+      parameters:
+      - description: ID компании
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление компании
       tags:
       - Company
   /api/v1/users:
@@ -985,9 +1091,9 @@ paths:
       - application/json
       description: Удаляет пользователя опираясь на всю сущность модели
       parameters:
-      - description: Сущность банковской карты
+      - description: Модель пользователя
         in: body
-        name: card
+        name: user
         schema:
           $ref: '#/definitions/DatabaseServicev1.DeleteUserByModelRequest'
       produces:
