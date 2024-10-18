@@ -303,3 +303,37 @@ func (route Router) UpdateCompany(w http.ResponseWriter, r *http.Request) {
 		logger.Error("%s", err.Error())
 	}
 }
+
+// AddCardToCompany godoc
+// @Summary      Добавляет банковскую карту компании
+// @Description  Добавляет банковскую карту компании, поле companyId это ID компании в базе данных, которой будем добавлять карту
+// @Tags         Company
+// @Accept       json
+// @Produce      json
+// @Param        card body DatabaseServicev1.AddCardToCompanyRequest false "Сущность банковской карты"
+// @Success      200  {object}  DatabaseServicev1.AddCardToCompanyResponse
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/companies/addCard [post]
+func (route Router) AddCardToCompany(w http.ResponseWriter, r *http.Request) {
+	request := new(DatabaseServicev1.AddCardToCompanyRequest)
+
+	if err := json.NewDecoder(r.Body).Decode(request); err != nil {
+		SetHTTPError(w, "Неверные аргументы", http.StatusBadRequest)
+		return
+	}
+
+	response, err := route.databaseService.AddCardToCompany(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}

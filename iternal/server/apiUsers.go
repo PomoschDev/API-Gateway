@@ -72,6 +72,7 @@ func (route Router) GetUser(w http.ResponseWriter, r *http.Request) {
 // @Tags         Users
 // @Accept       json
 // @Produce      json
+// @Param        id path int true "ID пользователя"
 // @Param        user body DatabaseServicev1.UpdateUserRequest true "Модель для обновления"
 // @Success      200  {object}  DatabaseServicev1.CreateUserResponse
 // @Failure      400  {object}  HTTPError

@@ -61,6 +61,451 @@ func (*Empty) Descriptor() ([]byte, []int) {
 }
 
 // *
+// Запрос на обновление банковской карты пользователя (для передачи gRPC)
+type UpdateUserCardRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id       uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`            //* ID банковской карты в базе данных
+	FullName string `protobuf:"bytes,2,opt,name=fullName,proto3" json:"fullName,omitempty"` //* ФИО с банковской карты
+	Number   string `protobuf:"bytes,3,opt,name=number,proto3" json:"number,omitempty"`     //* Номер карты
+	Date     string `protobuf:"bytes,4,opt,name=date,proto3" json:"date,omitempty"`         //* Дата до которой активна карта
+	Cvv      uint64 `protobuf:"varint,5,opt,name=cvv,proto3" json:"cvv,omitempty"`          //* CVV код карты
+}
+
+func (x *UpdateUserCardRequest) Reset() {
+	*x = UpdateUserCardRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateUserCardRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateUserCardRequest) ProtoMessage() {}
+
+func (x *UpdateUserCardRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateUserCardRequest.ProtoReflect.Descriptor instead.
+func (*UpdateUserCardRequest) Descriptor() ([]byte, []int) {
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *UpdateUserCardRequest) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateUserCardRequest) GetFullName() string {
+	if x != nil {
+		return x.FullName
+	}
+	return ""
+}
+
+func (x *UpdateUserCardRequest) GetNumber() string {
+	if x != nil {
+		return x.Number
+	}
+	return ""
+}
+
+func (x *UpdateUserCardRequest) GetDate() string {
+	if x != nil {
+		return x.Date
+	}
+	return ""
+}
+
+func (x *UpdateUserCardRequest) GetCvv() uint64 {
+	if x != nil {
+		return x.Cvv
+	}
+	return 0
+}
+
+// *
+// Запрос на обновление банковской карты пользователя (для передачи swagger)
+type UpdateUserCardRequest1 struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	FullName string `protobuf:"bytes,1,opt,name=fullName,proto3" json:"fullName,omitempty"` //* ФИО с банковской карты
+	Number   string `protobuf:"bytes,2,opt,name=number,proto3" json:"number,omitempty"`     //* Номер карты
+	Date     string `protobuf:"bytes,3,opt,name=date,proto3" json:"date,omitempty"`         //* Дата до которой активна карта
+	Cvv      uint64 `protobuf:"varint,4,opt,name=cvv,proto3" json:"cvv,omitempty"`          //* CVV код карты
+}
+
+func (x *UpdateUserCardRequest1) Reset() {
+	*x = UpdateUserCardRequest1{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateUserCardRequest1) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateUserCardRequest1) ProtoMessage() {}
+
+func (x *UpdateUserCardRequest1) ProtoReflect() protoreflect.Message {
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateUserCardRequest1.ProtoReflect.Descriptor instead.
+func (*UpdateUserCardRequest1) Descriptor() ([]byte, []int) {
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *UpdateUserCardRequest1) GetFullName() string {
+	if x != nil {
+		return x.FullName
+	}
+	return ""
+}
+
+func (x *UpdateUserCardRequest1) GetNumber() string {
+	if x != nil {
+		return x.Number
+	}
+	return ""
+}
+
+func (x *UpdateUserCardRequest1) GetDate() string {
+	if x != nil {
+		return x.Date
+	}
+	return ""
+}
+
+func (x *UpdateUserCardRequest1) GetCvv() uint64 {
+	if x != nil {
+		return x.Cvv
+	}
+	return 0
+}
+
+// *
+// Ответ на запрос обновления банковской карты пользователя
+type UpdateUserCardResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id        uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`              //* ID банковской карты в базе данных
+	FullName  string `protobuf:"bytes,2,opt,name=fullName,proto3" json:"fullName,omitempty"`   //* ФИО с банковской карты
+	Number    string `protobuf:"bytes,3,opt,name=number,proto3" json:"number,omitempty"`       //* Номер карты
+	Date      string `protobuf:"bytes,4,opt,name=date,proto3" json:"date,omitempty"`           //* Дата до которой активна карта
+	Cvv       uint64 `protobuf:"varint,5,opt,name=cvv,proto3" json:"cvv,omitempty"`            //* CVV код карты
+	UserId    uint64 `protobuf:"varint,6,opt,name=userId,proto3" json:"userId,omitempty"`      //* ID пользователя которому принадлежит данная карта
+	CreatedAt string `protobuf:"bytes,7,opt,name=createdAt,proto3" json:"createdAt,omitempty"` //* Дата создания сущности в базе данных
+	UpdatedAt string `protobuf:"bytes,8,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"` //* Дата последнего обновления сущности в базе данных
+}
+
+func (x *UpdateUserCardResponse) Reset() {
+	*x = UpdateUserCardResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateUserCardResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateUserCardResponse) ProtoMessage() {}
+
+func (x *UpdateUserCardResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateUserCardResponse.ProtoReflect.Descriptor instead.
+func (*UpdateUserCardResponse) Descriptor() ([]byte, []int) {
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *UpdateUserCardResponse) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateUserCardResponse) GetFullName() string {
+	if x != nil {
+		return x.FullName
+	}
+	return ""
+}
+
+func (x *UpdateUserCardResponse) GetNumber() string {
+	if x != nil {
+		return x.Number
+	}
+	return ""
+}
+
+func (x *UpdateUserCardResponse) GetDate() string {
+	if x != nil {
+		return x.Date
+	}
+	return ""
+}
+
+func (x *UpdateUserCardResponse) GetCvv() uint64 {
+	if x != nil {
+		return x.Cvv
+	}
+	return 0
+}
+
+func (x *UpdateUserCardResponse) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *UpdateUserCardResponse) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *UpdateUserCardResponse) GetUpdatedAt() string {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return ""
+}
+
+// *
+// Ответ на запрос добавления банковской карты компании
+type AddCardToCompanyResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id        uint64       `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`               //* ID компании в базе данных
+	Title     string       `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`          //* Название компании
+	Phone     string       `protobuf:"bytes,3,opt,name=phone,proto3" json:"phone,omitempty"`          //* Номер телефона компании
+	Address   string       `protobuf:"bytes,4,opt,name=address,proto3" json:"address,omitempty"`      //* Адрес офиса компании
+	Site      string       `protobuf:"bytes,5,opt,name=site,proto3" json:"site,omitempty"`            //* Сайт компании
+	Inn       string       `protobuf:"bytes,6,opt,name=inn,proto3" json:"inn,omitempty"`              //* ИНН юридического лица
+	Kpp       string       `protobuf:"bytes,7,opt,name=kpp,proto3" json:"kpp,omitempty"`              //* КПП юридического лица
+	Okpo      string       `protobuf:"bytes,8,opt,name=okpo,proto3" json:"okpo,omitempty"`            //* ОКПО предприятия/организации
+	Card      *CardCompany `protobuf:"bytes,9,opt,name=card,proto3" json:"card,omitempty"`            //* Банковская карта компании
+	UserId    uint64       `protobuf:"varint,10,opt,name=userId,proto3" json:"userId,omitempty"`      //* ID пользователя к которому относится данная компания
+	CreatedAt string       `protobuf:"bytes,11,opt,name=createdAt,proto3" json:"createdAt,omitempty"` //* Дата создания сущности в базе данных
+	UpdatedAt string       `protobuf:"bytes,12,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"` //* Дата последнего обновления сущности в базе данных
+}
+
+func (x *AddCardToCompanyResponse) Reset() {
+	*x = AddCardToCompanyResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddCardToCompanyResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddCardToCompanyResponse) ProtoMessage() {}
+
+func (x *AddCardToCompanyResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddCardToCompanyResponse.ProtoReflect.Descriptor instead.
+func (*AddCardToCompanyResponse) Descriptor() ([]byte, []int) {
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *AddCardToCompanyResponse) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *AddCardToCompanyResponse) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *AddCardToCompanyResponse) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *AddCardToCompanyResponse) GetAddress() string {
+	if x != nil {
+		return x.Address
+	}
+	return ""
+}
+
+func (x *AddCardToCompanyResponse) GetSite() string {
+	if x != nil {
+		return x.Site
+	}
+	return ""
+}
+
+func (x *AddCardToCompanyResponse) GetInn() string {
+	if x != nil {
+		return x.Inn
+	}
+	return ""
+}
+
+func (x *AddCardToCompanyResponse) GetKpp() string {
+	if x != nil {
+		return x.Kpp
+	}
+	return ""
+}
+
+func (x *AddCardToCompanyResponse) GetOkpo() string {
+	if x != nil {
+		return x.Okpo
+	}
+	return ""
+}
+
+func (x *AddCardToCompanyResponse) GetCard() *CardCompany {
+	if x != nil {
+		return x.Card
+	}
+	return nil
+}
+
+func (x *AddCardToCompanyResponse) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *AddCardToCompanyResponse) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *AddCardToCompanyResponse) GetUpdatedAt() string {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return ""
+}
+
+// *
+// Запрос на добавление банковской карты компании
+type AddCardToCompanyRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Card *CreateCardCompanyRequest `protobuf:"bytes,1,opt,name=card,proto3" json:"card,omitempty"` //* Банковская карта
+}
+
+func (x *AddCardToCompanyRequest) Reset() {
+	*x = AddCardToCompanyRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddCardToCompanyRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddCardToCompanyRequest) ProtoMessage() {}
+
+func (x *AddCardToCompanyRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddCardToCompanyRequest.ProtoReflect.Descriptor instead.
+func (*AddCardToCompanyRequest) Descriptor() ([]byte, []int) {
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *AddCardToCompanyRequest) GetCard() *CreateCardCompanyRequest {
+	if x != nil {
+		return x.Card
+	}
+	return nil
+}
+
+// *
 // Запрос на удаление сессии по ее ID
 type DeleteSessionByUserIdRequest struct {
 	state         protoimpl.MessageState
@@ -73,7 +518,7 @@ type DeleteSessionByUserIdRequest struct {
 func (x *DeleteSessionByUserIdRequest) Reset() {
 	*x = DeleteSessionByUserIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[1]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -86,7 +531,7 @@ func (x *DeleteSessionByUserIdRequest) String() string {
 func (*DeleteSessionByUserIdRequest) ProtoMessage() {}
 
 func (x *DeleteSessionByUserIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[1]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -99,7 +544,7 @@ func (x *DeleteSessionByUserIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteSessionByUserIdRequest.ProtoReflect.Descriptor instead.
 func (*DeleteSessionByUserIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{1}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *DeleteSessionByUserIdRequest) GetUserId() uint64 {
@@ -122,7 +567,7 @@ type DeleteSessionByIdRequest struct {
 func (x *DeleteSessionByIdRequest) Reset() {
 	*x = DeleteSessionByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[2]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -135,7 +580,7 @@ func (x *DeleteSessionByIdRequest) String() string {
 func (*DeleteSessionByIdRequest) ProtoMessage() {}
 
 func (x *DeleteSessionByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[2]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -148,7 +593,7 @@ func (x *DeleteSessionByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteSessionByIdRequest.ProtoReflect.Descriptor instead.
 func (*DeleteSessionByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{2}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *DeleteSessionByIdRequest) GetId() uint64 {
@@ -175,7 +620,7 @@ type DeleteSessionByModelRequest struct {
 func (x *DeleteSessionByModelRequest) Reset() {
 	*x = DeleteSessionByModelRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[3]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -188,7 +633,7 @@ func (x *DeleteSessionByModelRequest) String() string {
 func (*DeleteSessionByModelRequest) ProtoMessage() {}
 
 func (x *DeleteSessionByModelRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[3]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -201,7 +646,7 @@ func (x *DeleteSessionByModelRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteSessionByModelRequest.ProtoReflect.Descriptor instead.
 func (*DeleteSessionByModelRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{3}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *DeleteSessionByModelRequest) GetId() uint64 {
@@ -253,7 +698,7 @@ type ChangeRefreshTokenByUserIdRequest struct {
 func (x *ChangeRefreshTokenByUserIdRequest) Reset() {
 	*x = ChangeRefreshTokenByUserIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[4]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -266,7 +711,7 @@ func (x *ChangeRefreshTokenByUserIdRequest) String() string {
 func (*ChangeRefreshTokenByUserIdRequest) ProtoMessage() {}
 
 func (x *ChangeRefreshTokenByUserIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[4]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -279,7 +724,7 @@ func (x *ChangeRefreshTokenByUserIdRequest) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use ChangeRefreshTokenByUserIdRequest.ProtoReflect.Descriptor instead.
 func (*ChangeRefreshTokenByUserIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{4}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ChangeRefreshTokenByUserIdRequest) GetUserId() uint64 {
@@ -309,7 +754,7 @@ type ChangeRefreshTokenByUserIdResponse struct {
 func (x *ChangeRefreshTokenByUserIdResponse) Reset() {
 	*x = ChangeRefreshTokenByUserIdResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[5]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -322,7 +767,7 @@ func (x *ChangeRefreshTokenByUserIdResponse) String() string {
 func (*ChangeRefreshTokenByUserIdResponse) ProtoMessage() {}
 
 func (x *ChangeRefreshTokenByUserIdResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[5]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -335,7 +780,7 @@ func (x *ChangeRefreshTokenByUserIdResponse) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use ChangeRefreshTokenByUserIdResponse.ProtoReflect.Descriptor instead.
 func (*ChangeRefreshTokenByUserIdResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{5}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *ChangeRefreshTokenByUserIdResponse) GetAccessory() bool {
@@ -359,7 +804,7 @@ type ChangeRefreshTokenByIdRequest struct {
 func (x *ChangeRefreshTokenByIdRequest) Reset() {
 	*x = ChangeRefreshTokenByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[6]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -372,7 +817,7 @@ func (x *ChangeRefreshTokenByIdRequest) String() string {
 func (*ChangeRefreshTokenByIdRequest) ProtoMessage() {}
 
 func (x *ChangeRefreshTokenByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[6]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -385,7 +830,7 @@ func (x *ChangeRefreshTokenByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeRefreshTokenByIdRequest.ProtoReflect.Descriptor instead.
 func (*ChangeRefreshTokenByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{6}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *ChangeRefreshTokenByIdRequest) GetId() uint64 {
@@ -415,7 +860,7 @@ type ChangeRefreshTokenByIdResponse struct {
 func (x *ChangeRefreshTokenByIdResponse) Reset() {
 	*x = ChangeRefreshTokenByIdResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[7]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -428,7 +873,7 @@ func (x *ChangeRefreshTokenByIdResponse) String() string {
 func (*ChangeRefreshTokenByIdResponse) ProtoMessage() {}
 
 func (x *ChangeRefreshTokenByIdResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[7]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -441,7 +886,7 @@ func (x *ChangeRefreshTokenByIdResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeRefreshTokenByIdResponse.ProtoReflect.Descriptor instead.
 func (*ChangeRefreshTokenByIdResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{7}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *ChangeRefreshTokenByIdResponse) GetAccessory() bool {
@@ -464,7 +909,7 @@ type FindSessionsByUserIdRequest struct {
 func (x *FindSessionsByUserIdRequest) Reset() {
 	*x = FindSessionsByUserIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[8]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -477,7 +922,7 @@ func (x *FindSessionsByUserIdRequest) String() string {
 func (*FindSessionsByUserIdRequest) ProtoMessage() {}
 
 func (x *FindSessionsByUserIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[8]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -490,7 +935,7 @@ func (x *FindSessionsByUserIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindSessionsByUserIdRequest.ProtoReflect.Descriptor instead.
 func (*FindSessionsByUserIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{8}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *FindSessionsByUserIdRequest) GetUserId() uint64 {
@@ -517,7 +962,7 @@ type FindSessionsByUserIdResponse struct {
 func (x *FindSessionsByUserIdResponse) Reset() {
 	*x = FindSessionsByUserIdResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[9]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -530,7 +975,7 @@ func (x *FindSessionsByUserIdResponse) String() string {
 func (*FindSessionsByUserIdResponse) ProtoMessage() {}
 
 func (x *FindSessionsByUserIdResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[9]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -543,7 +988,7 @@ func (x *FindSessionsByUserIdResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindSessionsByUserIdResponse.ProtoReflect.Descriptor instead.
 func (*FindSessionsByUserIdResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{9}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *FindSessionsByUserIdResponse) GetId() uint64 {
@@ -594,7 +1039,7 @@ type FindSessionsByIdRequest struct {
 func (x *FindSessionsByIdRequest) Reset() {
 	*x = FindSessionsByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[10]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -607,7 +1052,7 @@ func (x *FindSessionsByIdRequest) String() string {
 func (*FindSessionsByIdRequest) ProtoMessage() {}
 
 func (x *FindSessionsByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[10]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -620,7 +1065,7 @@ func (x *FindSessionsByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindSessionsByIdRequest.ProtoReflect.Descriptor instead.
 func (*FindSessionsByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{10}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *FindSessionsByIdRequest) GetId() uint64 {
@@ -647,7 +1092,7 @@ type FindSessionsByIdResponse struct {
 func (x *FindSessionsByIdResponse) Reset() {
 	*x = FindSessionsByIdResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[11]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -660,7 +1105,7 @@ func (x *FindSessionsByIdResponse) String() string {
 func (*FindSessionsByIdResponse) ProtoMessage() {}
 
 func (x *FindSessionsByIdResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[11]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -673,7 +1118,7 @@ func (x *FindSessionsByIdResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindSessionsByIdResponse.ProtoReflect.Descriptor instead.
 func (*FindSessionsByIdResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{11}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *FindSessionsByIdResponse) GetId() uint64 {
@@ -724,7 +1169,7 @@ type SessionsResponse struct {
 func (x *SessionsResponse) Reset() {
 	*x = SessionsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[12]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -737,7 +1182,7 @@ func (x *SessionsResponse) String() string {
 func (*SessionsResponse) ProtoMessage() {}
 
 func (x *SessionsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[12]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -750,7 +1195,7 @@ func (x *SessionsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SessionsResponse.ProtoReflect.Descriptor instead.
 func (*SessionsResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{12}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *SessionsResponse) GetSessions() []*CreateSessionResponse {
@@ -774,7 +1219,7 @@ type CreateSessionRequest struct {
 func (x *CreateSessionRequest) Reset() {
 	*x = CreateSessionRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[13]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -787,7 +1232,7 @@ func (x *CreateSessionRequest) String() string {
 func (*CreateSessionRequest) ProtoMessage() {}
 
 func (x *CreateSessionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[13]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -800,7 +1245,7 @@ func (x *CreateSessionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateSessionRequest.ProtoReflect.Descriptor instead.
 func (*CreateSessionRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{13}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *CreateSessionRequest) GetUserId() uint64 {
@@ -834,7 +1279,7 @@ type CreateSessionResponse struct {
 func (x *CreateSessionResponse) Reset() {
 	*x = CreateSessionResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[14]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -847,7 +1292,7 @@ func (x *CreateSessionResponse) String() string {
 func (*CreateSessionResponse) ProtoMessage() {}
 
 func (x *CreateSessionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[14]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -860,7 +1305,7 @@ func (x *CreateSessionResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateSessionResponse.ProtoReflect.Descriptor instead.
 func (*CreateSessionResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{14}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *CreateSessionResponse) GetId() uint64 {
@@ -911,7 +1356,7 @@ type FindUserCompanyRequest struct {
 func (x *FindUserCompanyRequest) Reset() {
 	*x = FindUserCompanyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[15]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -924,7 +1369,7 @@ func (x *FindUserCompanyRequest) String() string {
 func (*FindUserCompanyRequest) ProtoMessage() {}
 
 func (x *FindUserCompanyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[15]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -937,7 +1382,7 @@ func (x *FindUserCompanyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserCompanyRequest.ProtoReflect.Descriptor instead.
 func (*FindUserCompanyRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{15}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *FindUserCompanyRequest) GetId() uint64 {
@@ -960,7 +1405,7 @@ type HTTPCodes struct {
 func (x *HTTPCodes) Reset() {
 	*x = HTTPCodes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[16]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -973,7 +1418,7 @@ func (x *HTTPCodes) String() string {
 func (*HTTPCodes) ProtoMessage() {}
 
 func (x *HTTPCodes) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[16]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -986,7 +1431,7 @@ func (x *HTTPCodes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HTTPCodes.ProtoReflect.Descriptor instead.
 func (*HTTPCodes) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{16}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *HTTPCodes) GetCode() int64 {
@@ -1009,7 +1454,7 @@ type AddCardToUserRequest struct {
 func (x *AddCardToUserRequest) Reset() {
 	*x = AddCardToUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[17]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1022,7 +1467,7 @@ func (x *AddCardToUserRequest) String() string {
 func (*AddCardToUserRequest) ProtoMessage() {}
 
 func (x *AddCardToUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[17]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1035,7 +1480,7 @@ func (x *AddCardToUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddCardToUserRequest.ProtoReflect.Descriptor instead.
 func (*AddCardToUserRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{17}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *AddCardToUserRequest) GetCard() *CreateCardRequest {
@@ -1064,7 +1509,7 @@ type UpdateDonationsRequest struct {
 func (x *UpdateDonationsRequest) Reset() {
 	*x = UpdateDonationsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[18]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1077,7 +1522,7 @@ func (x *UpdateDonationsRequest) String() string {
 func (*UpdateDonationsRequest) ProtoMessage() {}
 
 func (x *UpdateDonationsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[18]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1090,7 +1535,7 @@ func (x *UpdateDonationsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateDonationsRequest.ProtoReflect.Descriptor instead.
 func (*UpdateDonationsRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{18}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *UpdateDonationsRequest) GetId() uint64 {
@@ -1161,7 +1606,7 @@ type DeleteDonationByModelRequest struct {
 func (x *DeleteDonationByModelRequest) Reset() {
 	*x = DeleteDonationByModelRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[19]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1174,7 +1619,7 @@ func (x *DeleteDonationByModelRequest) String() string {
 func (*DeleteDonationByModelRequest) ProtoMessage() {}
 
 func (x *DeleteDonationByModelRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[19]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1187,7 +1632,7 @@ func (x *DeleteDonationByModelRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteDonationByModelRequest.ProtoReflect.Descriptor instead.
 func (*DeleteDonationByModelRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{19}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *DeleteDonationByModelRequest) GetId() uint64 {
@@ -1264,7 +1709,7 @@ type AddCardToUserResponse struct {
 func (x *AddCardToUserResponse) Reset() {
 	*x = AddCardToUserResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[20]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1277,7 +1722,7 @@ func (x *AddCardToUserResponse) String() string {
 func (*AddCardToUserResponse) ProtoMessage() {}
 
 func (x *AddCardToUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[20]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1290,7 +1735,7 @@ func (x *AddCardToUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddCardToUserResponse.ProtoReflect.Descriptor instead.
 func (*AddCardToUserResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{20}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *AddCardToUserResponse) GetId() uint64 {
@@ -1403,7 +1848,7 @@ type CreateDonationsResponse struct {
 func (x *CreateDonationsResponse) Reset() {
 	*x = CreateDonationsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[21]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1416,7 +1861,7 @@ func (x *CreateDonationsResponse) String() string {
 func (*CreateDonationsResponse) ProtoMessage() {}
 
 func (x *CreateDonationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[21]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1429,7 +1874,7 @@ func (x *CreateDonationsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateDonationsResponse.ProtoReflect.Descriptor instead.
 func (*CreateDonationsResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{21}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *CreateDonationsResponse) GetId() uint64 {
@@ -1494,7 +1939,7 @@ type DeleteWardByIdRequest struct {
 func (x *DeleteWardByIdRequest) Reset() {
 	*x = DeleteWardByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[22]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1507,7 +1952,7 @@ func (x *DeleteWardByIdRequest) String() string {
 func (*DeleteWardByIdRequest) ProtoMessage() {}
 
 func (x *DeleteWardByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[22]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1520,7 +1965,7 @@ func (x *DeleteWardByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteWardByIdRequest.ProtoReflect.Descriptor instead.
 func (*DeleteWardByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{22}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *DeleteWardByIdRequest) GetId() uint64 {
@@ -1543,7 +1988,7 @@ type FindWardByIdRequest struct {
 func (x *FindWardByIdRequest) Reset() {
 	*x = FindWardByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[23]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1556,7 +2001,7 @@ func (x *FindWardByIdRequest) String() string {
 func (*FindWardByIdRequest) ProtoMessage() {}
 
 func (x *FindWardByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[23]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1569,7 +2014,7 @@ func (x *FindWardByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindWardByIdRequest.ProtoReflect.Descriptor instead.
 func (*FindWardByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{23}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *FindWardByIdRequest) GetId() uint64 {
@@ -1596,7 +2041,7 @@ type CreateWardRequest struct {
 func (x *CreateWardRequest) Reset() {
 	*x = CreateWardRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[24]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1609,7 +2054,7 @@ func (x *CreateWardRequest) String() string {
 func (*CreateWardRequest) ProtoMessage() {}
 
 func (x *CreateWardRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[24]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1622,7 +2067,7 @@ func (x *CreateWardRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateWardRequest.ProtoReflect.Descriptor instead.
 func (*CreateWardRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{24}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *CreateWardRequest) GetTitle() string {
@@ -1673,7 +2118,7 @@ type WardsResponse struct {
 func (x *WardsResponse) Reset() {
 	*x = WardsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[25]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1686,7 +2131,7 @@ func (x *WardsResponse) String() string {
 func (*WardsResponse) ProtoMessage() {}
 
 func (x *WardsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[25]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1699,7 +2144,7 @@ func (x *WardsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WardsResponse.ProtoReflect.Descriptor instead.
 func (*WardsResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{25}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *WardsResponse) GetWards() []*Ward {
@@ -1722,7 +2167,7 @@ type DeleteDonationByIdRequest struct {
 func (x *DeleteDonationByIdRequest) Reset() {
 	*x = DeleteDonationByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[26]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1735,7 +2180,7 @@ func (x *DeleteDonationByIdRequest) String() string {
 func (*DeleteDonationByIdRequest) ProtoMessage() {}
 
 func (x *DeleteDonationByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[26]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1748,7 +2193,7 @@ func (x *DeleteDonationByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteDonationByIdRequest.ProtoReflect.Descriptor instead.
 func (*DeleteDonationByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{26}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *DeleteDonationByIdRequest) GetId() uint64 {
@@ -1771,7 +2216,7 @@ type FindDonationByIdRequest struct {
 func (x *FindDonationByIdRequest) Reset() {
 	*x = FindDonationByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[27]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1784,7 +2229,7 @@ func (x *FindDonationByIdRequest) String() string {
 func (*FindDonationByIdRequest) ProtoMessage() {}
 
 func (x *FindDonationByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[27]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1797,7 +2242,7 @@ func (x *FindDonationByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindDonationByIdRequest.ProtoReflect.Descriptor instead.
 func (*FindDonationByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{27}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *FindDonationByIdRequest) GetId() uint64 {
@@ -1820,7 +2265,7 @@ type FindDonationWardsResponse struct {
 func (x *FindDonationWardsResponse) Reset() {
 	*x = FindDonationWardsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[28]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1833,7 +2278,7 @@ func (x *FindDonationWardsResponse) String() string {
 func (*FindDonationWardsResponse) ProtoMessage() {}
 
 func (x *FindDonationWardsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[28]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1846,7 +2291,7 @@ func (x *FindDonationWardsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindDonationWardsResponse.ProtoReflect.Descriptor instead.
 func (*FindDonationWardsResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{28}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *FindDonationWardsResponse) GetWards() *Ward {
@@ -1869,7 +2314,7 @@ type FindDonationWardsRequest struct {
 func (x *FindDonationWardsRequest) Reset() {
 	*x = FindDonationWardsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[29]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1882,7 +2327,7 @@ func (x *FindDonationWardsRequest) String() string {
 func (*FindDonationWardsRequest) ProtoMessage() {}
 
 func (x *FindDonationWardsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[29]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1895,7 +2340,7 @@ func (x *FindDonationWardsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindDonationWardsRequest.ProtoReflect.Descriptor instead.
 func (*FindDonationWardsRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{29}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *FindDonationWardsRequest) GetId() uint64 {
@@ -1921,7 +2366,7 @@ type CreateDonationsRequest struct {
 func (x *CreateDonationsRequest) Reset() {
 	*x = CreateDonationsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[30]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1934,7 +2379,7 @@ func (x *CreateDonationsRequest) String() string {
 func (*CreateDonationsRequest) ProtoMessage() {}
 
 func (x *CreateDonationsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[30]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1947,7 +2392,7 @@ func (x *CreateDonationsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateDonationsRequest.ProtoReflect.Descriptor instead.
 func (*CreateDonationsRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{30}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *CreateDonationsRequest) GetTitle() string {
@@ -1991,7 +2436,7 @@ type DonationsResponse struct {
 func (x *DonationsResponse) Reset() {
 	*x = DonationsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[31]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2004,7 +2449,7 @@ func (x *DonationsResponse) String() string {
 func (*DonationsResponse) ProtoMessage() {}
 
 func (x *DonationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[31]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2017,7 +2462,7 @@ func (x *DonationsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DonationsResponse.ProtoReflect.Descriptor instead.
 func (*DonationsResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{31}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *DonationsResponse) GetDonations() []*Donations {
@@ -2040,7 +2485,7 @@ type DeleteCardCompanyByIdRequest struct {
 func (x *DeleteCardCompanyByIdRequest) Reset() {
 	*x = DeleteCardCompanyByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[32]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2053,7 +2498,7 @@ func (x *DeleteCardCompanyByIdRequest) String() string {
 func (*DeleteCardCompanyByIdRequest) ProtoMessage() {}
 
 func (x *DeleteCardCompanyByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[32]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2066,7 +2511,7 @@ func (x *DeleteCardCompanyByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteCardCompanyByIdRequest.ProtoReflect.Descriptor instead.
 func (*DeleteCardCompanyByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{32}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *DeleteCardCompanyByIdRequest) GetId() uint64 {
@@ -2089,7 +2534,7 @@ type FindCardCompanyByIDRequest struct {
 func (x *FindCardCompanyByIDRequest) Reset() {
 	*x = FindCardCompanyByIDRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[33]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[38]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2102,7 +2547,7 @@ func (x *FindCardCompanyByIDRequest) String() string {
 func (*FindCardCompanyByIDRequest) ProtoMessage() {}
 
 func (x *FindCardCompanyByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[33]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2115,7 +2560,7 @@ func (x *FindCardCompanyByIDRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindCardCompanyByIDRequest.ProtoReflect.Descriptor instead.
 func (*FindCardCompanyByIDRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{33}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *FindCardCompanyByIDRequest) GetId() uint64 {
@@ -2142,7 +2587,7 @@ type CreateCardCompanyRequest struct {
 func (x *CreateCardCompanyRequest) Reset() {
 	*x = CreateCardCompanyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[34]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[39]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2155,7 +2600,7 @@ func (x *CreateCardCompanyRequest) String() string {
 func (*CreateCardCompanyRequest) ProtoMessage() {}
 
 func (x *CreateCardCompanyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[34]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[39]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2168,7 +2613,7 @@ func (x *CreateCardCompanyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateCardCompanyRequest.ProtoReflect.Descriptor instead.
 func (*CreateCardCompanyRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{34}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *CreateCardCompanyRequest) GetFullName() string {
@@ -2219,7 +2664,7 @@ type CardsCompaniesResponse struct {
 func (x *CardsCompaniesResponse) Reset() {
 	*x = CardsCompaniesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[35]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[40]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2232,7 +2677,7 @@ func (x *CardsCompaniesResponse) String() string {
 func (*CardsCompaniesResponse) ProtoMessage() {}
 
 func (x *CardsCompaniesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[35]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[40]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2245,7 +2690,7 @@ func (x *CardsCompaniesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CardsCompaniesResponse.ProtoReflect.Descriptor instead.
 func (*CardsCompaniesResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{35}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *CardsCompaniesResponse) GetCards() []*CardCompany {
@@ -2268,7 +2713,7 @@ type DeleteCardByIdRequest struct {
 func (x *DeleteCardByIdRequest) Reset() {
 	*x = DeleteCardByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[36]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[41]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2281,7 +2726,7 @@ func (x *DeleteCardByIdRequest) String() string {
 func (*DeleteCardByIdRequest) ProtoMessage() {}
 
 func (x *DeleteCardByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[36]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[41]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2294,7 +2739,7 @@ func (x *DeleteCardByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteCardByIdRequest.ProtoReflect.Descriptor instead.
 func (*DeleteCardByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{36}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *DeleteCardByIdRequest) GetId() uint64 {
@@ -2317,7 +2762,7 @@ type FindCardByIdRequest struct {
 func (x *FindCardByIdRequest) Reset() {
 	*x = FindCardByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[37]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[42]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2330,7 +2775,7 @@ func (x *FindCardByIdRequest) String() string {
 func (*FindCardByIdRequest) ProtoMessage() {}
 
 func (x *FindCardByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[37]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[42]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2343,7 +2788,7 @@ func (x *FindCardByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindCardByIdRequest.ProtoReflect.Descriptor instead.
 func (*FindCardByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{37}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *FindCardByIdRequest) GetId() uint64 {
@@ -2370,7 +2815,7 @@ type CreateCardRequest struct {
 func (x *CreateCardRequest) Reset() {
 	*x = CreateCardRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[38]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[43]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2383,7 +2828,7 @@ func (x *CreateCardRequest) String() string {
 func (*CreateCardRequest) ProtoMessage() {}
 
 func (x *CreateCardRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[38]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[43]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2396,7 +2841,7 @@ func (x *CreateCardRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateCardRequest.ProtoReflect.Descriptor instead.
 func (*CreateCardRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{38}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *CreateCardRequest) GetFullName() string {
@@ -2447,7 +2892,7 @@ type CardsResponse struct {
 func (x *CardsResponse) Reset() {
 	*x = CardsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[39]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[44]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2460,7 +2905,7 @@ func (x *CardsResponse) String() string {
 func (*CardsResponse) ProtoMessage() {}
 
 func (x *CardsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[39]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[44]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2473,7 +2918,7 @@ func (x *CardsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CardsResponse.ProtoReflect.Descriptor instead.
 func (*CardsResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{39}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *CardsResponse) GetCards() []*Card {
@@ -2496,7 +2941,7 @@ type UpdateCompanyRequest struct {
 func (x *UpdateCompanyRequest) Reset() {
 	*x = UpdateCompanyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[40]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[45]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2509,7 +2954,7 @@ func (x *UpdateCompanyRequest) String() string {
 func (*UpdateCompanyRequest) ProtoMessage() {}
 
 func (x *UpdateCompanyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[40]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[45]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2522,7 +2967,7 @@ func (x *UpdateCompanyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateCompanyRequest.ProtoReflect.Descriptor instead.
 func (*UpdateCompanyRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{40}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{45}
 }
 
 func (x *UpdateCompanyRequest) GetCompany() *Company {
@@ -2545,7 +2990,7 @@ type DeleteCompanyByModelRequest struct {
 func (x *DeleteCompanyByModelRequest) Reset() {
 	*x = DeleteCompanyByModelRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[41]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[46]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2558,7 +3003,7 @@ func (x *DeleteCompanyByModelRequest) String() string {
 func (*DeleteCompanyByModelRequest) ProtoMessage() {}
 
 func (x *DeleteCompanyByModelRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[41]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[46]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2571,7 +3016,7 @@ func (x *DeleteCompanyByModelRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteCompanyByModelRequest.ProtoReflect.Descriptor instead.
 func (*DeleteCompanyByModelRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{41}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{46}
 }
 
 func (x *DeleteCompanyByModelRequest) GetCompany() *Company {
@@ -2594,7 +3039,7 @@ type DeleteCompanyByIdRequest struct {
 func (x *DeleteCompanyByIdRequest) Reset() {
 	*x = DeleteCompanyByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[42]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[47]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2607,7 +3052,7 @@ func (x *DeleteCompanyByIdRequest) String() string {
 func (*DeleteCompanyByIdRequest) ProtoMessage() {}
 
 func (x *DeleteCompanyByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[42]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[47]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2620,7 +3065,7 @@ func (x *DeleteCompanyByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteCompanyByIdRequest.ProtoReflect.Descriptor instead.
 func (*DeleteCompanyByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{42}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{47}
 }
 
 func (x *DeleteCompanyByIdRequest) GetId() uint64 {
@@ -2643,7 +3088,7 @@ type FindCompanyCardRequest struct {
 func (x *FindCompanyCardRequest) Reset() {
 	*x = FindCompanyCardRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[43]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[48]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2656,7 +3101,7 @@ func (x *FindCompanyCardRequest) String() string {
 func (*FindCompanyCardRequest) ProtoMessage() {}
 
 func (x *FindCompanyCardRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[43]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[48]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2669,7 +3114,7 @@ func (x *FindCompanyCardRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindCompanyCardRequest.ProtoReflect.Descriptor instead.
 func (*FindCompanyCardRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{43}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{48}
 }
 
 func (x *FindCompanyCardRequest) GetId() uint64 {
@@ -2692,7 +3137,7 @@ type FindCompanyByIdRequest struct {
 func (x *FindCompanyByIdRequest) Reset() {
 	*x = FindCompanyByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[44]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[49]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2705,7 +3150,7 @@ func (x *FindCompanyByIdRequest) String() string {
 func (*FindCompanyByIdRequest) ProtoMessage() {}
 
 func (x *FindCompanyByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[44]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[49]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2718,7 +3163,7 @@ func (x *FindCompanyByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindCompanyByIdRequest.ProtoReflect.Descriptor instead.
 func (*FindCompanyByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{44}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{49}
 }
 
 func (x *FindCompanyByIdRequest) GetId() uint64 {
@@ -2741,7 +3186,7 @@ type FindCompanyByIdPhoneRequest struct {
 func (x *FindCompanyByIdPhoneRequest) Reset() {
 	*x = FindCompanyByIdPhoneRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[45]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[50]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2754,7 +3199,7 @@ func (x *FindCompanyByIdPhoneRequest) String() string {
 func (*FindCompanyByIdPhoneRequest) ProtoMessage() {}
 
 func (x *FindCompanyByIdPhoneRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[45]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[50]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2767,7 +3212,7 @@ func (x *FindCompanyByIdPhoneRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindCompanyByIdPhoneRequest.ProtoReflect.Descriptor instead.
 func (*FindCompanyByIdPhoneRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{45}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{50}
 }
 
 func (x *FindCompanyByIdPhoneRequest) GetPhone() string {
@@ -2798,7 +3243,7 @@ type CreateCompanyRequest struct {
 func (x *CreateCompanyRequest) Reset() {
 	*x = CreateCompanyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[46]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[51]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2811,7 +3256,7 @@ func (x *CreateCompanyRequest) String() string {
 func (*CreateCompanyRequest) ProtoMessage() {}
 
 func (x *CreateCompanyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[46]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[51]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2824,7 +3269,7 @@ func (x *CreateCompanyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateCompanyRequest.ProtoReflect.Descriptor instead.
 func (*CreateCompanyRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{46}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{51}
 }
 
 func (x *CreateCompanyRequest) GetTitle() string {
@@ -2903,7 +3348,7 @@ type CompaniesResponse struct {
 func (x *CompaniesResponse) Reset() {
 	*x = CompaniesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[47]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[52]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2916,7 +3361,7 @@ func (x *CompaniesResponse) String() string {
 func (*CompaniesResponse) ProtoMessage() {}
 
 func (x *CompaniesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[47]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[52]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2929,7 +3374,7 @@ func (x *CompaniesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CompaniesResponse.ProtoReflect.Descriptor instead.
 func (*CompaniesResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{47}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{52}
 }
 
 func (x *CompaniesResponse) GetCompanies() []*Company {
@@ -2964,7 +3409,7 @@ type UpdateUserRequest struct {
 func (x *UpdateUserRequest) Reset() {
 	*x = UpdateUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[48]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[53]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2977,7 +3422,7 @@ func (x *UpdateUserRequest) String() string {
 func (*UpdateUserRequest) ProtoMessage() {}
 
 func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[48]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[53]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2990,7 +3435,7 @@ func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{48}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{53}
 }
 
 func (x *UpdateUserRequest) GetId() uint64 {
@@ -3097,7 +3542,7 @@ type DeleteUserByModelRequest struct {
 func (x *DeleteUserByModelRequest) Reset() {
 	*x = DeleteUserByModelRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[49]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[54]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3110,7 +3555,7 @@ func (x *DeleteUserByModelRequest) String() string {
 func (*DeleteUserByModelRequest) ProtoMessage() {}
 
 func (x *DeleteUserByModelRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[49]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[54]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3123,7 +3568,7 @@ func (x *DeleteUserByModelRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteUserByModelRequest.ProtoReflect.Descriptor instead.
 func (*DeleteUserByModelRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{49}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{54}
 }
 
 func (x *DeleteUserByModelRequest) GetUser() *CreateUserResponse {
@@ -3146,7 +3591,7 @@ type DeleteUserByIdRequest struct {
 func (x *DeleteUserByIdRequest) Reset() {
 	*x = DeleteUserByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[50]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[55]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3159,7 +3604,7 @@ func (x *DeleteUserByIdRequest) String() string {
 func (*DeleteUserByIdRequest) ProtoMessage() {}
 
 func (x *DeleteUserByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[50]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[55]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3172,7 +3617,7 @@ func (x *DeleteUserByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteUserByIdRequest.ProtoReflect.Descriptor instead.
 func (*DeleteUserByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{50}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{55}
 }
 
 func (x *DeleteUserByIdRequest) GetId() uint64 {
@@ -3195,7 +3640,7 @@ type FindUserCardRequest struct {
 func (x *FindUserCardRequest) Reset() {
 	*x = FindUserCardRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[51]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[56]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3208,7 +3653,7 @@ func (x *FindUserCardRequest) String() string {
 func (*FindUserCardRequest) ProtoMessage() {}
 
 func (x *FindUserCardRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[51]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[56]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3221,7 +3666,7 @@ func (x *FindUserCardRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserCardRequest.ProtoReflect.Descriptor instead.
 func (*FindUserCardRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{51}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{56}
 }
 
 func (x *FindUserCardRequest) GetId() uint64 {
@@ -3244,7 +3689,7 @@ type FindUserCardResponse struct {
 func (x *FindUserCardResponse) Reset() {
 	*x = FindUserCardResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[52]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[57]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3257,7 +3702,7 @@ func (x *FindUserCardResponse) String() string {
 func (*FindUserCardResponse) ProtoMessage() {}
 
 func (x *FindUserCardResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[52]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[57]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3270,7 +3715,7 @@ func (x *FindUserCardResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserCardResponse.ProtoReflect.Descriptor instead.
 func (*FindUserCardResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{52}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{57}
 }
 
 func (x *FindUserCardResponse) GetCards() []*Card {
@@ -3294,7 +3739,7 @@ type ChangeUserTypeRequest struct {
 func (x *ChangeUserTypeRequest) Reset() {
 	*x = ChangeUserTypeRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[53]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[58]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3307,7 +3752,7 @@ func (x *ChangeUserTypeRequest) String() string {
 func (*ChangeUserTypeRequest) ProtoMessage() {}
 
 func (x *ChangeUserTypeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[53]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[58]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3320,7 +3765,7 @@ func (x *ChangeUserTypeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeUserTypeRequest.ProtoReflect.Descriptor instead.
 func (*ChangeUserTypeRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{53}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{58}
 }
 
 func (x *ChangeUserTypeRequest) GetId() uint64 {
@@ -3350,7 +3795,7 @@ type ChangeUserTypeResponse struct {
 func (x *ChangeUserTypeResponse) Reset() {
 	*x = ChangeUserTypeResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[54]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[59]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3363,7 +3808,7 @@ func (x *ChangeUserTypeResponse) String() string {
 func (*ChangeUserTypeResponse) ProtoMessage() {}
 
 func (x *ChangeUserTypeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[54]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[59]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3376,7 +3821,7 @@ func (x *ChangeUserTypeResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeUserTypeResponse.ProtoReflect.Descriptor instead.
 func (*ChangeUserTypeResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{54}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{59}
 }
 
 func (x *ChangeUserTypeResponse) GetAccessory() bool {
@@ -3399,7 +3844,7 @@ type FindUserByPhoneRequest struct {
 func (x *FindUserByPhoneRequest) Reset() {
 	*x = FindUserByPhoneRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[55]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[60]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3412,7 +3857,7 @@ func (x *FindUserByPhoneRequest) String() string {
 func (*FindUserByPhoneRequest) ProtoMessage() {}
 
 func (x *FindUserByPhoneRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[55]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[60]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3425,7 +3870,7 @@ func (x *FindUserByPhoneRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserByPhoneRequest.ProtoReflect.Descriptor instead.
 func (*FindUserByPhoneRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{55}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{60}
 }
 
 func (x *FindUserByPhoneRequest) GetPhone() string {
@@ -3448,7 +3893,7 @@ type FindUserByIdRequest struct {
 func (x *FindUserByIdRequest) Reset() {
 	*x = FindUserByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[56]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[61]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3461,7 +3906,7 @@ func (x *FindUserByIdRequest) String() string {
 func (*FindUserByIdRequest) ProtoMessage() {}
 
 func (x *FindUserByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[56]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[61]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3474,7 +3919,7 @@ func (x *FindUserByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserByIdRequest.ProtoReflect.Descriptor instead.
 func (*FindUserByIdRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{56}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{61}
 }
 
 func (x *FindUserByIdRequest) GetId() uint64 {
@@ -3497,7 +3942,7 @@ type FindUserDonationsRequest struct {
 func (x *FindUserDonationsRequest) Reset() {
 	*x = FindUserDonationsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[57]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[62]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3510,7 +3955,7 @@ func (x *FindUserDonationsRequest) String() string {
 func (*FindUserDonationsRequest) ProtoMessage() {}
 
 func (x *FindUserDonationsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[57]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[62]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3523,7 +3968,7 @@ func (x *FindUserDonationsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserDonationsRequest.ProtoReflect.Descriptor instead.
 func (*FindUserDonationsRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{57}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{62}
 }
 
 func (x *FindUserDonationsRequest) GetId() uint64 {
@@ -3546,7 +3991,7 @@ type FindUserDonationsResponse struct {
 func (x *FindUserDonationsResponse) Reset() {
 	*x = FindUserDonationsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[58]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[63]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3559,7 +4004,7 @@ func (x *FindUserDonationsResponse) String() string {
 func (*FindUserDonationsResponse) ProtoMessage() {}
 
 func (x *FindUserDonationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[58]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[63]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3572,7 +4017,7 @@ func (x *FindUserDonationsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserDonationsResponse.ProtoReflect.Descriptor instead.
 func (*FindUserDonationsResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{58}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{63}
 }
 
 func (x *FindUserDonationsResponse) GetDonations() []*Donations {
@@ -3595,7 +4040,7 @@ type FindUserByEmailRequest struct {
 func (x *FindUserByEmailRequest) Reset() {
 	*x = FindUserByEmailRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[59]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[64]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3608,7 +4053,7 @@ func (x *FindUserByEmailRequest) String() string {
 func (*FindUserByEmailRequest) ProtoMessage() {}
 
 func (x *FindUserByEmailRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[59]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[64]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3621,7 +4066,7 @@ func (x *FindUserByEmailRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindUserByEmailRequest.ProtoReflect.Descriptor instead.
 func (*FindUserByEmailRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{59}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{64}
 }
 
 func (x *FindUserByEmailRequest) GetEmail() string {
@@ -3644,7 +4089,7 @@ type UsersResponse struct {
 func (x *UsersResponse) Reset() {
 	*x = UsersResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[60]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[65]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3657,7 +4102,7 @@ func (x *UsersResponse) String() string {
 func (*UsersResponse) ProtoMessage() {}
 
 func (x *UsersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[60]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[65]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3670,7 +4115,7 @@ func (x *UsersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UsersResponse.ProtoReflect.Descriptor instead.
 func (*UsersResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{60}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{65}
 }
 
 func (x *UsersResponse) GetUsers() []*CreateUserResponse {
@@ -3693,7 +4138,7 @@ type UserIsExistsRequest struct {
 func (x *UserIsExistsRequest) Reset() {
 	*x = UserIsExistsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[61]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[66]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3706,7 +4151,7 @@ func (x *UserIsExistsRequest) String() string {
 func (*UserIsExistsRequest) ProtoMessage() {}
 
 func (x *UserIsExistsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[61]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[66]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3719,7 +4164,7 @@ func (x *UserIsExistsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserIsExistsRequest.ProtoReflect.Descriptor instead.
 func (*UserIsExistsRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{61}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{66}
 }
 
 func (x *UserIsExistsRequest) GetPhone() string {
@@ -3742,7 +4187,7 @@ type UserIsExistsResponse struct {
 func (x *UserIsExistsResponse) Reset() {
 	*x = UserIsExistsResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[62]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[67]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3755,7 +4200,7 @@ func (x *UserIsExistsResponse) String() string {
 func (*UserIsExistsResponse) ProtoMessage() {}
 
 func (x *UserIsExistsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[62]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[67]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3768,7 +4213,7 @@ func (x *UserIsExistsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserIsExistsResponse.ProtoReflect.Descriptor instead.
 func (*UserIsExistsResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{62}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{67}
 }
 
 func (x *UserIsExistsResponse) GetIsExists() bool {
@@ -3792,7 +4237,7 @@ type ComparePasswordRequest struct {
 func (x *ComparePasswordRequest) Reset() {
 	*x = ComparePasswordRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[63]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[68]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3805,7 +4250,7 @@ func (x *ComparePasswordRequest) String() string {
 func (*ComparePasswordRequest) ProtoMessage() {}
 
 func (x *ComparePasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[63]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[68]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3818,7 +4263,7 @@ func (x *ComparePasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ComparePasswordRequest.ProtoReflect.Descriptor instead.
 func (*ComparePasswordRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{63}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{68}
 }
 
 func (x *ComparePasswordRequest) GetPhone() string {
@@ -3848,7 +4293,7 @@ type ComparePasswordResponse struct {
 func (x *ComparePasswordResponse) Reset() {
 	*x = ComparePasswordResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[64]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[69]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3861,7 +4306,7 @@ func (x *ComparePasswordResponse) String() string {
 func (*ComparePasswordResponse) ProtoMessage() {}
 
 func (x *ComparePasswordResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[64]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[69]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3874,7 +4319,7 @@ func (x *ComparePasswordResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ComparePasswordResponse.ProtoReflect.Descriptor instead.
 func (*ComparePasswordResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{64}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{69}
 }
 
 func (x *ComparePasswordResponse) GetAccessory() bool {
@@ -3908,7 +4353,7 @@ type Company struct {
 func (x *Company) Reset() {
 	*x = Company{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[65]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[70]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3921,7 +4366,7 @@ func (x *Company) String() string {
 func (*Company) ProtoMessage() {}
 
 func (x *Company) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[65]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[70]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3934,7 +4379,7 @@ func (x *Company) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Company.ProtoReflect.Descriptor instead.
 func (*Company) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{65}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{70}
 }
 
 func (x *Company) GetId() uint64 {
@@ -4041,7 +4486,7 @@ type CardCompany struct {
 func (x *CardCompany) Reset() {
 	*x = CardCompany{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[66]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[71]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4054,7 +4499,7 @@ func (x *CardCompany) String() string {
 func (*CardCompany) ProtoMessage() {}
 
 func (x *CardCompany) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[66]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[71]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4067,7 +4512,7 @@ func (x *CardCompany) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CardCompany.ProtoReflect.Descriptor instead.
 func (*CardCompany) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{66}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{71}
 }
 
 func (x *CardCompany) GetId() uint64 {
@@ -4146,7 +4591,7 @@ type Card struct {
 func (x *Card) Reset() {
 	*x = Card{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[67]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[72]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4159,7 +4604,7 @@ func (x *Card) String() string {
 func (*Card) ProtoMessage() {}
 
 func (x *Card) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[67]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[72]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4172,7 +4617,7 @@ func (x *Card) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Card.ProtoReflect.Descriptor instead.
 func (*Card) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{67}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{72}
 }
 
 func (x *Card) GetId() uint64 {
@@ -4252,7 +4697,7 @@ type Ward struct {
 func (x *Ward) Reset() {
 	*x = Ward{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[68]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[73]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4265,7 +4710,7 @@ func (x *Ward) String() string {
 func (*Ward) ProtoMessage() {}
 
 func (x *Ward) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[68]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[73]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4278,7 +4723,7 @@ func (x *Ward) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Ward.ProtoReflect.Descriptor instead.
 func (*Ward) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{68}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{73}
 }
 
 func (x *Ward) GetId() uint64 {
@@ -4363,7 +4808,7 @@ type Donations struct {
 func (x *Donations) Reset() {
 	*x = Donations{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[69]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[74]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4376,7 +4821,7 @@ func (x *Donations) String() string {
 func (*Donations) ProtoMessage() {}
 
 func (x *Donations) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[69]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[74]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4389,7 +4834,7 @@ func (x *Donations) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Donations.ProtoReflect.Descriptor instead.
 func (*Donations) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{69}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{74}
 }
 
 func (x *Donations) GetId() uint64 {
@@ -4462,7 +4907,7 @@ type CreateUserRequest struct {
 func (x *CreateUserRequest) Reset() {
 	*x = CreateUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[70]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[75]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4475,7 +4920,7 @@ func (x *CreateUserRequest) String() string {
 func (*CreateUserRequest) ProtoMessage() {}
 
 func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[70]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[75]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4488,7 +4933,7 @@ func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserRequest.ProtoReflect.Descriptor instead.
 func (*CreateUserRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{70}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{75}
 }
 
 func (x *CreateUserRequest) GetEmail() string {
@@ -4579,7 +5024,7 @@ type CreateUserResponse struct {
 func (x *CreateUserResponse) Reset() {
 	*x = CreateUserResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[71]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[76]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4592,7 +5037,7 @@ func (x *CreateUserResponse) String() string {
 func (*CreateUserResponse) ProtoMessage() {}
 
 func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[71]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[76]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4605,7 +5050,7 @@ func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserResponse.ProtoReflect.Descriptor instead.
 func (*CreateUserResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{71}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{76}
 }
 
 func (x *CreateUserResponse) GetId() uint64 {
@@ -4713,7 +5158,7 @@ type IsRoleRequest struct {
 func (x *IsRoleRequest) Reset() {
 	*x = IsRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[72]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[77]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4726,7 +5171,7 @@ func (x *IsRoleRequest) String() string {
 func (*IsRoleRequest) ProtoMessage() {}
 
 func (x *IsRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[72]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[77]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4739,7 +5184,7 @@ func (x *IsRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IsRoleRequest.ProtoReflect.Descriptor instead.
 func (*IsRoleRequest) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{72}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{77}
 }
 
 func (x *IsRoleRequest) GetId() uint64 {
@@ -4769,7 +5214,7 @@ type IsRoleResponse struct {
 func (x *IsRoleResponse) Reset() {
 	*x = IsRoleResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[73]
+		mi := &file_DatabaseService_DatabaseService_proto_msgTypes[78]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4782,7 +5227,7 @@ func (x *IsRoleResponse) String() string {
 func (*IsRoleResponse) ProtoMessage() {}
 
 func (x *IsRoleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[73]
+	mi := &file_DatabaseService_DatabaseService_proto_msgTypes[78]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4795,7 +5240,7 @@ func (x *IsRoleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IsRoleResponse.ProtoReflect.Descriptor instead.
 func (*IsRoleResponse) Descriptor() ([]byte, []int) {
-	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{73}
+	return file_DatabaseService_DatabaseService_proto_rawDescGZIP(), []int{78}
 }
 
 func (x *IsRoleResponse) GetAccessory() bool {
@@ -4811,7 +5256,61 @@ var file_DatabaseService_DatabaseService_proto_rawDesc = []byte{
 	0x0a, 0x25, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
 	0x65, 0x2f, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
 	0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x07, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x36, 0x0a, 0x1c, 0x44, 0x65, 0x6c,
+	0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x81, 0x01, 0x0a, 0x15, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x43, 0x61, 0x72, 0x64, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52,
+	0x02, 0x69, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x66, 0x75, 0x6c, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x75, 0x6c, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x12,
+	0x16, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x65, 0x18,
+	0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x64, 0x61, 0x74, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x63,
+	0x76, 0x76, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x03, 0x63, 0x76, 0x76, 0x22, 0x72, 0x0a,
+	0x16, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x43, 0x61, 0x72, 0x64, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x31, 0x12, 0x1a, 0x0a, 0x08, 0x66, 0x75, 0x6c, 0x6c, 0x4e,
+	0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x75, 0x6c, 0x6c, 0x4e,
+	0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x12, 0x12, 0x0a, 0x04, 0x64,
+	0x61, 0x74, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x64, 0x61, 0x74, 0x65, 0x12,
+	0x10, 0x0a, 0x03, 0x63, 0x76, 0x76, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x03, 0x63, 0x76,
+	0x76, 0x22, 0xd6, 0x01, 0x0a, 0x16, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
+	0x43, 0x61, 0x72, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1a, 0x0a, 0x08,
+	0x66, 0x75, 0x6c, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
+	0x66, 0x75, 0x6c, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62,
+	0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72,
+	0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x64, 0x61, 0x74, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x63, 0x76, 0x76, 0x18, 0x05, 0x20, 0x01, 0x28,
+	0x04, 0x52, 0x03, 0x63, 0x76, 0x76, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64,
+	0x18, 0x06, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1c,
+	0x0a, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0x07, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x1c, 0x0a, 0x09,
+	0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0xba, 0x02, 0x0a, 0x18, 0x41,
+	0x64, 0x64, 0x43, 0x61, 0x72, 0x64, 0x54, 0x6f, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x14, 0x0a,
+	0x05, 0x70, 0x68, 0x6f, 0x6e, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x70, 0x68,
+	0x6f, 0x6e, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x04,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x12, 0x0a,
+	0x04, 0x73, 0x69, 0x74, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x73, 0x69, 0x74,
+	0x65, 0x12, 0x10, 0x0a, 0x03, 0x69, 0x6e, 0x6e, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03,
+	0x69, 0x6e, 0x6e, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x70, 0x70, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x03, 0x6b, 0x70, 0x70, 0x12, 0x12, 0x0a, 0x04, 0x6f, 0x6b, 0x70, 0x6f, 0x18, 0x08, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x04, 0x6f, 0x6b, 0x70, 0x6f, 0x12, 0x28, 0x0a, 0x04, 0x63, 0x61, 0x72,
+	0x64, 0x18, 0x09, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x52, 0x04, 0x63,
+	0x61, 0x72, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x18, 0x0a, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x63,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09,
+	0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x75, 0x70, 0x64,
+	0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x75, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0x50, 0x0a, 0x17, 0x41, 0x64, 0x64, 0x43, 0x61,
+	0x72, 0x64, 0x54, 0x6f, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x35, 0x0a, 0x04, 0x63, 0x61, 0x72, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x21, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x52, 0x04, 0x63, 0x61, 0x72, 0x64, 0x22, 0x36, 0x0a, 0x1c, 0x44, 0x65, 0x6c,
 	0x65, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72,
 	0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65,
 	0x72, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49,
@@ -5293,7 +5792,7 @@ var file_DatabaseService_DatabaseService_proto_rawDesc = []byte{
 	0x72, 0x6f, 0x6c, 0x65, 0x22, 0x2e, 0x0a, 0x0e, 0x49, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65,
 	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x61, 0x63, 0x63, 0x65, 0x73, 0x73,
 	0x6f, 0x72, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x09, 0x61, 0x63, 0x63, 0x65, 0x73,
-	0x73, 0x6f, 0x72, 0x79, 0x32, 0xae, 0x21, 0x0a, 0x0f, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73,
+	0x73, 0x6f, 0x72, 0x79, 0x32, 0xaa, 0x22, 0x0a, 0x0f, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73,
 	0x65, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x45, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61,
 	0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x1a, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
 	0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65,
@@ -5405,165 +5904,173 @@ var file_DatabaseService_DatabaseService_proto_rawDesc = []byte{
 	0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43,
 	0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e,
 	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65,
-	0x73, 0x12, 0x2f, 0x0a, 0x05, 0x43, 0x61, 0x72, 0x64, 0x73, 0x12, 0x0e, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x16, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x37, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64,
-	0x12, 0x1a, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x43, 0x61, 0x72, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0d, 0x2e, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x12, 0x3b, 0x0a, 0x0c, 0x46,
-	0x69, 0x6e, 0x64, 0x43, 0x61, 0x72, 0x64, 0x42, 0x79, 0x49, 0x64, 0x12, 0x1c, 0x2e, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x43, 0x61, 0x72, 0x64, 0x42, 0x79,
-	0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x12, 0x36, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65,
-	0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x42, 0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x12, 0x0d, 0x2e,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x1a, 0x12, 0x2e, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65, 0x73,
-	0x12, 0x44, 0x0a, 0x0e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x42, 0x79,
-	0x49, 0x64, 0x12, 0x1e, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c,
-	0x65, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54,
-	0x50, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x2a, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x43, 0x61, 0x72, 0x64, 0x12, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43,
-	0x61, 0x72, 0x64, 0x1a, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61,
-	0x72, 0x64, 0x12, 0x41, 0x0a, 0x0e, 0x43, 0x61, 0x72, 0x64, 0x73, 0x43, 0x6f, 0x6d, 0x70, 0x61,
-	0x6e, 0x69, 0x65, 0x73, 0x12, 0x0e, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x45,
-	0x6d, 0x70, 0x74, 0x79, 0x1a, 0x1f, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43,
-	0x61, 0x72, 0x64, 0x73, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x69, 0x65, 0x73, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4c, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43,
-	0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x12, 0x21, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x43,
-	0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14, 0x2e,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70,
-	0x61, 0x6e, 0x79, 0x12, 0x50, 0x0a, 0x13, 0x46, 0x69, 0x6e, 0x64, 0x43, 0x61, 0x72, 0x64, 0x43,
-	0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x42, 0x79, 0x49, 0x44, 0x12, 0x23, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d,
-	0x70, 0x61, 0x6e, 0x79, 0x42, 0x79, 0x49, 0x44, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x14, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f,
-	0x6d, 0x70, 0x61, 0x6e, 0x79, 0x12, 0x44, 0x0a, 0x18, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43,
-	0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x42, 0x79, 0x4d, 0x6f, 0x64, 0x65,
-	0x6c, 0x12, 0x14, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64,
-	0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x52, 0x0a, 0x15, 0x44,
-	0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79,
-	0x42, 0x79, 0x49, 0x64, 0x12, 0x25, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x44,
-	0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79,
+	0x73, 0x12, 0x57, 0x0a, 0x10, 0x41, 0x64, 0x64, 0x43, 0x61, 0x72, 0x64, 0x54, 0x6f, 0x43, 0x6f,
+	0x6d, 0x70, 0x61, 0x6e, 0x79, 0x12, 0x20, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x41, 0x64, 0x64, 0x43, 0x61, 0x72, 0x64, 0x54, 0x6f, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x21, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x2e, 0x41, 0x64, 0x64, 0x43, 0x61, 0x72, 0x64, 0x54, 0x6f, 0x43, 0x6f, 0x6d, 0x70, 0x61,
+	0x6e, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a, 0x05, 0x43, 0x61,
+	0x72, 0x64, 0x73, 0x12, 0x0e, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x45, 0x6d,
+	0x70, 0x74, 0x79, 0x1a, 0x16, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61,
+	0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x0a, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x12, 0x1a, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x43, 0x61, 0x72, 0x64, 0x12, 0x3b, 0x0a, 0x0c, 0x46, 0x69, 0x6e, 0x64, 0x43, 0x61, 0x72, 0x64,
+	0x42, 0x79, 0x49, 0x64, 0x12, 0x1c, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46,
+	0x69, 0x6e, 0x64, 0x43, 0x61, 0x72, 0x64, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72,
+	0x64, 0x12, 0x36, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x42,
+	0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x12, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x43, 0x61, 0x72, 0x64, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x44, 0x0a, 0x0e, 0x44, 0x65, 0x6c,
+	0x65, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x42, 0x79, 0x49, 0x64, 0x12, 0x1e, 0x2e, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64,
 	0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x73, 0x65,
 	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x12,
-	0x3f, 0x0a, 0x11, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d,
-	0x70, 0x61, 0x6e, 0x79, 0x12, 0x14, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43,
-	0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x1a, 0x14, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79,
-	0x12, 0x37, 0x0a, 0x09, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x0e, 0x2e,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x1a, 0x2e,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x54, 0x0a, 0x0f, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x1f, 0x2e, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x44, 0x6f, 0x6e,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e,
+	0x4d, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x12, 0x1e, 0x2e,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73,
+	0x65, 0x72, 0x43, 0x61, 0x72, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73,
+	0x65, 0x72, 0x43, 0x61, 0x72, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x41,
+	0x0a, 0x0e, 0x43, 0x61, 0x72, 0x64, 0x73, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x69, 0x65, 0x73,
+	0x12, 0x0e, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79,
+	0x1a, 0x1f, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x73,
+	0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x69, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x4c, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x43,
+	0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x12, 0x21, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61,
+	0x6e, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x12,
+	0x50, 0x0a, 0x13, 0x46, 0x69, 0x6e, 0x64, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61,
+	0x6e, 0x79, 0x42, 0x79, 0x49, 0x44, 0x12, 0x23, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x46, 0x69, 0x6e, 0x64, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79,
+	0x42, 0x79, 0x49, 0x44, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x14, 0x2e, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e,
+	0x79, 0x12, 0x44, 0x0a, 0x18, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x43,
+	0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x42, 0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x12, 0x14, 0x2e,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70,
+	0x61, 0x6e, 0x79, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54,
+	0x54, 0x50, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x52, 0x0a, 0x15, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x42, 0x79, 0x49, 0x64,
+	0x12, 0x25, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x42, 0x79, 0x49, 0x64,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x3f, 0x0a, 0x11, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79,
+	0x12, 0x14, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x43,
+	0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x1a, 0x14, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x43, 0x61, 0x72, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x12, 0x37, 0x0a, 0x09,
+	0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x0e, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x1a, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x54, 0x0a, 0x0f, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x44,
+	0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x1f, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5a, 0x0a, 0x11, 0x46,
+	0x69, 0x6e, 0x64, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x57, 0x61, 0x72, 0x64, 0x73,
+	0x12, 0x21, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x44,
+	0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x57, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x22, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46, 0x69,
+	0x6e, 0x64, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x57, 0x61, 0x72, 0x64, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x56, 0x0a, 0x10, 0x46, 0x69, 0x6e, 0x64, 0x44,
+	0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x12, 0x20, 0x2e, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e,
 	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x44, 0x6f,
 	0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x5a, 0x0a, 0x11, 0x46, 0x69, 0x6e, 0x64, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x57,
-	0x61, 0x72, 0x64, 0x73, 0x12, 0x21, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46,
-	0x69, 0x6e, 0x64, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x57, 0x61, 0x72, 0x64, 0x73,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x22, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x57, 0x61,
-	0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x56, 0x0a, 0x10, 0x46,
-	0x69, 0x6e, 0x64, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x12,
-	0x20, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x44, 0x6f,
-	0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x20, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61,
-	0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x52, 0x0a, 0x15, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x44, 0x6f, 0x6e,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x12, 0x25, 0x2e, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x44, 0x6f, 0x6e,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54,
-	0x54, 0x50, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x4c, 0x0a, 0x12, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x12, 0x22, 0x2e,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x44, 0x6f,
-	0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50,
-	0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x53, 0x0a, 0x0e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x44,
-	0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1f, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a, 0x05, 0x57, 0x61,
-	0x72, 0x64, 0x73, 0x12, 0x0e, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x45, 0x6d,
-	0x70, 0x74, 0x79, 0x1a, 0x16, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x57, 0x61,
-	0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x0a, 0x43,
-	0x72, 0x65, 0x61, 0x74, 0x65, 0x57, 0x61, 0x72, 0x64, 0x12, 0x1a, 0x2e, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x57, 0x61, 0x72, 0x64, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
-	0x57, 0x61, 0x72, 0x64, 0x12, 0x3b, 0x0a, 0x0c, 0x46, 0x69, 0x6e, 0x64, 0x57, 0x61, 0x72, 0x64,
-	0x42, 0x79, 0x49, 0x64, 0x12, 0x1c, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46,
-	0x69, 0x6e, 0x64, 0x57, 0x61, 0x72, 0x64, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x57, 0x61, 0x72,
-	0x64, 0x12, 0x36, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x57, 0x61, 0x72, 0x64, 0x42,
-	0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x12, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x2e, 0x57, 0x61, 0x72, 0x64, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
-	0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x44, 0x0a, 0x0e, 0x44, 0x65, 0x6c,
-	0x65, 0x74, 0x65, 0x57, 0x61, 0x72, 0x64, 0x42, 0x79, 0x49, 0x64, 0x12, 0x1e, 0x2e, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x57, 0x61, 0x72, 0x64,
-	0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x12,
-	0x2a, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x57, 0x61, 0x72, 0x64, 0x12, 0x0d, 0x2e,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x57, 0x61, 0x72, 0x64, 0x1a, 0x0d, 0x2e, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x57, 0x61, 0x72, 0x64, 0x12, 0x4f, 0x0a, 0x0e, 0x43,
-	0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x1d, 0x2e,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x65,
-	0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1e, 0x2e, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x65, 0x73,
-	0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x35, 0x0a, 0x08,
-	0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x0e, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x19, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
-	0x63, 0x65, 0x2e, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x57, 0x0a, 0x10, 0x46, 0x69, 0x6e, 0x64, 0x53, 0x65, 0x73, 0x73, 0x69,
-	0x6f, 0x6e, 0x73, 0x42, 0x79, 0x49, 0x64, 0x12, 0x20, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x42, 0x79,
-	0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x21, 0x2e, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73,
-	0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x63, 0x0a, 0x14,
-	0x46, 0x69, 0x6e, 0x64, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x42, 0x79, 0x55, 0x73,
-	0x65, 0x72, 0x49, 0x64, 0x12, 0x24, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46,
-	0x69, 0x6e, 0x64, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x42, 0x79, 0x55, 0x73, 0x65,
-	0x72, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x25, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e,
-	0x73, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x69, 0x0a, 0x16, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x52, 0x65, 0x66, 0x72, 0x65,
-	0x73, 0x68, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x12, 0x26, 0x2e, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x52, 0x65, 0x66, 0x72,
-	0x65, 0x73, 0x68, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x68,
-	0x61, 0x6e, 0x67, 0x65, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x54, 0x6f, 0x6b, 0x65, 0x6e,
-	0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x75, 0x0a, 0x1a,
-	0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x54, 0x6f, 0x6b,
-	0x65, 0x6e, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x2a, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x52, 0x65, 0x66, 0x72, 0x65,
-	0x73, 0x68, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x2e, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x54, 0x6f,
-	0x6b, 0x65, 0x6e, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x50, 0x0a, 0x14, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x73,
-	0x73, 0x69, 0x6f, 0x6e, 0x42, 0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x12, 0x24, 0x2e, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73,
-	0x69, 0x6f, 0x6e, 0x42, 0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50,
-	0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x4a, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53,
-	0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x12, 0x21, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69,
+	0x52, 0x0a, 0x15, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x42, 0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x12, 0x25, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x42, 0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f,
+	0x64, 0x65, 0x73, 0x12, 0x4c, 0x0a, 0x12, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x44, 0x6f, 0x6e,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x12, 0x22, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69,
 	0x6f, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e,
 	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65,
-	0x73, 0x12, 0x52, 0x0a, 0x15, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69,
-	0x6f, 0x6e, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x25, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69,
-	0x6f, 0x6e, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50,
-	0x43, 0x6f, 0x64, 0x65, 0x73, 0x42, 0x2f, 0x5a, 0x2d, 0x63, 0x6f, 0x6c, 0x6c, 0x61, 0x70, 0x73,
-	0x65, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x2e, 0x76, 0x31, 0x3b, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x53, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x73, 0x12, 0x53, 0x0a, 0x0e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x12, 0x1f, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x44, 0x6f, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a, 0x05, 0x57, 0x61, 0x72, 0x64, 0x73, 0x12,
+	0x0e, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a,
+	0x16, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x57, 0x61, 0x72, 0x64, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x57, 0x61, 0x72, 0x64, 0x12, 0x1a, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x57, 0x61, 0x72, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x57, 0x61, 0x72, 0x64,
+	0x12, 0x3b, 0x0a, 0x0c, 0x46, 0x69, 0x6e, 0x64, 0x57, 0x61, 0x72, 0x64, 0x42, 0x79, 0x49, 0x64,
+	0x12, 0x1c, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x57,
+	0x61, 0x72, 0x64, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0d,
+	0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x57, 0x61, 0x72, 0x64, 0x12, 0x36, 0x0a,
+	0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x57, 0x61, 0x72, 0x64, 0x42, 0x79, 0x4d, 0x6f, 0x64,
+	0x65, 0x6c, 0x12, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x57, 0x61, 0x72,
+	0x64, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50,
+	0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x44, 0x0a, 0x0e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x57,
+	0x61, 0x72, 0x64, 0x42, 0x79, 0x49, 0x64, 0x12, 0x1e, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x57, 0x61, 0x72, 0x64, 0x42, 0x79, 0x49, 0x64,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x2a, 0x0a, 0x0a, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x57, 0x61, 0x72, 0x64, 0x12, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x57, 0x61, 0x72, 0x64, 0x1a, 0x0d, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x2e, 0x57, 0x61, 0x72, 0x64, 0x12, 0x4f, 0x0a, 0x0e, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x1d, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f,
+	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1e, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x35, 0x0a, 0x08, 0x53, 0x65, 0x73, 0x73,
+	0x69, 0x6f, 0x6e, 0x73, 0x12, 0x0e, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x45,
+	0x6d, 0x70, 0x74, 0x79, 0x1a, 0x19, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x53,
+	0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x57, 0x0a, 0x10, 0x46, 0x69, 0x6e, 0x64, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x42,
+	0x79, 0x49, 0x64, 0x12, 0x20, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46, 0x69,
+	0x6e, 0x64, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x21, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x46, 0x69, 0x6e, 0x64, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x42, 0x79, 0x49, 0x64,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x63, 0x0a, 0x14, 0x46, 0x69, 0x6e, 0x64,
+	0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64,
+	0x12, 0x24, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x53,
+	0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x25, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x46, 0x69, 0x6e, 0x64, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x42, 0x79, 0x55,
+	0x73, 0x65, 0x72, 0x49, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x69, 0x0a,
+	0x16, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x54, 0x6f,
+	0x6b, 0x65, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x12, 0x26, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x2e, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x54,
+	0x6f, 0x6b, 0x65, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x27, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65,
+	0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x42, 0x79, 0x49, 0x64,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x75, 0x0a, 0x1a, 0x43, 0x68, 0x61, 0x6e,
+	0x67, 0x65, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x42, 0x79,
+	0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x2a, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x54, 0x6f,
+	0x6b, 0x65, 0x6e, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x43, 0x68, 0x61,
+	0x6e, 0x67, 0x65, 0x52, 0x65, 0x66, 0x72, 0x65, 0x73, 0x68, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x42,
+	0x79, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x50, 0x0a, 0x14, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x42, 0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x12, 0x24, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x42,
+	0x79, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65,
+	0x73, 0x12, 0x4a, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69,
+	0x6f, 0x6e, 0x42, 0x79, 0x49, 0x64, 0x12, 0x21, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x42, 0x79,
+	0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x52, 0x0a,
+	0x15, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x42, 0x79,
+	0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x25, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x42, 0x79,
+	0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x48, 0x54, 0x54, 0x50, 0x43, 0x6f, 0x64, 0x65,
+	0x73, 0x42, 0x2f, 0x5a, 0x2d, 0x63, 0x6f, 0x6c, 0x6c, 0x61, 0x70, 0x73, 0x65, 0x2e, 0x44, 0x61,
+	0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x76, 0x31,
+	0x3b, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -5578,238 +6085,247 @@ func file_DatabaseService_DatabaseService_proto_rawDescGZIP() []byte {
 	return file_DatabaseService_DatabaseService_proto_rawDescData
 }
 
-var file_DatabaseService_DatabaseService_proto_msgTypes = make([]protoimpl.MessageInfo, 74)
+var file_DatabaseService_DatabaseService_proto_msgTypes = make([]protoimpl.MessageInfo, 79)
 var file_DatabaseService_DatabaseService_proto_goTypes = []any{
 	(*Empty)(nil),                              // 0: service.Empty
-	(*DeleteSessionByUserIdRequest)(nil),       // 1: service.DeleteSessionByUserIdRequest
-	(*DeleteSessionByIdRequest)(nil),           // 2: service.DeleteSessionByIdRequest
-	(*DeleteSessionByModelRequest)(nil),        // 3: service.DeleteSessionByModelRequest
-	(*ChangeRefreshTokenByUserIdRequest)(nil),  // 4: service.ChangeRefreshTokenByUserIdRequest
-	(*ChangeRefreshTokenByUserIdResponse)(nil), // 5: service.ChangeRefreshTokenByUserIdResponse
-	(*ChangeRefreshTokenByIdRequest)(nil),      // 6: service.ChangeRefreshTokenByIdRequest
-	(*ChangeRefreshTokenByIdResponse)(nil),     // 7: service.ChangeRefreshTokenByIdResponse
-	(*FindSessionsByUserIdRequest)(nil),        // 8: service.FindSessionsByUserIdRequest
-	(*FindSessionsByUserIdResponse)(nil),       // 9: service.FindSessionsByUserIdResponse
-	(*FindSessionsByIdRequest)(nil),            // 10: service.FindSessionsByIdRequest
-	(*FindSessionsByIdResponse)(nil),           // 11: service.FindSessionsByIdResponse
-	(*SessionsResponse)(nil),                   // 12: service.SessionsResponse
-	(*CreateSessionRequest)(nil),               // 13: service.CreateSessionRequest
-	(*CreateSessionResponse)(nil),              // 14: service.CreateSessionResponse
-	(*FindUserCompanyRequest)(nil),             // 15: service.FindUserCompanyRequest
-	(*HTTPCodes)(nil),                          // 16: service.HTTPCodes
-	(*AddCardToUserRequest)(nil),               // 17: service.AddCardToUserRequest
-	(*UpdateDonationsRequest)(nil),             // 18: service.UpdateDonationsRequest
-	(*DeleteDonationByModelRequest)(nil),       // 19: service.DeleteDonationByModelRequest
-	(*AddCardToUserResponse)(nil),              // 20: service.AddCardToUserResponse
-	(*CreateDonationsResponse)(nil),            // 21: service.CreateDonationsResponse
-	(*DeleteWardByIdRequest)(nil),              // 22: service.DeleteWardByIdRequest
-	(*FindWardByIdRequest)(nil),                // 23: service.FindWardByIdRequest
-	(*CreateWardRequest)(nil),                  // 24: service.CreateWardRequest
-	(*WardsResponse)(nil),                      // 25: service.WardsResponse
-	(*DeleteDonationByIdRequest)(nil),          // 26: service.DeleteDonationByIdRequest
-	(*FindDonationByIdRequest)(nil),            // 27: service.FindDonationByIdRequest
-	(*FindDonationWardsResponse)(nil),          // 28: service.FindDonationWardsResponse
-	(*FindDonationWardsRequest)(nil),           // 29: service.FindDonationWardsRequest
-	(*CreateDonationsRequest)(nil),             // 30: service.CreateDonationsRequest
-	(*DonationsResponse)(nil),                  // 31: service.DonationsResponse
-	(*DeleteCardCompanyByIdRequest)(nil),       // 32: service.DeleteCardCompanyByIdRequest
-	(*FindCardCompanyByIDRequest)(nil),         // 33: service.FindCardCompanyByIDRequest
-	(*CreateCardCompanyRequest)(nil),           // 34: service.CreateCardCompanyRequest
-	(*CardsCompaniesResponse)(nil),             // 35: service.CardsCompaniesResponse
-	(*DeleteCardByIdRequest)(nil),              // 36: service.DeleteCardByIdRequest
-	(*FindCardByIdRequest)(nil),                // 37: service.FindCardByIdRequest
-	(*CreateCardRequest)(nil),                  // 38: service.CreateCardRequest
-	(*CardsResponse)(nil),                      // 39: service.CardsResponse
-	(*UpdateCompanyRequest)(nil),               // 40: service.UpdateCompanyRequest
-	(*DeleteCompanyByModelRequest)(nil),        // 41: service.DeleteCompanyByModelRequest
-	(*DeleteCompanyByIdRequest)(nil),           // 42: service.DeleteCompanyByIdRequest
-	(*FindCompanyCardRequest)(nil),             // 43: service.FindCompanyCardRequest
-	(*FindCompanyByIdRequest)(nil),             // 44: service.FindCompanyByIdRequest
-	(*FindCompanyByIdPhoneRequest)(nil),        // 45: service.FindCompanyByIdPhoneRequest
-	(*CreateCompanyRequest)(nil),               // 46: service.CreateCompanyRequest
-	(*CompaniesResponse)(nil),                  // 47: service.CompaniesResponse
-	(*UpdateUserRequest)(nil),                  // 48: service.UpdateUserRequest
-	(*DeleteUserByModelRequest)(nil),           // 49: service.DeleteUserByModelRequest
-	(*DeleteUserByIdRequest)(nil),              // 50: service.DeleteUserByIdRequest
-	(*FindUserCardRequest)(nil),                // 51: service.FindUserCardRequest
-	(*FindUserCardResponse)(nil),               // 52: service.FindUserCardResponse
-	(*ChangeUserTypeRequest)(nil),              // 53: service.ChangeUserTypeRequest
-	(*ChangeUserTypeResponse)(nil),             // 54: service.ChangeUserTypeResponse
-	(*FindUserByPhoneRequest)(nil),             // 55: service.FindUserByPhoneRequest
-	(*FindUserByIdRequest)(nil),                // 56: service.FindUserByIdRequest
-	(*FindUserDonationsRequest)(nil),           // 57: service.FindUserDonationsRequest
-	(*FindUserDonationsResponse)(nil),          // 58: service.FindUserDonationsResponse
-	(*FindUserByEmailRequest)(nil),             // 59: service.FindUserByEmailRequest
-	(*UsersResponse)(nil),                      // 60: service.UsersResponse
-	(*UserIsExistsRequest)(nil),                // 61: service.UserIsExistsRequest
-	(*UserIsExistsResponse)(nil),               // 62: service.UserIsExistsResponse
-	(*ComparePasswordRequest)(nil),             // 63: service.ComparePasswordRequest
-	(*ComparePasswordResponse)(nil),            // 64: service.ComparePasswordResponse
-	(*Company)(nil),                            // 65: service.Company
-	(*CardCompany)(nil),                        // 66: service.CardCompany
-	(*Card)(nil),                               // 67: service.Card
-	(*Ward)(nil),                               // 68: service.Ward
-	(*Donations)(nil),                          // 69: service.Donations
-	(*CreateUserRequest)(nil),                  // 70: service.CreateUserRequest
-	(*CreateUserResponse)(nil),                 // 71: service.CreateUserResponse
-	(*IsRoleRequest)(nil),                      // 72: service.IsRoleRequest
-	(*IsRoleResponse)(nil),                     // 73: service.IsRoleResponse
+	(*UpdateUserCardRequest)(nil),              // 1: service.UpdateUserCardRequest
+	(*UpdateUserCardRequest1)(nil),             // 2: service.UpdateUserCardRequest1
+	(*UpdateUserCardResponse)(nil),             // 3: service.UpdateUserCardResponse
+	(*AddCardToCompanyResponse)(nil),           // 4: service.AddCardToCompanyResponse
+	(*AddCardToCompanyRequest)(nil),            // 5: service.AddCardToCompanyRequest
+	(*DeleteSessionByUserIdRequest)(nil),       // 6: service.DeleteSessionByUserIdRequest
+	(*DeleteSessionByIdRequest)(nil),           // 7: service.DeleteSessionByIdRequest
+	(*DeleteSessionByModelRequest)(nil),        // 8: service.DeleteSessionByModelRequest
+	(*ChangeRefreshTokenByUserIdRequest)(nil),  // 9: service.ChangeRefreshTokenByUserIdRequest
+	(*ChangeRefreshTokenByUserIdResponse)(nil), // 10: service.ChangeRefreshTokenByUserIdResponse
+	(*ChangeRefreshTokenByIdRequest)(nil),      // 11: service.ChangeRefreshTokenByIdRequest
+	(*ChangeRefreshTokenByIdResponse)(nil),     // 12: service.ChangeRefreshTokenByIdResponse
+	(*FindSessionsByUserIdRequest)(nil),        // 13: service.FindSessionsByUserIdRequest
+	(*FindSessionsByUserIdResponse)(nil),       // 14: service.FindSessionsByUserIdResponse
+	(*FindSessionsByIdRequest)(nil),            // 15: service.FindSessionsByIdRequest
+	(*FindSessionsByIdResponse)(nil),           // 16: service.FindSessionsByIdResponse
+	(*SessionsResponse)(nil),                   // 17: service.SessionsResponse
+	(*CreateSessionRequest)(nil),               // 18: service.CreateSessionRequest
+	(*CreateSessionResponse)(nil),              // 19: service.CreateSessionResponse
+	(*FindUserCompanyRequest)(nil),             // 20: service.FindUserCompanyRequest
+	(*HTTPCodes)(nil),                          // 21: service.HTTPCodes
+	(*AddCardToUserRequest)(nil),               // 22: service.AddCardToUserRequest
+	(*UpdateDonationsRequest)(nil),             // 23: service.UpdateDonationsRequest
+	(*DeleteDonationByModelRequest)(nil),       // 24: service.DeleteDonationByModelRequest
+	(*AddCardToUserResponse)(nil),              // 25: service.AddCardToUserResponse
+	(*CreateDonationsResponse)(nil),            // 26: service.CreateDonationsResponse
+	(*DeleteWardByIdRequest)(nil),              // 27: service.DeleteWardByIdRequest
+	(*FindWardByIdRequest)(nil),                // 28: service.FindWardByIdRequest
+	(*CreateWardRequest)(nil),                  // 29: service.CreateWardRequest
+	(*WardsResponse)(nil),                      // 30: service.WardsResponse
+	(*DeleteDonationByIdRequest)(nil),          // 31: service.DeleteDonationByIdRequest
+	(*FindDonationByIdRequest)(nil),            // 32: service.FindDonationByIdRequest
+	(*FindDonationWardsResponse)(nil),          // 33: service.FindDonationWardsResponse
+	(*FindDonationWardsRequest)(nil),           // 34: service.FindDonationWardsRequest
+	(*CreateDonationsRequest)(nil),             // 35: service.CreateDonationsRequest
+	(*DonationsResponse)(nil),                  // 36: service.DonationsResponse
+	(*DeleteCardCompanyByIdRequest)(nil),       // 37: service.DeleteCardCompanyByIdRequest
+	(*FindCardCompanyByIDRequest)(nil),         // 38: service.FindCardCompanyByIDRequest
+	(*CreateCardCompanyRequest)(nil),           // 39: service.CreateCardCompanyRequest
+	(*CardsCompaniesResponse)(nil),             // 40: service.CardsCompaniesResponse
+	(*DeleteCardByIdRequest)(nil),              // 41: service.DeleteCardByIdRequest
+	(*FindCardByIdRequest)(nil),                // 42: service.FindCardByIdRequest
+	(*CreateCardRequest)(nil),                  // 43: service.CreateCardRequest
+	(*CardsResponse)(nil),                      // 44: service.CardsResponse
+	(*UpdateCompanyRequest)(nil),               // 45: service.UpdateCompanyRequest
+	(*DeleteCompanyByModelRequest)(nil),        // 46: service.DeleteCompanyByModelRequest
+	(*DeleteCompanyByIdRequest)(nil),           // 47: service.DeleteCompanyByIdRequest
+	(*FindCompanyCardRequest)(nil),             // 48: service.FindCompanyCardRequest
+	(*FindCompanyByIdRequest)(nil),             // 49: service.FindCompanyByIdRequest
+	(*FindCompanyByIdPhoneRequest)(nil),        // 50: service.FindCompanyByIdPhoneRequest
+	(*CreateCompanyRequest)(nil),               // 51: service.CreateCompanyRequest
+	(*CompaniesResponse)(nil),                  // 52: service.CompaniesResponse
+	(*UpdateUserRequest)(nil),                  // 53: service.UpdateUserRequest
+	(*DeleteUserByModelRequest)(nil),           // 54: service.DeleteUserByModelRequest
+	(*DeleteUserByIdRequest)(nil),              // 55: service.DeleteUserByIdRequest
+	(*FindUserCardRequest)(nil),                // 56: service.FindUserCardRequest
+	(*FindUserCardResponse)(nil),               // 57: service.FindUserCardResponse
+	(*ChangeUserTypeRequest)(nil),              // 58: service.ChangeUserTypeRequest
+	(*ChangeUserTypeResponse)(nil),             // 59: service.ChangeUserTypeResponse
+	(*FindUserByPhoneRequest)(nil),             // 60: service.FindUserByPhoneRequest
+	(*FindUserByIdRequest)(nil),                // 61: service.FindUserByIdRequest
+	(*FindUserDonationsRequest)(nil),           // 62: service.FindUserDonationsRequest
+	(*FindUserDonationsResponse)(nil),          // 63: service.FindUserDonationsResponse
+	(*FindUserByEmailRequest)(nil),             // 64: service.FindUserByEmailRequest
+	(*UsersResponse)(nil),                      // 65: service.UsersResponse
+	(*UserIsExistsRequest)(nil),                // 66: service.UserIsExistsRequest
+	(*UserIsExistsResponse)(nil),               // 67: service.UserIsExistsResponse
+	(*ComparePasswordRequest)(nil),             // 68: service.ComparePasswordRequest
+	(*ComparePasswordResponse)(nil),            // 69: service.ComparePasswordResponse
+	(*Company)(nil),                            // 70: service.Company
+	(*CardCompany)(nil),                        // 71: service.CardCompany
+	(*Card)(nil),                               // 72: service.Card
+	(*Ward)(nil),                               // 73: service.Ward
+	(*Donations)(nil),                          // 74: service.Donations
+	(*CreateUserRequest)(nil),                  // 75: service.CreateUserRequest
+	(*CreateUserResponse)(nil),                 // 76: service.CreateUserResponse
+	(*IsRoleRequest)(nil),                      // 77: service.IsRoleRequest
+	(*IsRoleResponse)(nil),                     // 78: service.IsRoleResponse
 }
 var file_DatabaseService_DatabaseService_proto_depIdxs = []int32{
-	14, // 0: service.SessionsResponse.sessions:type_name -> service.CreateSessionResponse
-	38, // 1: service.AddCardToUserRequest.card:type_name -> service.CreateCardRequest
-	68, // 2: service.UpdateDonationsRequest.wards:type_name -> service.Ward
-	68, // 3: service.DeleteDonationByModelRequest.wards:type_name -> service.Ward
-	67, // 4: service.AddCardToUserResponse.card:type_name -> service.Card
-	65, // 5: service.AddCardToUserResponse.company:type_name -> service.Company
-	69, // 6: service.AddCardToUserResponse.donations:type_name -> service.Donations
-	68, // 7: service.CreateDonationsResponse.wards:type_name -> service.Ward
-	68, // 8: service.WardsResponse.wards:type_name -> service.Ward
-	68, // 9: service.FindDonationWardsResponse.wards:type_name -> service.Ward
-	68, // 10: service.CreateDonationsRequest.wards:type_name -> service.Ward
-	69, // 11: service.DonationsResponse.donations:type_name -> service.Donations
-	66, // 12: service.CardsCompaniesResponse.cards:type_name -> service.CardCompany
-	67, // 13: service.CardsResponse.cards:type_name -> service.Card
-	65, // 14: service.UpdateCompanyRequest.company:type_name -> service.Company
-	65, // 15: service.DeleteCompanyByModelRequest.company:type_name -> service.Company
-	66, // 16: service.CreateCompanyRequest.card:type_name -> service.CardCompany
-	65, // 17: service.CompaniesResponse.companies:type_name -> service.Company
-	67, // 18: service.UpdateUserRequest.card:type_name -> service.Card
-	65, // 19: service.UpdateUserRequest.company:type_name -> service.Company
-	69, // 20: service.UpdateUserRequest.donations:type_name -> service.Donations
-	71, // 21: service.DeleteUserByModelRequest.user:type_name -> service.CreateUserResponse
-	67, // 22: service.FindUserCardResponse.cards:type_name -> service.Card
-	69, // 23: service.FindUserDonationsResponse.donations:type_name -> service.Donations
-	71, // 24: service.UsersResponse.users:type_name -> service.CreateUserResponse
-	66, // 25: service.Company.card:type_name -> service.CardCompany
-	68, // 26: service.Donations.ward:type_name -> service.Ward
-	38, // 27: service.CreateUserRequest.card:type_name -> service.CreateCardRequest
-	46, // 28: service.CreateUserRequest.company:type_name -> service.CreateCompanyRequest
-	30, // 29: service.CreateUserRequest.donations:type_name -> service.CreateDonationsRequest
-	67, // 30: service.CreateUserResponse.card:type_name -> service.Card
-	65, // 31: service.CreateUserResponse.company:type_name -> service.Company
-	69, // 32: service.CreateUserResponse.donations:type_name -> service.Donations
-	70, // 33: service.DatabaseService.CreateUser:input_type -> service.CreateUserRequest
-	0,  // 34: service.DatabaseService.Users:input_type -> service.Empty
-	72, // 35: service.DatabaseService.IsRole:input_type -> service.IsRoleRequest
-	63, // 36: service.DatabaseService.ComparePassword:input_type -> service.ComparePasswordRequest
-	61, // 37: service.DatabaseService.UserIsExists:input_type -> service.UserIsExistsRequest
-	56, // 38: service.DatabaseService.FindUserById:input_type -> service.FindUserByIdRequest
-	59, // 39: service.DatabaseService.FindUserByEmail:input_type -> service.FindUserByEmailRequest
-	55, // 40: service.DatabaseService.FindUserByPhone:input_type -> service.FindUserByPhoneRequest
-	53, // 41: service.DatabaseService.ChangeUserType:input_type -> service.ChangeUserTypeRequest
-	15, // 42: service.DatabaseService.FindUserCompany:input_type -> service.FindUserCompanyRequest
-	57, // 43: service.DatabaseService.FindUserDonations:input_type -> service.FindUserDonationsRequest
-	51, // 44: service.DatabaseService.FindUserCard:input_type -> service.FindUserCardRequest
-	17, // 45: service.DatabaseService.AddCardToUser:input_type -> service.AddCardToUserRequest
-	49, // 46: service.DatabaseService.DeleteUserByModel:input_type -> service.DeleteUserByModelRequest
-	50, // 47: service.DatabaseService.DeleteUserById:input_type -> service.DeleteUserByIdRequest
-	48, // 48: service.DatabaseService.UpdateUser:input_type -> service.UpdateUserRequest
-	0,  // 49: service.DatabaseService.Companies:input_type -> service.Empty
-	46, // 50: service.DatabaseService.CreateCompany:input_type -> service.CreateCompanyRequest
-	44, // 51: service.DatabaseService.FindCompanyById:input_type -> service.FindCompanyByIdRequest
-	45, // 52: service.DatabaseService.FindCompanyByPhone:input_type -> service.FindCompanyByIdPhoneRequest
-	43, // 53: service.DatabaseService.FindCompanyCard:input_type -> service.FindCompanyCardRequest
-	41, // 54: service.DatabaseService.DeleteCompanyByModel:input_type -> service.DeleteCompanyByModelRequest
-	42, // 55: service.DatabaseService.DeleteCompanyById:input_type -> service.DeleteCompanyByIdRequest
-	40, // 56: service.DatabaseService.UpdateCompany:input_type -> service.UpdateCompanyRequest
-	0,  // 57: service.DatabaseService.Cards:input_type -> service.Empty
-	38, // 58: service.DatabaseService.CreateCard:input_type -> service.CreateCardRequest
-	37, // 59: service.DatabaseService.FindCardById:input_type -> service.FindCardByIdRequest
-	67, // 60: service.DatabaseService.DeleteCardByModel:input_type -> service.Card
-	36, // 61: service.DatabaseService.DeleteCardById:input_type -> service.DeleteCardByIdRequest
-	67, // 62: service.DatabaseService.UpdateCard:input_type -> service.Card
-	0,  // 63: service.DatabaseService.CardsCompanies:input_type -> service.Empty
-	34, // 64: service.DatabaseService.CreateCardCompany:input_type -> service.CreateCardCompanyRequest
-	33, // 65: service.DatabaseService.FindCardCompanyByID:input_type -> service.FindCardCompanyByIDRequest
-	66, // 66: service.DatabaseService.DeleteCardCompanyByModel:input_type -> service.CardCompany
-	32, // 67: service.DatabaseService.DeleteCardCompanyById:input_type -> service.DeleteCardCompanyByIdRequest
-	66, // 68: service.DatabaseService.UpdateCardCompany:input_type -> service.CardCompany
-	0,  // 69: service.DatabaseService.Donations:input_type -> service.Empty
-	30, // 70: service.DatabaseService.CreateDonations:input_type -> service.CreateDonationsRequest
-	29, // 71: service.DatabaseService.FindDonationWards:input_type -> service.FindDonationWardsRequest
-	27, // 72: service.DatabaseService.FindDonationById:input_type -> service.FindDonationByIdRequest
-	19, // 73: service.DatabaseService.DeleteDonationByModel:input_type -> service.DeleteDonationByModelRequest
-	26, // 74: service.DatabaseService.DeleteDonationById:input_type -> service.DeleteDonationByIdRequest
-	18, // 75: service.DatabaseService.UpdateDonation:input_type -> service.UpdateDonationsRequest
-	0,  // 76: service.DatabaseService.Wards:input_type -> service.Empty
-	24, // 77: service.DatabaseService.CreateWard:input_type -> service.CreateWardRequest
-	23, // 78: service.DatabaseService.FindWardById:input_type -> service.FindWardByIdRequest
-	68, // 79: service.DatabaseService.DeleteWardByModel:input_type -> service.Ward
-	22, // 80: service.DatabaseService.DeleteWardById:input_type -> service.DeleteWardByIdRequest
-	68, // 81: service.DatabaseService.UpdateWard:input_type -> service.Ward
-	13, // 82: service.DatabaseService.CreateSessions:input_type -> service.CreateSessionRequest
-	0,  // 83: service.DatabaseService.Sessions:input_type -> service.Empty
-	10, // 84: service.DatabaseService.FindSessionsById:input_type -> service.FindSessionsByIdRequest
-	8,  // 85: service.DatabaseService.FindSessionsByUserId:input_type -> service.FindSessionsByUserIdRequest
-	6,  // 86: service.DatabaseService.ChangeRefreshTokenById:input_type -> service.ChangeRefreshTokenByIdRequest
-	4,  // 87: service.DatabaseService.ChangeRefreshTokenByUserId:input_type -> service.ChangeRefreshTokenByUserIdRequest
-	3,  // 88: service.DatabaseService.DeleteSessionByModel:input_type -> service.DeleteSessionByModelRequest
-	2,  // 89: service.DatabaseService.DeleteSessionById:input_type -> service.DeleteSessionByIdRequest
-	1,  // 90: service.DatabaseService.DeleteSessionByUserId:input_type -> service.DeleteSessionByUserIdRequest
-	71, // 91: service.DatabaseService.CreateUser:output_type -> service.CreateUserResponse
-	60, // 92: service.DatabaseService.Users:output_type -> service.UsersResponse
-	73, // 93: service.DatabaseService.IsRole:output_type -> service.IsRoleResponse
-	64, // 94: service.DatabaseService.ComparePassword:output_type -> service.ComparePasswordResponse
-	62, // 95: service.DatabaseService.UserIsExists:output_type -> service.UserIsExistsResponse
-	71, // 96: service.DatabaseService.FindUserById:output_type -> service.CreateUserResponse
-	71, // 97: service.DatabaseService.FindUserByEmail:output_type -> service.CreateUserResponse
-	71, // 98: service.DatabaseService.FindUserByPhone:output_type -> service.CreateUserResponse
-	54, // 99: service.DatabaseService.ChangeUserType:output_type -> service.ChangeUserTypeResponse
-	65, // 100: service.DatabaseService.FindUserCompany:output_type -> service.Company
-	58, // 101: service.DatabaseService.FindUserDonations:output_type -> service.FindUserDonationsResponse
-	52, // 102: service.DatabaseService.FindUserCard:output_type -> service.FindUserCardResponse
-	20, // 103: service.DatabaseService.AddCardToUser:output_type -> service.AddCardToUserResponse
-	16, // 104: service.DatabaseService.DeleteUserByModel:output_type -> service.HTTPCodes
-	16, // 105: service.DatabaseService.DeleteUserById:output_type -> service.HTTPCodes
-	71, // 106: service.DatabaseService.UpdateUser:output_type -> service.CreateUserResponse
-	47, // 107: service.DatabaseService.Companies:output_type -> service.CompaniesResponse
-	65, // 108: service.DatabaseService.CreateCompany:output_type -> service.Company
-	65, // 109: service.DatabaseService.FindCompanyById:output_type -> service.Company
-	65, // 110: service.DatabaseService.FindCompanyByPhone:output_type -> service.Company
-	66, // 111: service.DatabaseService.FindCompanyCard:output_type -> service.CardCompany
-	16, // 112: service.DatabaseService.DeleteCompanyByModel:output_type -> service.HTTPCodes
-	16, // 113: service.DatabaseService.DeleteCompanyById:output_type -> service.HTTPCodes
-	16, // 114: service.DatabaseService.UpdateCompany:output_type -> service.HTTPCodes
-	39, // 115: service.DatabaseService.Cards:output_type -> service.CardsResponse
-	67, // 116: service.DatabaseService.CreateCard:output_type -> service.Card
-	67, // 117: service.DatabaseService.FindCardById:output_type -> service.Card
-	16, // 118: service.DatabaseService.DeleteCardByModel:output_type -> service.HTTPCodes
-	16, // 119: service.DatabaseService.DeleteCardById:output_type -> service.HTTPCodes
-	67, // 120: service.DatabaseService.UpdateCard:output_type -> service.Card
-	35, // 121: service.DatabaseService.CardsCompanies:output_type -> service.CardsCompaniesResponse
-	66, // 122: service.DatabaseService.CreateCardCompany:output_type -> service.CardCompany
-	66, // 123: service.DatabaseService.FindCardCompanyByID:output_type -> service.CardCompany
-	16, // 124: service.DatabaseService.DeleteCardCompanyByModel:output_type -> service.HTTPCodes
-	16, // 125: service.DatabaseService.DeleteCardCompanyById:output_type -> service.HTTPCodes
-	66, // 126: service.DatabaseService.UpdateCardCompany:output_type -> service.CardCompany
-	31, // 127: service.DatabaseService.Donations:output_type -> service.DonationsResponse
-	21, // 128: service.DatabaseService.CreateDonations:output_type -> service.CreateDonationsResponse
-	28, // 129: service.DatabaseService.FindDonationWards:output_type -> service.FindDonationWardsResponse
-	21, // 130: service.DatabaseService.FindDonationById:output_type -> service.CreateDonationsResponse
-	16, // 131: service.DatabaseService.DeleteDonationByModel:output_type -> service.HTTPCodes
-	16, // 132: service.DatabaseService.DeleteDonationById:output_type -> service.HTTPCodes
-	21, // 133: service.DatabaseService.UpdateDonation:output_type -> service.CreateDonationsResponse
-	25, // 134: service.DatabaseService.Wards:output_type -> service.WardsResponse
-	68, // 135: service.DatabaseService.CreateWard:output_type -> service.Ward
-	68, // 136: service.DatabaseService.FindWardById:output_type -> service.Ward
-	16, // 137: service.DatabaseService.DeleteWardByModel:output_type -> service.HTTPCodes
-	16, // 138: service.DatabaseService.DeleteWardById:output_type -> service.HTTPCodes
-	68, // 139: service.DatabaseService.UpdateWard:output_type -> service.Ward
-	14, // 140: service.DatabaseService.CreateSessions:output_type -> service.CreateSessionResponse
-	12, // 141: service.DatabaseService.Sessions:output_type -> service.SessionsResponse
-	11, // 142: service.DatabaseService.FindSessionsById:output_type -> service.FindSessionsByIdResponse
-	9,  // 143: service.DatabaseService.FindSessionsByUserId:output_type -> service.FindSessionsByUserIdResponse
-	7,  // 144: service.DatabaseService.ChangeRefreshTokenById:output_type -> service.ChangeRefreshTokenByIdResponse
-	5,  // 145: service.DatabaseService.ChangeRefreshTokenByUserId:output_type -> service.ChangeRefreshTokenByUserIdResponse
-	16, // 146: service.DatabaseService.DeleteSessionByModel:output_type -> service.HTTPCodes
-	16, // 147: service.DatabaseService.DeleteSessionById:output_type -> service.HTTPCodes
-	16, // 148: service.DatabaseService.DeleteSessionByUserId:output_type -> service.HTTPCodes
-	91, // [91:149] is the sub-list for method output_type
-	33, // [33:91] is the sub-list for method input_type
-	33, // [33:33] is the sub-list for extension type_name
-	33, // [33:33] is the sub-list for extension extendee
-	0,  // [0:33] is the sub-list for field type_name
+	71, // 0: service.AddCardToCompanyResponse.card:type_name -> service.CardCompany
+	39, // 1: service.AddCardToCompanyRequest.card:type_name -> service.CreateCardCompanyRequest
+	19, // 2: service.SessionsResponse.sessions:type_name -> service.CreateSessionResponse
+	43, // 3: service.AddCardToUserRequest.card:type_name -> service.CreateCardRequest
+	73, // 4: service.UpdateDonationsRequest.wards:type_name -> service.Ward
+	73, // 5: service.DeleteDonationByModelRequest.wards:type_name -> service.Ward
+	72, // 6: service.AddCardToUserResponse.card:type_name -> service.Card
+	70, // 7: service.AddCardToUserResponse.company:type_name -> service.Company
+	74, // 8: service.AddCardToUserResponse.donations:type_name -> service.Donations
+	73, // 9: service.CreateDonationsResponse.wards:type_name -> service.Ward
+	73, // 10: service.WardsResponse.wards:type_name -> service.Ward
+	73, // 11: service.FindDonationWardsResponse.wards:type_name -> service.Ward
+	73, // 12: service.CreateDonationsRequest.wards:type_name -> service.Ward
+	74, // 13: service.DonationsResponse.donations:type_name -> service.Donations
+	71, // 14: service.CardsCompaniesResponse.cards:type_name -> service.CardCompany
+	72, // 15: service.CardsResponse.cards:type_name -> service.Card
+	70, // 16: service.UpdateCompanyRequest.company:type_name -> service.Company
+	70, // 17: service.DeleteCompanyByModelRequest.company:type_name -> service.Company
+	71, // 18: service.CreateCompanyRequest.card:type_name -> service.CardCompany
+	70, // 19: service.CompaniesResponse.companies:type_name -> service.Company
+	72, // 20: service.UpdateUserRequest.card:type_name -> service.Card
+	70, // 21: service.UpdateUserRequest.company:type_name -> service.Company
+	74, // 22: service.UpdateUserRequest.donations:type_name -> service.Donations
+	76, // 23: service.DeleteUserByModelRequest.user:type_name -> service.CreateUserResponse
+	72, // 24: service.FindUserCardResponse.cards:type_name -> service.Card
+	74, // 25: service.FindUserDonationsResponse.donations:type_name -> service.Donations
+	76, // 26: service.UsersResponse.users:type_name -> service.CreateUserResponse
+	71, // 27: service.Company.card:type_name -> service.CardCompany
+	73, // 28: service.Donations.ward:type_name -> service.Ward
+	43, // 29: service.CreateUserRequest.card:type_name -> service.CreateCardRequest
+	51, // 30: service.CreateUserRequest.company:type_name -> service.CreateCompanyRequest
+	35, // 31: service.CreateUserRequest.donations:type_name -> service.CreateDonationsRequest
+	72, // 32: service.CreateUserResponse.card:type_name -> service.Card
+	70, // 33: service.CreateUserResponse.company:type_name -> service.Company
+	74, // 34: service.CreateUserResponse.donations:type_name -> service.Donations
+	75, // 35: service.DatabaseService.CreateUser:input_type -> service.CreateUserRequest
+	0,  // 36: service.DatabaseService.Users:input_type -> service.Empty
+	77, // 37: service.DatabaseService.IsRole:input_type -> service.IsRoleRequest
+	68, // 38: service.DatabaseService.ComparePassword:input_type -> service.ComparePasswordRequest
+	66, // 39: service.DatabaseService.UserIsExists:input_type -> service.UserIsExistsRequest
+	61, // 40: service.DatabaseService.FindUserById:input_type -> service.FindUserByIdRequest
+	64, // 41: service.DatabaseService.FindUserByEmail:input_type -> service.FindUserByEmailRequest
+	60, // 42: service.DatabaseService.FindUserByPhone:input_type -> service.FindUserByPhoneRequest
+	58, // 43: service.DatabaseService.ChangeUserType:input_type -> service.ChangeUserTypeRequest
+	20, // 44: service.DatabaseService.FindUserCompany:input_type -> service.FindUserCompanyRequest
+	62, // 45: service.DatabaseService.FindUserDonations:input_type -> service.FindUserDonationsRequest
+	56, // 46: service.DatabaseService.FindUserCard:input_type -> service.FindUserCardRequest
+	22, // 47: service.DatabaseService.AddCardToUser:input_type -> service.AddCardToUserRequest
+	54, // 48: service.DatabaseService.DeleteUserByModel:input_type -> service.DeleteUserByModelRequest
+	55, // 49: service.DatabaseService.DeleteUserById:input_type -> service.DeleteUserByIdRequest
+	53, // 50: service.DatabaseService.UpdateUser:input_type -> service.UpdateUserRequest
+	0,  // 51: service.DatabaseService.Companies:input_type -> service.Empty
+	51, // 52: service.DatabaseService.CreateCompany:input_type -> service.CreateCompanyRequest
+	49, // 53: service.DatabaseService.FindCompanyById:input_type -> service.FindCompanyByIdRequest
+	50, // 54: service.DatabaseService.FindCompanyByPhone:input_type -> service.FindCompanyByIdPhoneRequest
+	48, // 55: service.DatabaseService.FindCompanyCard:input_type -> service.FindCompanyCardRequest
+	46, // 56: service.DatabaseService.DeleteCompanyByModel:input_type -> service.DeleteCompanyByModelRequest
+	47, // 57: service.DatabaseService.DeleteCompanyById:input_type -> service.DeleteCompanyByIdRequest
+	45, // 58: service.DatabaseService.UpdateCompany:input_type -> service.UpdateCompanyRequest
+	5,  // 59: service.DatabaseService.AddCardToCompany:input_type -> service.AddCardToCompanyRequest
+	0,  // 60: service.DatabaseService.Cards:input_type -> service.Empty
+	43, // 61: service.DatabaseService.CreateCard:input_type -> service.CreateCardRequest
+	42, // 62: service.DatabaseService.FindCardById:input_type -> service.FindCardByIdRequest
+	72, // 63: service.DatabaseService.DeleteCardByModel:input_type -> service.Card
+	41, // 64: service.DatabaseService.DeleteCardById:input_type -> service.DeleteCardByIdRequest
+	1,  // 65: service.DatabaseService.UpdateCard:input_type -> service.UpdateUserCardRequest
+	0,  // 66: service.DatabaseService.CardsCompanies:input_type -> service.Empty
+	39, // 67: service.DatabaseService.CreateCardCompany:input_type -> service.CreateCardCompanyRequest
+	38, // 68: service.DatabaseService.FindCardCompanyByID:input_type -> service.FindCardCompanyByIDRequest
+	71, // 69: service.DatabaseService.DeleteCardCompanyByModel:input_type -> service.CardCompany
+	37, // 70: service.DatabaseService.DeleteCardCompanyById:input_type -> service.DeleteCardCompanyByIdRequest
+	71, // 71: service.DatabaseService.UpdateCardCompany:input_type -> service.CardCompany
+	0,  // 72: service.DatabaseService.Donations:input_type -> service.Empty
+	35, // 73: service.DatabaseService.CreateDonations:input_type -> service.CreateDonationsRequest
+	34, // 74: service.DatabaseService.FindDonationWards:input_type -> service.FindDonationWardsRequest
+	32, // 75: service.DatabaseService.FindDonationById:input_type -> service.FindDonationByIdRequest
+	24, // 76: service.DatabaseService.DeleteDonationByModel:input_type -> service.DeleteDonationByModelRequest
+	31, // 77: service.DatabaseService.DeleteDonationById:input_type -> service.DeleteDonationByIdRequest
+	23, // 78: service.DatabaseService.UpdateDonation:input_type -> service.UpdateDonationsRequest
+	0,  // 79: service.DatabaseService.Wards:input_type -> service.Empty
+	29, // 80: service.DatabaseService.CreateWard:input_type -> service.CreateWardRequest
+	28, // 81: service.DatabaseService.FindWardById:input_type -> service.FindWardByIdRequest
+	73, // 82: service.DatabaseService.DeleteWardByModel:input_type -> service.Ward
+	27, // 83: service.DatabaseService.DeleteWardById:input_type -> service.DeleteWardByIdRequest
+	73, // 84: service.DatabaseService.UpdateWard:input_type -> service.Ward
+	18, // 85: service.DatabaseService.CreateSessions:input_type -> service.CreateSessionRequest
+	0,  // 86: service.DatabaseService.Sessions:input_type -> service.Empty
+	15, // 87: service.DatabaseService.FindSessionsById:input_type -> service.FindSessionsByIdRequest
+	13, // 88: service.DatabaseService.FindSessionsByUserId:input_type -> service.FindSessionsByUserIdRequest
+	11, // 89: service.DatabaseService.ChangeRefreshTokenById:input_type -> service.ChangeRefreshTokenByIdRequest
+	9,  // 90: service.DatabaseService.ChangeRefreshTokenByUserId:input_type -> service.ChangeRefreshTokenByUserIdRequest
+	8,  // 91: service.DatabaseService.DeleteSessionByModel:input_type -> service.DeleteSessionByModelRequest
+	7,  // 92: service.DatabaseService.DeleteSessionById:input_type -> service.DeleteSessionByIdRequest
+	6,  // 93: service.DatabaseService.DeleteSessionByUserId:input_type -> service.DeleteSessionByUserIdRequest
+	76, // 94: service.DatabaseService.CreateUser:output_type -> service.CreateUserResponse
+	65, // 95: service.DatabaseService.Users:output_type -> service.UsersResponse
+	78, // 96: service.DatabaseService.IsRole:output_type -> service.IsRoleResponse
+	69, // 97: service.DatabaseService.ComparePassword:output_type -> service.ComparePasswordResponse
+	67, // 98: service.DatabaseService.UserIsExists:output_type -> service.UserIsExistsResponse
+	76, // 99: service.DatabaseService.FindUserById:output_type -> service.CreateUserResponse
+	76, // 100: service.DatabaseService.FindUserByEmail:output_type -> service.CreateUserResponse
+	76, // 101: service.DatabaseService.FindUserByPhone:output_type -> service.CreateUserResponse
+	59, // 102: service.DatabaseService.ChangeUserType:output_type -> service.ChangeUserTypeResponse
+	70, // 103: service.DatabaseService.FindUserCompany:output_type -> service.Company
+	63, // 104: service.DatabaseService.FindUserDonations:output_type -> service.FindUserDonationsResponse
+	57, // 105: service.DatabaseService.FindUserCard:output_type -> service.FindUserCardResponse
+	25, // 106: service.DatabaseService.AddCardToUser:output_type -> service.AddCardToUserResponse
+	21, // 107: service.DatabaseService.DeleteUserByModel:output_type -> service.HTTPCodes
+	21, // 108: service.DatabaseService.DeleteUserById:output_type -> service.HTTPCodes
+	76, // 109: service.DatabaseService.UpdateUser:output_type -> service.CreateUserResponse
+	52, // 110: service.DatabaseService.Companies:output_type -> service.CompaniesResponse
+	70, // 111: service.DatabaseService.CreateCompany:output_type -> service.Company
+	70, // 112: service.DatabaseService.FindCompanyById:output_type -> service.Company
+	70, // 113: service.DatabaseService.FindCompanyByPhone:output_type -> service.Company
+	71, // 114: service.DatabaseService.FindCompanyCard:output_type -> service.CardCompany
+	21, // 115: service.DatabaseService.DeleteCompanyByModel:output_type -> service.HTTPCodes
+	21, // 116: service.DatabaseService.DeleteCompanyById:output_type -> service.HTTPCodes
+	21, // 117: service.DatabaseService.UpdateCompany:output_type -> service.HTTPCodes
+	4,  // 118: service.DatabaseService.AddCardToCompany:output_type -> service.AddCardToCompanyResponse
+	44, // 119: service.DatabaseService.Cards:output_type -> service.CardsResponse
+	72, // 120: service.DatabaseService.CreateCard:output_type -> service.Card
+	72, // 121: service.DatabaseService.FindCardById:output_type -> service.Card
+	21, // 122: service.DatabaseService.DeleteCardByModel:output_type -> service.HTTPCodes
+	21, // 123: service.DatabaseService.DeleteCardById:output_type -> service.HTTPCodes
+	3,  // 124: service.DatabaseService.UpdateCard:output_type -> service.UpdateUserCardResponse
+	40, // 125: service.DatabaseService.CardsCompanies:output_type -> service.CardsCompaniesResponse
+	71, // 126: service.DatabaseService.CreateCardCompany:output_type -> service.CardCompany
+	71, // 127: service.DatabaseService.FindCardCompanyByID:output_type -> service.CardCompany
+	21, // 128: service.DatabaseService.DeleteCardCompanyByModel:output_type -> service.HTTPCodes
+	21, // 129: service.DatabaseService.DeleteCardCompanyById:output_type -> service.HTTPCodes
+	71, // 130: service.DatabaseService.UpdateCardCompany:output_type -> service.CardCompany
+	36, // 131: service.DatabaseService.Donations:output_type -> service.DonationsResponse
+	26, // 132: service.DatabaseService.CreateDonations:output_type -> service.CreateDonationsResponse
+	33, // 133: service.DatabaseService.FindDonationWards:output_type -> service.FindDonationWardsResponse
+	26, // 134: service.DatabaseService.FindDonationById:output_type -> service.CreateDonationsResponse
+	21, // 135: service.DatabaseService.DeleteDonationByModel:output_type -> service.HTTPCodes
+	21, // 136: service.DatabaseService.DeleteDonationById:output_type -> service.HTTPCodes
+	26, // 137: service.DatabaseService.UpdateDonation:output_type -> service.CreateDonationsResponse
+	30, // 138: service.DatabaseService.Wards:output_type -> service.WardsResponse
+	73, // 139: service.DatabaseService.CreateWard:output_type -> service.Ward
+	73, // 140: service.DatabaseService.FindWardById:output_type -> service.Ward
+	21, // 141: service.DatabaseService.DeleteWardByModel:output_type -> service.HTTPCodes
+	21, // 142: service.DatabaseService.DeleteWardById:output_type -> service.HTTPCodes
+	73, // 143: service.DatabaseService.UpdateWard:output_type -> service.Ward
+	19, // 144: service.DatabaseService.CreateSessions:output_type -> service.CreateSessionResponse
+	17, // 145: service.DatabaseService.Sessions:output_type -> service.SessionsResponse
+	16, // 146: service.DatabaseService.FindSessionsById:output_type -> service.FindSessionsByIdResponse
+	14, // 147: service.DatabaseService.FindSessionsByUserId:output_type -> service.FindSessionsByUserIdResponse
+	12, // 148: service.DatabaseService.ChangeRefreshTokenById:output_type -> service.ChangeRefreshTokenByIdResponse
+	10, // 149: service.DatabaseService.ChangeRefreshTokenByUserId:output_type -> service.ChangeRefreshTokenByUserIdResponse
+	21, // 150: service.DatabaseService.DeleteSessionByModel:output_type -> service.HTTPCodes
+	21, // 151: service.DatabaseService.DeleteSessionById:output_type -> service.HTTPCodes
+	21, // 152: service.DatabaseService.DeleteSessionByUserId:output_type -> service.HTTPCodes
+	94, // [94:153] is the sub-list for method output_type
+	35, // [35:94] is the sub-list for method input_type
+	35, // [35:35] is the sub-list for extension type_name
+	35, // [35:35] is the sub-list for extension extendee
+	0,  // [0:35] is the sub-list for field type_name
 }
 
 func init() { file_DatabaseService_DatabaseService_proto_init() }
@@ -5831,7 +6347,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[1].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteSessionByUserIdRequest); i {
+			switch v := v.(*UpdateUserCardRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5843,7 +6359,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[2].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteSessionByIdRequest); i {
+			switch v := v.(*UpdateUserCardRequest1); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5855,7 +6371,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[3].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteSessionByModelRequest); i {
+			switch v := v.(*UpdateUserCardResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5867,7 +6383,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[4].Exporter = func(v any, i int) any {
-			switch v := v.(*ChangeRefreshTokenByUserIdRequest); i {
+			switch v := v.(*AddCardToCompanyResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5879,7 +6395,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[5].Exporter = func(v any, i int) any {
-			switch v := v.(*ChangeRefreshTokenByUserIdResponse); i {
+			switch v := v.(*AddCardToCompanyRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5891,7 +6407,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[6].Exporter = func(v any, i int) any {
-			switch v := v.(*ChangeRefreshTokenByIdRequest); i {
+			switch v := v.(*DeleteSessionByUserIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5903,7 +6419,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[7].Exporter = func(v any, i int) any {
-			switch v := v.(*ChangeRefreshTokenByIdResponse); i {
+			switch v := v.(*DeleteSessionByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5915,7 +6431,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[8].Exporter = func(v any, i int) any {
-			switch v := v.(*FindSessionsByUserIdRequest); i {
+			switch v := v.(*DeleteSessionByModelRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5927,7 +6443,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[9].Exporter = func(v any, i int) any {
-			switch v := v.(*FindSessionsByUserIdResponse); i {
+			switch v := v.(*ChangeRefreshTokenByUserIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5939,7 +6455,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[10].Exporter = func(v any, i int) any {
-			switch v := v.(*FindSessionsByIdRequest); i {
+			switch v := v.(*ChangeRefreshTokenByUserIdResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5951,7 +6467,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[11].Exporter = func(v any, i int) any {
-			switch v := v.(*FindSessionsByIdResponse); i {
+			switch v := v.(*ChangeRefreshTokenByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5963,7 +6479,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[12].Exporter = func(v any, i int) any {
-			switch v := v.(*SessionsResponse); i {
+			switch v := v.(*ChangeRefreshTokenByIdResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5975,7 +6491,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[13].Exporter = func(v any, i int) any {
-			switch v := v.(*CreateSessionRequest); i {
+			switch v := v.(*FindSessionsByUserIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5987,7 +6503,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[14].Exporter = func(v any, i int) any {
-			switch v := v.(*CreateSessionResponse); i {
+			switch v := v.(*FindSessionsByUserIdResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -5999,7 +6515,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[15].Exporter = func(v any, i int) any {
-			switch v := v.(*FindUserCompanyRequest); i {
+			switch v := v.(*FindSessionsByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6011,7 +6527,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[16].Exporter = func(v any, i int) any {
-			switch v := v.(*HTTPCodes); i {
+			switch v := v.(*FindSessionsByIdResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6023,7 +6539,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[17].Exporter = func(v any, i int) any {
-			switch v := v.(*AddCardToUserRequest); i {
+			switch v := v.(*SessionsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6035,7 +6551,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[18].Exporter = func(v any, i int) any {
-			switch v := v.(*UpdateDonationsRequest); i {
+			switch v := v.(*CreateSessionRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6047,7 +6563,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[19].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteDonationByModelRequest); i {
+			switch v := v.(*CreateSessionResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6059,7 +6575,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[20].Exporter = func(v any, i int) any {
-			switch v := v.(*AddCardToUserResponse); i {
+			switch v := v.(*FindUserCompanyRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6071,7 +6587,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[21].Exporter = func(v any, i int) any {
-			switch v := v.(*CreateDonationsResponse); i {
+			switch v := v.(*HTTPCodes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6083,7 +6599,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[22].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteWardByIdRequest); i {
+			switch v := v.(*AddCardToUserRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6095,7 +6611,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[23].Exporter = func(v any, i int) any {
-			switch v := v.(*FindWardByIdRequest); i {
+			switch v := v.(*UpdateDonationsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6107,7 +6623,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[24].Exporter = func(v any, i int) any {
-			switch v := v.(*CreateWardRequest); i {
+			switch v := v.(*DeleteDonationByModelRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6119,7 +6635,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[25].Exporter = func(v any, i int) any {
-			switch v := v.(*WardsResponse); i {
+			switch v := v.(*AddCardToUserResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6131,7 +6647,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[26].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteDonationByIdRequest); i {
+			switch v := v.(*CreateDonationsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6143,7 +6659,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[27].Exporter = func(v any, i int) any {
-			switch v := v.(*FindDonationByIdRequest); i {
+			switch v := v.(*DeleteWardByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6155,7 +6671,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[28].Exporter = func(v any, i int) any {
-			switch v := v.(*FindDonationWardsResponse); i {
+			switch v := v.(*FindWardByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6167,7 +6683,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[29].Exporter = func(v any, i int) any {
-			switch v := v.(*FindDonationWardsRequest); i {
+			switch v := v.(*CreateWardRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6179,7 +6695,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[30].Exporter = func(v any, i int) any {
-			switch v := v.(*CreateDonationsRequest); i {
+			switch v := v.(*WardsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6191,7 +6707,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[31].Exporter = func(v any, i int) any {
-			switch v := v.(*DonationsResponse); i {
+			switch v := v.(*DeleteDonationByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6203,7 +6719,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[32].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteCardCompanyByIdRequest); i {
+			switch v := v.(*FindDonationByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6215,7 +6731,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[33].Exporter = func(v any, i int) any {
-			switch v := v.(*FindCardCompanyByIDRequest); i {
+			switch v := v.(*FindDonationWardsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6227,7 +6743,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[34].Exporter = func(v any, i int) any {
-			switch v := v.(*CreateCardCompanyRequest); i {
+			switch v := v.(*FindDonationWardsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6239,7 +6755,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[35].Exporter = func(v any, i int) any {
-			switch v := v.(*CardsCompaniesResponse); i {
+			switch v := v.(*CreateDonationsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6251,7 +6767,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[36].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteCardByIdRequest); i {
+			switch v := v.(*DonationsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6263,7 +6779,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[37].Exporter = func(v any, i int) any {
-			switch v := v.(*FindCardByIdRequest); i {
+			switch v := v.(*DeleteCardCompanyByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6275,7 +6791,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[38].Exporter = func(v any, i int) any {
-			switch v := v.(*CreateCardRequest); i {
+			switch v := v.(*FindCardCompanyByIDRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6287,7 +6803,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[39].Exporter = func(v any, i int) any {
-			switch v := v.(*CardsResponse); i {
+			switch v := v.(*CreateCardCompanyRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6299,7 +6815,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[40].Exporter = func(v any, i int) any {
-			switch v := v.(*UpdateCompanyRequest); i {
+			switch v := v.(*CardsCompaniesResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6311,7 +6827,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[41].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteCompanyByModelRequest); i {
+			switch v := v.(*DeleteCardByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6323,7 +6839,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[42].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteCompanyByIdRequest); i {
+			switch v := v.(*FindCardByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6335,7 +6851,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[43].Exporter = func(v any, i int) any {
-			switch v := v.(*FindCompanyCardRequest); i {
+			switch v := v.(*CreateCardRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6347,7 +6863,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[44].Exporter = func(v any, i int) any {
-			switch v := v.(*FindCompanyByIdRequest); i {
+			switch v := v.(*CardsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6359,7 +6875,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[45].Exporter = func(v any, i int) any {
-			switch v := v.(*FindCompanyByIdPhoneRequest); i {
+			switch v := v.(*UpdateCompanyRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6371,7 +6887,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[46].Exporter = func(v any, i int) any {
-			switch v := v.(*CreateCompanyRequest); i {
+			switch v := v.(*DeleteCompanyByModelRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6383,7 +6899,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[47].Exporter = func(v any, i int) any {
-			switch v := v.(*CompaniesResponse); i {
+			switch v := v.(*DeleteCompanyByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6395,7 +6911,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[48].Exporter = func(v any, i int) any {
-			switch v := v.(*UpdateUserRequest); i {
+			switch v := v.(*FindCompanyCardRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6407,7 +6923,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[49].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteUserByModelRequest); i {
+			switch v := v.(*FindCompanyByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6419,7 +6935,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[50].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteUserByIdRequest); i {
+			switch v := v.(*FindCompanyByIdPhoneRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6431,7 +6947,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[51].Exporter = func(v any, i int) any {
-			switch v := v.(*FindUserCardRequest); i {
+			switch v := v.(*CreateCompanyRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6443,7 +6959,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[52].Exporter = func(v any, i int) any {
-			switch v := v.(*FindUserCardResponse); i {
+			switch v := v.(*CompaniesResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6455,7 +6971,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[53].Exporter = func(v any, i int) any {
-			switch v := v.(*ChangeUserTypeRequest); i {
+			switch v := v.(*UpdateUserRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6467,7 +6983,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[54].Exporter = func(v any, i int) any {
-			switch v := v.(*ChangeUserTypeResponse); i {
+			switch v := v.(*DeleteUserByModelRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6479,7 +6995,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[55].Exporter = func(v any, i int) any {
-			switch v := v.(*FindUserByPhoneRequest); i {
+			switch v := v.(*DeleteUserByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6491,7 +7007,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[56].Exporter = func(v any, i int) any {
-			switch v := v.(*FindUserByIdRequest); i {
+			switch v := v.(*FindUserCardRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6503,7 +7019,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[57].Exporter = func(v any, i int) any {
-			switch v := v.(*FindUserDonationsRequest); i {
+			switch v := v.(*FindUserCardResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6515,7 +7031,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[58].Exporter = func(v any, i int) any {
-			switch v := v.(*FindUserDonationsResponse); i {
+			switch v := v.(*ChangeUserTypeRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6527,7 +7043,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[59].Exporter = func(v any, i int) any {
-			switch v := v.(*FindUserByEmailRequest); i {
+			switch v := v.(*ChangeUserTypeResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6539,7 +7055,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[60].Exporter = func(v any, i int) any {
-			switch v := v.(*UsersResponse); i {
+			switch v := v.(*FindUserByPhoneRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6551,7 +7067,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[61].Exporter = func(v any, i int) any {
-			switch v := v.(*UserIsExistsRequest); i {
+			switch v := v.(*FindUserByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6563,7 +7079,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[62].Exporter = func(v any, i int) any {
-			switch v := v.(*UserIsExistsResponse); i {
+			switch v := v.(*FindUserDonationsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6575,7 +7091,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[63].Exporter = func(v any, i int) any {
-			switch v := v.(*ComparePasswordRequest); i {
+			switch v := v.(*FindUserDonationsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6587,7 +7103,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[64].Exporter = func(v any, i int) any {
-			switch v := v.(*ComparePasswordResponse); i {
+			switch v := v.(*FindUserByEmailRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6599,7 +7115,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[65].Exporter = func(v any, i int) any {
-			switch v := v.(*Company); i {
+			switch v := v.(*UsersResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6611,7 +7127,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[66].Exporter = func(v any, i int) any {
-			switch v := v.(*CardCompany); i {
+			switch v := v.(*UserIsExistsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6623,7 +7139,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[67].Exporter = func(v any, i int) any {
-			switch v := v.(*Card); i {
+			switch v := v.(*UserIsExistsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6635,7 +7151,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[68].Exporter = func(v any, i int) any {
-			switch v := v.(*Ward); i {
+			switch v := v.(*ComparePasswordRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6647,7 +7163,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[69].Exporter = func(v any, i int) any {
-			switch v := v.(*Donations); i {
+			switch v := v.(*ComparePasswordResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6659,7 +7175,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[70].Exporter = func(v any, i int) any {
-			switch v := v.(*CreateUserRequest); i {
+			switch v := v.(*Company); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6671,7 +7187,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[71].Exporter = func(v any, i int) any {
-			switch v := v.(*CreateUserResponse); i {
+			switch v := v.(*CardCompany); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6683,7 +7199,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[72].Exporter = func(v any, i int) any {
-			switch v := v.(*IsRoleRequest); i {
+			switch v := v.(*Card); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -6695,6 +7211,66 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			}
 		}
 		file_DatabaseService_DatabaseService_proto_msgTypes[73].Exporter = func(v any, i int) any {
+			switch v := v.(*Ward); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_DatabaseService_DatabaseService_proto_msgTypes[74].Exporter = func(v any, i int) any {
+			switch v := v.(*Donations); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_DatabaseService_DatabaseService_proto_msgTypes[75].Exporter = func(v any, i int) any {
+			switch v := v.(*CreateUserRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_DatabaseService_DatabaseService_proto_msgTypes[76].Exporter = func(v any, i int) any {
+			switch v := v.(*CreateUserResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_DatabaseService_DatabaseService_proto_msgTypes[77].Exporter = func(v any, i int) any {
+			switch v := v.(*IsRoleRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_DatabaseService_DatabaseService_proto_msgTypes[78].Exporter = func(v any, i int) any {
 			switch v := v.(*IsRoleResponse); i {
 			case 0:
 				return &v.state
@@ -6713,7 +7289,7 @@ func file_DatabaseService_DatabaseService_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_DatabaseService_DatabaseService_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   74,
+			NumMessages:   79,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

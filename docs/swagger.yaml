@@ -1,4 +1,51 @@
 definitions:
+  DatabaseServicev1.AddCardToCompanyRequest:
+    properties:
+      card:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.CreateCardCompanyRequest'
+        description: '* Банковская карта'
+    type: object
+  DatabaseServicev1.AddCardToCompanyResponse:
+    properties:
+      address:
+        description: '* Адрес офиса компании'
+        type: string
+      card:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.CardCompany'
+        description: '* Банковская карта компании'
+      createdAt:
+        description: '* Дата создания сущности в базе данных'
+        type: string
+      id:
+        description: '* ID компании в базе данных'
+        type: integer
+      inn:
+        description: '* ИНН юридического лица'
+        type: string
+      kpp:
+        description: '* КПП юридического лица'
+        type: string
+      okpo:
+        description: '* ОКПО предприятия/организации'
+        type: string
+      phone:
+        description: '* Номер телефона компании'
+        type: string
+      site:
+        description: '* Сайт компании'
+        type: string
+      title:
+        description: '* Название компании'
+        type: string
+      updatedAt:
+        description: '* Дата последнего обновления сущности в базе данных'
+        type: string
+      userId:
+        description: '* ID пользователя к которому относится данная компания'
+        type: integer
+    type: object
   DatabaseServicev1.AddCardToUserRequest:
     properties:
       card:
@@ -59,6 +106,14 @@ definitions:
       updatedAt:
         description: '* Дата последнего обновления сущности в базе данных'
         type: string
+    type: object
+  DatabaseServicev1.CardsResponse:
+    properties:
+      cards:
+        description: '* Массив банковских карт пользователя'
+        items:
+          $ref: '#/definitions/DatabaseServicev1.Card'
+        type: array
     type: object
   DatabaseServicev1.ChangeUserTypeResponse:
     properties:
@@ -128,6 +183,24 @@ definitions:
       accessory:
         description: '* Совпадает ли пароль (true/false)'
         type: boolean
+    type: object
+  DatabaseServicev1.CreateCardCompanyRequest:
+    properties:
+      companyId:
+        description: '* ID компании которой принадлежит данная карта'
+        type: integer
+      cvv:
+        description: '* CVV код банковской карты'
+        type: string
+      date:
+        description: '* Дата до которой активна карта'
+        type: string
+      fullName:
+        description: '* ФИО с банковской карты'
+        type: string
+      number:
+        description: '* Номер банковской карты'
+        type: string
     type: object
   DatabaseServicev1.CreateCardRequest:
     properties:
@@ -352,6 +425,48 @@ definitions:
         description: '* Принадлежность к роли (true/false)'
         type: boolean
     type: object
+  DatabaseServicev1.UpdateUserCardRequest1:
+    properties:
+      cvv:
+        description: '* CVV код карты'
+        type: integer
+      date:
+        description: '* Дата до которой активна карта'
+        type: string
+      fullName:
+        description: '* ФИО с банковской карты'
+        type: string
+      number:
+        description: '* Номер карты'
+        type: string
+    type: object
+  DatabaseServicev1.UpdateUserCardResponse:
+    properties:
+      createdAt:
+        description: '* Дата создания сущности в базе данных'
+        type: string
+      cvv:
+        description: '* CVV код карты'
+        type: integer
+      date:
+        description: '* Дата до которой активна карта'
+        type: string
+      fullName:
+        description: '* ФИО с банковской карты'
+        type: string
+      id:
+        description: '* ID банковской карты в базе данных'
+        type: integer
+      number:
+        description: '* Номер карты'
+        type: string
+      updatedAt:
+        description: '* Дата последнего обновления сущности в базе данных'
+        type: string
+      userId:
+        description: '* ID пользователя которому принадлежит данная карта'
+        type: integer
+    type: object
   DatabaseServicev1.UpdateUserRequest:
     properties:
       AvatarPath:
@@ -464,6 +579,201 @@ info:
   title: API Gateway
   version: "1.0"
 paths:
+  /api/v1/cards:
+    get:
+      consumes:
+      - application/json
+      description: Массив банковских карт в базе данных
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CardsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Список всех банковских карт
+      tags:
+      - Cards
+    post:
+      consumes:
+      - application/json
+      description: Создание банковской карты пользователя
+      parameters:
+      - description: Сущность банковской карты
+        in: body
+        name: card
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.CreateCardRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.Card'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Создание банковской карты пользователя
+      tags:
+      - Cards
+  /api/v1/cards/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление банковской карты пользователя по ID
+      parameters:
+      - description: ID банковской карты
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление банковской карты пользователя
+      tags:
+      - Cards
+    get:
+      consumes:
+      - application/json
+      description: Поиск банковской карты по ID
+      parameters:
+      - description: Card ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.Card'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Поиск банковской карты
+      tags:
+      - Cards
+    put:
+      consumes:
+      - application/json
+      description: Обновление банковской карты
+      parameters:
+      - description: ID банковской карты
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Модель для обновления
+        in: body
+        name: card
+        required: true
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.UpdateUserCardRequest1'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.UpdateUserCardResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Обновление банковской карты
+      tags:
+      - Cards
+  /api/v1/cards/deleteModel:
+    post:
+      consumes:
+      - application/json
+      description: Удаляет банковскую карту опираясь на всю сущность модели
+      parameters:
+      - description: Модель банковской карты
+        in: body
+        name: card
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.Card'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление банковской карты по модели
+      tags:
+      - Cards
   /api/v1/companies:
     get:
       consumes:
@@ -620,6 +930,40 @@ paths:
           schema:
             $ref: '#/definitions/server.HTTPError'
       summary: Извлечение банковской карты компании
+      tags:
+      - Company
+  /api/v1/companies/addCard:
+    post:
+      consumes:
+      - application/json
+      description: Добавляет банковскую карту компании, поле companyId это ID компании
+        в базе данных, которой будем добавлять карту
+      parameters:
+      - description: Сущность банковской карты
+        in: body
+        name: card
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.AddCardToCompanyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.AddCardToCompanyResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Добавляет банковскую карту компании
       tags:
       - Company
   /api/v1/companies/deleteModel:
@@ -889,6 +1233,11 @@ paths:
       - application/json
       description: Обновление сущности пользователя
       parameters:
+      - description: ID пользователя
+        in: path
+        name: id
+        required: true
+        type: integer
       - description: Модель для обновления
         in: body
         name: user

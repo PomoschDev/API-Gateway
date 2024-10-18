@@ -56,6 +56,14 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	companiesPublicRoute := route.r.PathPrefix(getEndpoint("companies")).Subrouter()
 	companiesPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
 
+	//Эндпоинты cardsPrivate
+	cardsPrivateRoute := route.r.PathPrefix(getEndpoint("cards")).Subrouter()
+	cardsPrivateRoute.Use(cors.Default().Handler, route.authMiddleware)
+
+	//Эндпоинты companiesPublic
+	cardsPublicRoute := route.r.PathPrefix(getEndpoint("cards")).Subrouter()
+	cardsPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
+
 	//Swagger
 	{
 		route.r.PathPrefix("/swagger/").Handler(httpSwagger.Handler(
@@ -114,6 +122,8 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 				http.MethodOptions)
 			companiesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.DeleteCompanyByID).Methods(http.MethodDelete, http.MethodOptions)
 			companiesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.UpdateCompany).Methods(http.MethodPut, http.MethodOptions)
+			companiesPrivateRoute.HandleFunc("/addCard", route.AddCardToUser).Methods(http.MethodPost,
+				http.MethodOptions)
 		}
 
 		//Публичные
@@ -121,6 +131,25 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 			companiesPublicRoute.HandleFunc("", route.CreateCompany).Methods(http.MethodPost, http.MethodOptions)
 			companiesPublicRoute.HandleFunc("/", route.FindCompanyByPhone).Queries("phone", "{phone}").Methods(http.MethodGet,
 				http.MethodOptions)
+		}
+	}
+
+	//Банковские карты пользователей
+	{
+		//Приватные
+		{
+			cardsPrivateRoute.HandleFunc("", route.Cards).Methods(http.MethodGet, http.MethodOptions)
+			cardsPrivateRoute.HandleFunc("/{id:[0-9]+}", route.Card).Methods(http.MethodGet, http.MethodOptions)
+			cardsPrivateRoute.HandleFunc("/deleteModel", route.DeleteCardByModel).Methods(http.MethodPost,
+				http.MethodOptions)
+			cardsPrivateRoute.HandleFunc("/{id:[0-9]+}", route.DeleteCardById).Methods(http.MethodDelete,
+				http.MethodOptions)
+			cardsPrivateRoute.HandleFunc("/{id:[0-9]+}", route.UpdateCard).Methods(http.MethodPut, http.MethodOptions)
+		}
+
+		//Публичные
+		{
+			cardsPublicRoute.HandleFunc("", route.CreateCard).Methods(http.MethodPost, http.MethodOptions)
 		}
 	}
 
