@@ -107,6 +107,14 @@ definitions:
         description: '* Дата последнего обновления сущности в базе данных'
         type: string
     type: object
+  DatabaseServicev1.CardsCompaniesResponse:
+    properties:
+      cards:
+        description: '* Массив банковских карт компаний'
+        items:
+          $ref: '#/definitions/DatabaseServicev1.CardCompany'
+        type: array
+    type: object
   DatabaseServicev1.CardsResponse:
     properties:
       cards:
@@ -579,6 +587,195 @@ info:
   title: API Gateway
   version: "1.0"
 paths:
+  /api/v1/card/company:
+    get:
+      consumes:
+      - application/json
+      description: Банковская карта компании в базе данных
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CardsCompaniesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Банковская карта компании
+      tags:
+      - CardCompany
+    post:
+      consumes:
+      - application/json
+      description: Создание банковской карты компании
+      parameters:
+      - description: Сущность банковской карты компании
+        in: body
+        name: card
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.CreateCardCompanyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.Card'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Создание банковской карты компании
+      tags:
+      - CardCompany
+    put:
+      consumes:
+      - application/json
+      description: Обновление банковской карты компании
+      parameters:
+      - description: Модель для обновления
+        in: body
+        name: card
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.CardCompany'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CardCompany'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Обновление банковской карты компании
+      tags:
+      - Cards
+  /api/v1/card/company/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление банковской карты компании по ID
+      parameters:
+      - description: ID банковской карты компании
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление банковской карты компании
+      tags:
+      - CardCompany
+    get:
+      consumes:
+      - application/json
+      description: Поиск банковской карты компании по ID
+      parameters:
+      - description: Card ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CardCompany'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Поиск банковской карты компании
+      tags:
+      - CardCompany
+  /api/v1/card/company/deleteModel:
+    post:
+      consumes:
+      - application/json
+      description: Удаляет банковскую карту компании опираясь на всю сущность модели
+      parameters:
+      - description: Сущность банковской карты компании
+        in: body
+        name: card
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.CardCompany'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление банковской карты компании по модели
+      tags:
+      - CardCompany
   /api/v1/cards:
     get:
       consumes:

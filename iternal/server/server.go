@@ -61,8 +61,16 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	cardsPrivateRoute.Use(cors.Default().Handler, route.authMiddleware)
 
 	//Эндпоинты companiesPublic
-	cardsPublicRoute := route.r.PathPrefix(getEndpoint("cards")).Subrouter()
+	cardsPublicRoute := route.r.PathPrefix(getEndpoint("card/companies")).Subrouter()
 	cardsPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
+
+	//Эндпоинты cardCompaniesPrivate
+	cardCompaniesPrivateRoute := route.r.PathPrefix(getEndpoint("card/company")).Subrouter()
+	cardCompaniesPrivateRoute.Use(cors.Default().Handler, route.authMiddleware)
+
+	//Эндпоинты cardCompaniesPublic
+	cardCompaniesPublicRoute := route.r.PathPrefix(getEndpoint("card/company")).Subrouter()
+	cardCompaniesPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
 
 	//Swagger
 	{
@@ -150,6 +158,29 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 		//Публичные
 		{
 			cardsPublicRoute.HandleFunc("", route.CreateCard).Methods(http.MethodPost, http.MethodOptions)
+		}
+	}
+
+	//Банковские карты компаний
+	{
+		//Приватные
+		{
+			cardCompaniesPrivateRoute.HandleFunc("", route.CardCompanies).Methods(http.MethodGet, http.MethodOptions)
+			cardCompaniesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.CardCompany).Methods(http.MethodGet,
+				http.MethodOptions)
+			cardCompaniesPrivateRoute.HandleFunc("/deleteModel", route.DeleteCardCompaniesByModel).Methods(http.
+				MethodPost,
+				http.MethodOptions)
+			cardCompaniesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.DeleteCardCompanyById).Methods(http.MethodDelete,
+				http.MethodOptions)
+			cardCompaniesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.UpdateCardCompany).Methods(http.MethodPut,
+				http.MethodOptions)
+		}
+
+		//Публичные
+		{
+			cardCompaniesPublicRoute.HandleFunc("", route.CreateCardCompany).Methods(http.MethodPost,
+				http.MethodOptions)
 		}
 	}
 
