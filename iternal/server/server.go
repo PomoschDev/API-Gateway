@@ -61,7 +61,7 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	cardsPrivateRoute.Use(cors.Default().Handler, route.authMiddleware)
 
 	//Эндпоинты companiesPublic
-	cardsPublicRoute := route.r.PathPrefix(getEndpoint("card/companies")).Subrouter()
+	cardsPublicRoute := route.r.PathPrefix(getEndpoint("cards")).Subrouter()
 	cardsPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
 
 	//Эндпоинты cardCompaniesPrivate
