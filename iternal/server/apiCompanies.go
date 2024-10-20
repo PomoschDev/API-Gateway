@@ -270,24 +270,20 @@ func (route Router) DeleteCompanyByID(w http.ResponseWriter, r *http.Request) {
 // @Tags         Company
 // @Accept       json
 // @Produce      json
-// @Param        company body DatabaseServicev1.UpdateUserRequest true "Модель для обновления"
-// @Success      200  {object}  DatabaseServicev1.CreateUserResponse
+// @Param        company body DatabaseServicev1.UpdateCompanyRequest false "Модель для обновления"
+// @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
 // @Failure      404  {object}  HTTPError
 // @Failure      500  {object}  HTTPError
-// @Router       /api/v1/users/{id} [put]
+// @Router       /api/v1/companies [put]
 func (route Router) UpdateCompany(w http.ResponseWriter, r *http.Request) {
-	id := utilities.StrToUint(mux.Vars(r)["id"])
-
 	request := new(DatabaseServicev1.UpdateCompanyRequest)
 
 	if err := json.NewDecoder(r.Body).Decode(request); err != nil {
-		http.Error(w, "invalid request", http.StatusBadRequest)
+		logger.Error("Ошибка при декодировании запроса: %v", err)
 		SetHTTPError(w, "Неверные аргументы", http.StatusBadRequest)
 		return
 	}
-
-	request.Company.Id = id
 
 	response, err := route.databaseService.UpdateCompany(r.Context(), request)
 	if err != nil {

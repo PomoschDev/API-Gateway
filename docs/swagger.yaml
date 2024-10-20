@@ -199,7 +199,7 @@ definitions:
         type: integer
       cvv:
         description: '* CVV код банковской карты'
-        type: string
+        type: integer
       date:
         description: '* Дата до которой активна карта'
         type: string
@@ -432,6 +432,13 @@ definitions:
       accessory:
         description: '* Принадлежность к роли (true/false)'
         type: boolean
+    type: object
+  DatabaseServicev1.UpdateCompanyRequest:
+    properties:
+      company:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.Company'
+        description: '* Компания которую обновляем'
     type: object
   DatabaseServicev1.UpdateUserCardRequest1:
     properties:
@@ -1028,6 +1035,38 @@ paths:
           schema:
             $ref: '#/definitions/server.HTTPError'
       summary: Создание компании
+      tags:
+      - Company
+    put:
+      consumes:
+      - application/json
+      description: Обновление сущности компании
+      parameters:
+      - description: Модель для обновления
+        in: body
+        name: company
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.UpdateCompanyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Обновление компании
       tags:
       - Company
   /api/v1/companies/:

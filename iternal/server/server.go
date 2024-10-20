@@ -72,6 +72,14 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	cardCompaniesPublicRoute := route.r.PathPrefix(getEndpoint("card/company")).Subrouter()
 	cardCompaniesPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
 
+	//Эндпоинты donationsPrivate
+	donationsPrivateRoute := route.r.PathPrefix(getEndpoint("donations")).Subrouter()
+	donationsPrivateRoute.Use(cors.Default().Handler, route.authMiddleware)
+
+	//Эндпоинты donationsPublic
+	donationsPublicRoute := route.r.PathPrefix(getEndpoint("donations")).Subrouter()
+	donationsPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
+
 	//Swagger
 	{
 		route.r.PathPrefix("/swagger/").Handler(httpSwagger.Handler(
@@ -129,7 +137,7 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 			companiesPrivateRoute.HandleFunc("/deleteModel", route.DeleteCompanyByModel).Methods(http.MethodPost,
 				http.MethodOptions)
 			companiesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.DeleteCompanyByID).Methods(http.MethodDelete, http.MethodOptions)
-			companiesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.UpdateCompany).Methods(http.MethodPut, http.MethodOptions)
+			companiesPrivateRoute.HandleFunc("", route.UpdateCompany).Methods(http.MethodPut, http.MethodOptions)
 			companiesPrivateRoute.HandleFunc("/addCard", route.AddCardToUser).Methods(http.MethodPost,
 				http.MethodOptions)
 		}
@@ -182,6 +190,11 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 			cardCompaniesPublicRoute.HandleFunc("", route.CreateCardCompany).Methods(http.MethodPost,
 				http.MethodOptions)
 		}
+	}
+
+	//Пожертвования
+	{
+		
 	}
 
 	route.r.Use(cors.Default().Handler, mux.CORSMethodMiddleware(route.r))

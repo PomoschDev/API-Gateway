@@ -639,6 +639,55 @@ const docTemplate = `{
                     }
                 }
             },
+            "put": {
+                "description": "Обновление сущности компании",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Обновление компании",
+                "parameters": [
+                    {
+                        "description": "Модель для обновления",
+                        "name": "company",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.UpdateCompanyRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Создание новой сущности компании",
                 "consumes": [
@@ -2041,7 +2090,7 @@ const docTemplate = `{
                 },
                 "cvv": {
                     "description": "* CVV код банковской карты",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "date": {
                     "description": "* Дата до которой активна карта",
@@ -2384,6 +2433,19 @@ const docTemplate = `{
                 "accessory": {
                     "description": "* Принадлежность к роли (true/false)",
                     "type": "boolean"
+                }
+            }
+        },
+        "DatabaseServicev1.UpdateCompanyRequest": {
+            "type": "object",
+            "properties": {
+                "company": {
+                    "description": "* Компания которую обновляем",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.Company"
+                        }
+                    ]
                 }
             }
         },
