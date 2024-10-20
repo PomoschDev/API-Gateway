@@ -23,6 +23,7 @@ type Config struct {
 	Env        string           `yaml:"env" env-default:"local"`
 	APIServer  ServerConfig     `yaml:"api_server"`
 	GRPCServer GRPCServerConfig `yaml:"grpc_server"`
+	Swagger    bool             `yaml:"swagger"`
 }
 
 func MustLoad() *Config {

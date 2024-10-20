@@ -705,12 +705,113 @@ definitions:
       message:
         type: string
     type: object
+  server.LoginRequest:
+    properties:
+      password:
+        type: string
+      phone:
+        type: string
+    type: object
+  server.LoginResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  server.RegistrationRequest:
+    properties:
+      card:
+        $ref: '#/definitions/DatabaseServicev1.CreateCardRequest'
+      company:
+        $ref: '#/definitions/DatabaseServicev1.CreateCompanyRequest'
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      type:
+        type: integer
+      username:
+        type: string
+    type: object
 info:
   contact: {}
   description: Сервер маршрутизации
   title: API Gateway
   version: "1.0"
 paths:
+  /api/v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Авторизация пользователя
+      parameters:
+      - description: Данные для авторизации пользователя
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/server.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/server.LoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Авторизация
+      tags:
+      - Authentication
+  /api/v1/auth/registration:
+    post:
+      consumes:
+      - application/json
+      description: Регистрация нового пользователя пользователя
+      parameters:
+      - description: Данные для регистрации
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/server.RegistrationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/server.LoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Регистрация пользователя
+      tags:
+      - Authentication
   /api/v1/card/company:
     get:
       consumes:

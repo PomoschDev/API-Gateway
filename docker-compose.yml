@@ -1,0 +1,12 @@
+services:
+  apigateway_server:
+    container_name: apigateway_server
+    hostname: apigateway_server
+    build: .
+    restart: always
+    ports:
+      - 8010:8010
+    command: [
+        "/app/apigateway",
+        "--config=local.yaml"
+    ]

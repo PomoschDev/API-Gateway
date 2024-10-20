@@ -40,6 +40,9 @@ func getEndpoint(endpoint string) string {
 func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	addr := fmt.Sprintf(":%d", cfg.APIServer.Port)
 
+	//Эндпоинты auth
+	authRoute := route.r.PathPrefix(getEndpoint("auth")).Subrouter()
+
 	//Эндпоинты usersPrivate
 	usersPrivateRoute := route.r.PathPrefix(getEndpoint("users")).Subrouter()
 	usersPrivateRoute.Use(cors.Default().Handler, route.authMiddleware)
@@ -90,12 +93,20 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 
 	//Swagger
 	{
-		route.r.PathPrefix("/swagger/").Handler(httpSwagger.Handler(
-			httpSwagger.URL("/swagger/doc.json"), //The url pointing to API definition
-			httpSwagger.DeepLinking(true),
-			httpSwagger.DocExpansion("none"),
-			httpSwagger.DomID("swagger-ui"),
-		)).Methods(http.MethodGet)
+		if cfg.Swagger {
+			route.r.PathPrefix("/swagger/").Handler(httpSwagger.Handler(
+				httpSwagger.URL("/swagger/doc.json"), //The url pointing to API definition
+				httpSwagger.DeepLinking(true),
+				httpSwagger.DocExpansion("none"),
+				httpSwagger.DomID("swagger-ui"),
+			)).Methods(http.MethodGet)
+		}
+	}
+
+	//Аутентификация
+	{
+		authRoute.HandleFunc("/login", route.Login).Methods(http.MethodPost, http.MethodOptions)
+		authRoute.HandleFunc("/registration", route.Registration).Methods(http.MethodPost, http.MethodOptions)
 	}
 
 	//Пользователи
