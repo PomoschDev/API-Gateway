@@ -57,7 +57,7 @@ func (route Router) CreateCardCompany(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if request.GetCompanyId() <= 0 {
-		SetHTTPError(w, "Поле \"UserID\" не может быть меньше или равно 0", http.StatusBadRequest)
+		SetHTTPError(w, "Поле \"CompanyID\" не может быть меньше или равно 0", http.StatusBadRequest)
 		return
 	}
 

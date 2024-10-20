@@ -194,7 +194,27 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 
 	//Пожертвования
 	{
-		
+		//Приватные
+		{
+			donationsPrivateRoute.HandleFunc("/{id:[0-9]+}/wards", route.FindDonationWards).Methods(http.MethodGet,
+				http.MethodOptions)
+			donationsPrivateRoute.HandleFunc("/{id:[0-9]+}", route.Donation).Methods(http.MethodGet,
+				http.MethodOptions)
+			donationsPrivateRoute.HandleFunc("/deleteModel", route.DeleteDonationByModel).Methods(http.
+				MethodPost,
+				http.MethodOptions)
+			donationsPrivateRoute.HandleFunc("/{id:[0-9]+}", route.DeleteDonationById).Methods(http.MethodDelete,
+				http.MethodOptions)
+			donationsPrivateRoute.HandleFunc("", route.UpdateDonation).Methods(http.MethodPut,
+				http.MethodOptions)
+		}
+
+		//Публичные
+		{
+			donationsPublicRoute.HandleFunc("", route.CreateDonation).Methods(http.MethodPost,
+				http.MethodOptions)
+			donationsPublicRoute.HandleFunc("", route.Donations).Methods(http.MethodGet, http.MethodOptions)
+		}
 	}
 
 	route.r.Use(cors.Default().Handler, mux.CORSMethodMiddleware(route.r))

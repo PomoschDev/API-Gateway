@@ -1032,6 +1032,344 @@
                 }
             }
         },
+        "/api/v1/donations": {
+            "get": {
+                "description": "Список всех пожертвований в базе данных",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Список всех пожертвований",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.DonationsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Обновление пожертвования",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Обновление пожертвования",
+                "parameters": [
+                    {
+                        "description": "Модель для обновления",
+                        "name": "donation",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.UpdateDonationsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateDonationsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Создание пожертвования",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Создание пожертвования",
+                "parameters": [
+                    {
+                        "description": "Сущность пожертвования",
+                        "name": "donation",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateDonationsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.Card"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/donations/deleteModel": {
+            "post": {
+                "description": "Удаляет пожертвование опираясь на всю сущность модели",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Удаление пожертвования по модели",
+                "parameters": [
+                    {
+                        "description": "Сущность пожертвования",
+                        "name": "donation",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.DeleteDonationByModelRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/donations/{id}": {
+            "get": {
+                "description": "Поиск пожертвовани по ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Поиск пожертвования",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Donation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateDonationsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Удаление пожертвования по ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Удаление пожертвования",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID пожертвования",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/donations/{id}/wards": {
+            "get": {
+                "description": "Извлечение подопечных пожертвования по ID пожертвования",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Извлечение подопечных пожертвования",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Donation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.FindDonationWardsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/users": {
             "get": {
                 "description": "Массив пользователей в базе данных",
@@ -2193,6 +2531,43 @@
                 }
             }
         },
+        "DatabaseServicev1.CreateDonationsResponse": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "description": "* Сумма пожертвования",
+                    "type": "number"
+                },
+                "createdAt": {
+                    "description": "* Дата создания сущности в базе данных",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "* ID записи в базе данных",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "* Название пожертвования (например \"На лекарства\")",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "* Дата последнего обновления сущности в базе данных",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "* ID пользователя, которому принадлежит пожертвование",
+                    "type": "integer"
+                },
+                "wards": {
+                    "description": "* Подопечный этого пожертвования",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.Ward"
+                        }
+                    ]
+                }
+            }
+        },
         "DatabaseServicev1.CreateUserRequest": {
             "type": "object",
             "properties": {
@@ -2323,6 +2698,43 @@
                 }
             }
         },
+        "DatabaseServicev1.DeleteDonationByModelRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "description": "* Сумма пожертвования",
+                    "type": "number"
+                },
+                "createdAt": {
+                    "description": "* Дата создания сущности в базе данных",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "* ID пожертвования в базе данных",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "* Название пожертвования (например \"На лекарства\")",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "* Дата последнего обновления сущности в базе данных",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "* ID пользователя, которому принадлежит пожертвование",
+                    "type": "integer"
+                },
+                "wards": {
+                    "description": "* Подопечный этого пожертвования",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.Ward"
+                        }
+                    ]
+                }
+            }
+        },
         "DatabaseServicev1.DeleteUserByModelRequest": {
             "type": "object",
             "properties": {
@@ -2365,6 +2777,31 @@
                 },
                 "ward": {
                     "description": "* Подопечный этого пожертвования",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.Ward"
+                        }
+                    ]
+                }
+            }
+        },
+        "DatabaseServicev1.DonationsResponse": {
+            "type": "object",
+            "properties": {
+                "donations": {
+                    "description": "* Массив пожертвований",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DatabaseServicev1.Donations"
+                    }
+                }
+            }
+        },
+        "DatabaseServicev1.FindDonationWardsResponse": {
+            "type": "object",
+            "properties": {
+                "wards": {
+                    "description": "* Подопечный пожертвования",
                     "allOf": [
                         {
                             "$ref": "#/definitions/DatabaseServicev1.Ward"
@@ -2436,6 +2873,43 @@
                     "allOf": [
                         {
                             "$ref": "#/definitions/DatabaseServicev1.Company"
+                        }
+                    ]
+                }
+            }
+        },
+        "DatabaseServicev1.UpdateDonationsRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "description": "* Сумма пожертвования",
+                    "type": "number"
+                },
+                "createdAt": {
+                    "description": "* Дата создания сущности в базе данных",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "* ID пожертвования в базе данных",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "* Название пожертвования (например \"На лекарства\")",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "* Дата последнего обновления сущности в базе данных",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "* ID пользователя, которому принадлежит пожертвование",
+                    "type": "integer"
+                },
+                "wards": {
+                    "description": "* Подопечный этого пожертвования",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/DatabaseServicev1.Ward"
                         }
                     ]
                 }

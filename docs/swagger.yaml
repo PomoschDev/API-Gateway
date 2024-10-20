@@ -275,6 +275,31 @@ definitions:
         - $ref: '#/definitions/DatabaseServicev1.Ward'
         description: '* Подопечный данного пожертвования'
     type: object
+  DatabaseServicev1.CreateDonationsResponse:
+    properties:
+      amount:
+        description: '* Сумма пожертвования'
+        type: number
+      createdAt:
+        description: '* Дата создания сущности в базе данных'
+        type: string
+      id:
+        description: '* ID записи в базе данных'
+        type: integer
+      title:
+        description: '* Название пожертвования (например "На лекарства")'
+        type: string
+      updatedAt:
+        description: '* Дата последнего обновления сущности в базе данных'
+        type: string
+      userId:
+        description: '* ID пользователя, которому принадлежит пожертвование'
+        type: integer
+      wards:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.Ward'
+        description: '* Подопечный этого пожертвования'
+    type: object
   DatabaseServicev1.CreateUserRequest:
     properties:
       card:
@@ -364,6 +389,31 @@ definitions:
         - $ref: '#/definitions/DatabaseServicev1.Company'
         description: '* Полная сущность модели для удаления'
     type: object
+  DatabaseServicev1.DeleteDonationByModelRequest:
+    properties:
+      amount:
+        description: '* Сумма пожертвования'
+        type: number
+      createdAt:
+        description: '* Дата создания сущности в базе данных'
+        type: string
+      id:
+        description: '* ID пожертвования в базе данных'
+        type: integer
+      title:
+        description: '* Название пожертвования (например "На лекарства")'
+        type: string
+      updatedAt:
+        description: '* Дата последнего обновления сущности в базе данных'
+        type: string
+      userId:
+        description: '* ID пользователя, которому принадлежит пожертвование'
+        type: integer
+      wards:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.Ward'
+        description: '* Подопечный этого пожертвования'
+    type: object
   DatabaseServicev1.DeleteUserByModelRequest:
     properties:
       user:
@@ -395,6 +445,21 @@ definitions:
         allOf:
         - $ref: '#/definitions/DatabaseServicev1.Ward'
         description: '* Подопечный этого пожертвования'
+    type: object
+  DatabaseServicev1.DonationsResponse:
+    properties:
+      donations:
+        description: '* Массив пожертвований'
+        items:
+          $ref: '#/definitions/DatabaseServicev1.Donations'
+        type: array
+    type: object
+  DatabaseServicev1.FindDonationWardsResponse:
+    properties:
+      wards:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.Ward'
+        description: '* Подопечный пожертвования'
     type: object
   DatabaseServicev1.FindUserCardResponse:
     properties:
@@ -439,6 +504,31 @@ definitions:
         allOf:
         - $ref: '#/definitions/DatabaseServicev1.Company'
         description: '* Компания которую обновляем'
+    type: object
+  DatabaseServicev1.UpdateDonationsRequest:
+    properties:
+      amount:
+        description: '* Сумма пожертвования'
+        type: number
+      createdAt:
+        description: '* Дата создания сущности в базе данных'
+        type: string
+      id:
+        description: '* ID пожертвования в базе данных'
+        type: integer
+      title:
+        description: '* Название пожертвования (например "На лекарства")'
+        type: string
+      updatedAt:
+        description: '* Дата последнего обновления сущности в базе данных'
+        type: string
+      userId:
+        description: '* ID пользователя, которому принадлежит пожертвование'
+        type: integer
+      wards:
+        allOf:
+        - $ref: '#/definitions/DatabaseServicev1.Ward'
+        description: '* Подопечный этого пожертвования'
     type: object
   DatabaseServicev1.UpdateUserCardRequest1:
     properties:
@@ -1268,6 +1358,228 @@ paths:
       summary: Удаление компании
       tags:
       - Company
+  /api/v1/donations:
+    get:
+      consumes:
+      - application/json
+      description: Список всех пожертвований в базе данных
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.DonationsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Список всех пожертвований
+      tags:
+      - Donations
+    post:
+      consumes:
+      - application/json
+      description: Создание пожертвования
+      parameters:
+      - description: Сущность пожертвования
+        in: body
+        name: donation
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.CreateDonationsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.Card'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Создание пожертвования
+      tags:
+      - Donations
+    put:
+      consumes:
+      - application/json
+      description: Обновление пожертвования
+      parameters:
+      - description: Модель для обновления
+        in: body
+        name: donation
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.UpdateDonationsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CreateDonationsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Обновление пожертвования
+      tags:
+      - Donations
+  /api/v1/donations/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление пожертвования по ID
+      parameters:
+      - description: ID пожертвования
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление пожертвования
+      tags:
+      - Donations
+    get:
+      consumes:
+      - application/json
+      description: Поиск пожертвовани по ID
+      parameters:
+      - description: Donation ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.CreateDonationsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Поиск пожертвования
+      tags:
+      - Donations
+  /api/v1/donations/{id}/wards:
+    get:
+      consumes:
+      - application/json
+      description: Извлечение подопечных пожертвования по ID пожертвования
+      parameters:
+      - description: Donation ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.FindDonationWardsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Извлечение подопечных пожертвования
+      tags:
+      - Donations
+  /api/v1/donations/deleteModel:
+    post:
+      consumes:
+      - application/json
+      description: Удаляет пожертвование опираясь на всю сущность модели
+      parameters:
+      - description: Сущность пожертвования
+        in: body
+        name: donation
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.DeleteDonationByModelRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление пожертвования по модели
+      tags:
+      - Donations
   /api/v1/users:
     get:
       consumes:

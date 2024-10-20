@@ -1,12 +1,8 @@
 env: "prod" #Прод конфиг
-grpc:
+api_server:
+  port: 8010
+  timeout: 5s
+grpc_server:
+  host: localhost
   port: 44044
   timeout: 5s
-database:
-  host: localhost
-  user: postgres
-  password: postgres
-  name: postgres
-  port: 3050
-  sslmode: disable
-  migrations: true
