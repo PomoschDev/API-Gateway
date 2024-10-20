@@ -2127,6 +2127,294 @@
                     }
                 }
             }
+        },
+        "/api/v1/wards": {
+            "get": {
+                "description": "Список всех подопечных в базе данных",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wards"
+                ],
+                "summary": "Список всех подопечных",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.WardsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Обновление подопечного",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wards"
+                ],
+                "summary": "Обновление подопечного",
+                "parameters": [
+                    {
+                        "description": "Модель для обновления",
+                        "name": "ward",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.Ward"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.Ward"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Создание подопечного",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wards"
+                ],
+                "summary": "Создание подопечного",
+                "parameters": [
+                    {
+                        "description": "Сущность подопечного",
+                        "name": "ward",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.CreateWardRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.Ward"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wards/deleteModel": {
+            "post": {
+                "description": "Удаляет подопечного опираясь на всю сущность модели",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wards"
+                ],
+                "summary": "Удаление подопечного по модели",
+                "parameters": [
+                    {
+                        "description": "Сущность подопечного",
+                        "name": "ward",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.Ward"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wards/{id}": {
+            "get": {
+                "description": "Поиск подопечного по ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wards"
+                ],
+                "summary": "Поиск подопечного",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID подопечного",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.Ward"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Удаление подопечного по ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wards"
+                ],
+                "summary": "Удаление подопечного",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID подопечного",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -2685,6 +2973,31 @@
                 }
             }
         },
+        "DatabaseServicev1.CreateWardRequest": {
+            "type": "object",
+            "properties": {
+                "donationId": {
+                    "description": "* ID пожертвования",
+                    "type": "integer"
+                },
+                "fullName": {
+                    "description": "* Полное имя подопечного",
+                    "type": "string"
+                },
+                "necessary": {
+                    "description": "* Необходимая сумма денег на необходимость",
+                    "type": "number"
+                },
+                "title": {
+                    "description": "* Дополнительный текст к подопечному",
+                    "type": "string"
+                },
+                "want": {
+                    "description": "* Необходимость подопечного (то в чем он нуждается, например \"Лекарства\")",
+                    "type": "string"
+                }
+            }
+        },
         "DatabaseServicev1.DeleteCompanyByModelRequest": {
             "type": "object",
             "properties": {
@@ -3108,6 +3421,18 @@
                 "want": {
                     "description": "* Необходимость подопечного (то в чем он нуждается, например \"Лекарства\")",
                     "type": "string"
+                }
+            }
+        },
+        "DatabaseServicev1.WardsResponse": {
+            "type": "object",
+            "properties": {
+                "wards": {
+                    "description": "* Массив подопечных",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DatabaseServicev1.Ward"
+                    }
                 }
             }
         },

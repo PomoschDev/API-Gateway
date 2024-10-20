@@ -382,6 +382,25 @@ definitions:
         description: '* Имя (никнейм) пользователя'
         type: string
     type: object
+  DatabaseServicev1.CreateWardRequest:
+    properties:
+      donationId:
+        description: '* ID пожертвования'
+        type: integer
+      fullName:
+        description: '* Полное имя подопечного'
+        type: string
+      necessary:
+        description: '* Необходимая сумма денег на необходимость'
+        type: number
+      title:
+        description: '* Дополнительный текст к подопечному'
+        type: string
+      want:
+        description: '* Необходимость подопечного (то в чем он нуждается, например
+          "Лекарства")'
+        type: string
+    type: object
   DatabaseServicev1.DeleteCompanyByModelRequest:
     properties:
       company:
@@ -670,6 +689,14 @@ definitions:
         description: '* Необходимость подопечного (то в чем он нуждается, например
           "Лекарства")'
         type: string
+    type: object
+  DatabaseServicev1.WardsResponse:
+    properties:
+      wards:
+        description: '* Массив подопечных'
+        items:
+          $ref: '#/definitions/DatabaseServicev1.Ward'
+        type: array
     type: object
   server.HTTPError:
     properties:
@@ -2083,4 +2110,193 @@ paths:
       summary: Проверяет принадлежность к роли
       tags:
       - Users
+  /api/v1/wards:
+    get:
+      consumes:
+      - application/json
+      description: Список всех подопечных в базе данных
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.WardsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Список всех подопечных
+      tags:
+      - Wards
+    post:
+      consumes:
+      - application/json
+      description: Создание подопечного
+      parameters:
+      - description: Сущность подопечного
+        in: body
+        name: ward
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.CreateWardRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.Ward'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Создание подопечного
+      tags:
+      - Wards
+    put:
+      consumes:
+      - application/json
+      description: Обновление подопечного
+      parameters:
+      - description: Модель для обновления
+        in: body
+        name: ward
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.Ward'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.Ward'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Обновление подопечного
+      tags:
+      - Wards
+  /api/v1/wards/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление подопечного по ID
+      parameters:
+      - description: ID подопечного
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление подопечного
+      tags:
+      - Wards
+    get:
+      consumes:
+      - application/json
+      description: Поиск подопечного по ID
+      parameters:
+      - description: ID подопечного
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.Ward'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Поиск подопечного
+      tags:
+      - Wards
+  /api/v1/wards/deleteModel:
+    post:
+      consumes:
+      - application/json
+      description: Удаляет подопечного опираясь на всю сущность модели
+      parameters:
+      - description: Сущность подопечного
+        in: body
+        name: ward
+        schema:
+          $ref: '#/definitions/DatabaseServicev1.Ward'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Удаление подопечного по модели
+      tags:
+      - Wards
 swagger: "2.0"

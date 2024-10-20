@@ -80,6 +80,14 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	donationsPublicRoute := route.r.PathPrefix(getEndpoint("donations")).Subrouter()
 	donationsPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
 
+	//Эндпоинты wardsPrivate
+	wardsPrivateRoute := route.r.PathPrefix(getEndpoint("wards")).Subrouter()
+	wardsPrivateRoute.Use(cors.Default().Handler, route.authMiddleware)
+
+	//Эндпоинты wardsPublic
+	wardsPublicRoute := route.r.PathPrefix(getEndpoint("wards")).Subrouter()
+	wardsPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
+
 	//Swagger
 	{
 		route.r.PathPrefix("/swagger/").Handler(httpSwagger.Handler(
@@ -214,6 +222,29 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 			donationsPublicRoute.HandleFunc("", route.CreateDonation).Methods(http.MethodPost,
 				http.MethodOptions)
 			donationsPublicRoute.HandleFunc("", route.Donations).Methods(http.MethodGet, http.MethodOptions)
+		}
+	}
+
+	//Подопечные
+	{
+		//Приватные
+		{
+			wardsPrivateRoute.HandleFunc("", route.CreateWard).Methods(http.MethodPost,
+				http.MethodOptions)
+			wardsPrivateRoute.HandleFunc("/deleteModel", route.DeleteWardByModel).Methods(http.
+				MethodPost,
+				http.MethodOptions)
+			wardsPrivateRoute.HandleFunc("/{id:[0-9]+}", route.DeleteWardById).Methods(http.MethodDelete,
+				http.MethodOptions)
+			wardsPrivateRoute.HandleFunc("", route.UpdateWard).Methods(http.MethodPut,
+				http.MethodOptions)
+		}
+
+		//Публичные
+		{
+			wardsPublicRoute.HandleFunc("", route.Wards).Methods(http.MethodGet, http.MethodOptions)
+			wardsPublicRoute.HandleFunc("/{id:[0-9]+}", route.Ward).Methods(http.MethodGet,
+				http.MethodOptions)
 		}
 	}
 
