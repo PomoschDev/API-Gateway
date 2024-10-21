@@ -734,6 +734,7 @@ definitions:
       username:
         type: string
     type: object
+host: 89.179.244.210:8010
 info:
   contact: {}
   description: Сервер маршрутизации
@@ -787,7 +788,6 @@ paths:
       - description: Данные для регистрации
         in: body
         name: user
-        required: true
         schema:
           $ref: '#/definitions/server.RegistrationRequest'
       produces:

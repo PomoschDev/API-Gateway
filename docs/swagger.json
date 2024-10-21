@@ -6,6 +6,7 @@
         "contact": {},
         "version": "1.0"
     },
+    "host": "89.179.244.210:8010",
     "paths": {
         "/api/v1/auth/login": {
             "post": {
@@ -83,7 +84,6 @@
                         "description": "Данные для регистрации",
                         "name": "user",
                         "in": "body",
-                        "required": true,
                         "schema": {
                             "$ref": "#/definitions/server.RegistrationRequest"
                         }
