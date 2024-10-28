@@ -42,6 +42,7 @@ func (route Router) Wards(w http.ResponseWriter, r *http.Request) {
 // @Tags         Wards
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        ward body DatabaseServicev1.CreateWardRequest false "Сущность подопечного"
 // @Success      200  {object}  DatabaseServicev1.Ward
 // @Failure      400  {object}  HTTPError
@@ -114,6 +115,7 @@ func (route Router) Ward(w http.ResponseWriter, r *http.Request) {
 // @Tags         Wards
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        ward body DatabaseServicev1.Ward false "Сущность подопечного"
 // @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
@@ -148,6 +150,7 @@ func (route Router) DeleteWardByModel(w http.ResponseWriter, r *http.Request) {
 // @Tags         Wards
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      int  true  "ID подопечного"
 // @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
@@ -185,6 +188,7 @@ func (route Router) DeleteWardById(w http.ResponseWriter, r *http.Request) {
 // @Tags         Wards
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        ward body DatabaseServicev1.Ward false "Модель для обновления"
 // @Success      200  {object}  DatabaseServicev1.Ward
 // @Failure      400  {object}  HTTPError
@@ -200,6 +204,45 @@ func (route Router) UpdateWard(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response, err := route.databaseService.UpdateWard(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// FindWardDonations godoc
+// @Summary      Извлечение пожертвований подопечного
+// @Description  Извлечение пожертвований подопечного по его ID
+// @Tags         Wards
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id   path      int  true  "Ward ID"
+// @Success      200  {object}  DatabaseServicev1.DonationsResponse
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/wards/{id}/donations [get]
+func (route Router) FindWardDonations(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)["id"]
+	id := utilities.StrToUint(vars)
+
+	if id <= 0 {
+		SetHTTPError(w, "Поле \"ID\" не может быть меньше или равно 0", http.StatusBadRequest)
+		return
+	}
+
+	request := &DatabaseServicev1.FindWardDonationByIdRequest{Id: id}
+
+	response, err := route.databaseService.FindWardDonationById(r.Context(), request)
 	if err != nil {
 		logger.Error("Ошибка при выполнении запроса: %v", err)
 		SetGRPCError(w, err)

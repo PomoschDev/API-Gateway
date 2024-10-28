@@ -15,6 +15,7 @@ import (
 // @Tags         Company
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Success      200  {object}  DatabaseServicev1.CompaniesResponse
 // @Failure      400  {object}  HTTPError
 // @Failure      404  {object}  HTTPError
@@ -89,6 +90,7 @@ func (route Router) CreateCompany(w http.ResponseWriter, r *http.Request) {
 // @Tags         Company
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      int  true  "Company ID"
 // @Success      200  {object}  DatabaseServicev1.Company
 // @Failure      400  {object}  HTTPError
@@ -166,6 +168,7 @@ func (route Router) FindCompanyByPhone(w http.ResponseWriter, r *http.Request) {
 // @Tags         Company
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      int  true  "Company ID"
 // @Success      200  {object}  DatabaseServicev1.CardCompany
 // @Failure      400  {object}  HTTPError
@@ -204,6 +207,7 @@ func (route Router) FindCompanyCard(w http.ResponseWriter, r *http.Request) {
 // @Tags         Company
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        company body DatabaseServicev1.DeleteCompanyByModelRequest false "Модель компании"
 // @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
@@ -238,6 +242,7 @@ func (route Router) DeleteCompanyByModel(w http.ResponseWriter, r *http.Request)
 // @Tags         Company
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      int  true  "ID компании"
 // @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
@@ -270,6 +275,7 @@ func (route Router) DeleteCompanyByID(w http.ResponseWriter, r *http.Request) {
 // @Tags         Company
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        company body DatabaseServicev1.UpdateCompanyRequest false "Модель для обновления"
 // @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
@@ -306,6 +312,7 @@ func (route Router) UpdateCompany(w http.ResponseWriter, r *http.Request) {
 // @Tags         Company
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        card body DatabaseServicev1.AddCardToCompanyRequest false "Сущность банковской карты"
 // @Success      200  {object}  DatabaseServicev1.AddCardToCompanyResponse
 // @Failure      400  {object}  HTTPError

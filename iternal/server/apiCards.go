@@ -15,6 +15,7 @@ import (
 // @Tags         Cards
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Success      200  {object}  DatabaseServicev1.CardsResponse
 // @Failure      400  {object}  HTTPError
 // @Failure      404  {object}  HTTPError
@@ -42,6 +43,7 @@ func (route Router) Cards(w http.ResponseWriter, r *http.Request) {
 // @Tags         Cards
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      int  true  "Card ID"
 // @Success      200  {object}  DatabaseServicev1.Card
 // @Failure      400  {object}  HTTPError
@@ -127,6 +129,7 @@ func (route Router) CreateCard(w http.ResponseWriter, r *http.Request) {
 // @Tags         Cards
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        card body DatabaseServicev1.Card false "Модель банковской карты"
 // @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
@@ -161,6 +164,7 @@ func (route Router) DeleteCardByModel(w http.ResponseWriter, r *http.Request) {
 // @Tags         Cards
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      int  true  "ID банковской карты"
 // @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
@@ -193,6 +197,7 @@ func (route Router) DeleteCardById(w http.ResponseWriter, r *http.Request) {
 // @Tags         Cards
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id path int true "ID банковской карты"
 // @Param        card body DatabaseServicev1.UpdateUserCardRequest1 true "Модель для обновления"
 // @Success      200  {object}  DatabaseServicev1.UpdateUserCardResponse

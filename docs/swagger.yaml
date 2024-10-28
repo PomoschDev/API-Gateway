@@ -270,10 +270,9 @@ definitions:
       userId:
         description: '* ID пользователя, чье это пожертвование'
         type: integer
-      wards:
-        allOf:
-        - $ref: '#/definitions/DatabaseServicev1.Ward'
-        description: '* Подопечный данного пожертвования'
+      wardId:
+        description: '* ID подопечный этого пожертвования'
+        type: integer
     type: object
   DatabaseServicev1.CreateDonationsResponse:
     properties:
@@ -295,10 +294,9 @@ definitions:
       userId:
         description: '* ID пользователя, которому принадлежит пожертвование'
         type: integer
-      wards:
-        allOf:
-        - $ref: '#/definitions/DatabaseServicev1.Ward'
-        description: '* Подопечный этого пожертвования'
+      wardId:
+        description: '* ID подопечный этого пожертвования'
+        type: integer
     type: object
   DatabaseServicev1.CreateUserRequest:
     properties:
@@ -337,9 +335,6 @@ definitions:
     type: object
   DatabaseServicev1.CreateUserResponse:
     properties:
-      AvatarPath:
-        description: '* Локальный путь к аватару пользователя'
-        type: string
       card:
         description: '* Банковские карты пользователя'
         items:
@@ -384,9 +379,9 @@ definitions:
     type: object
   DatabaseServicev1.CreateWardRequest:
     properties:
-      donationId:
-        description: '* ID пожертвования'
-        type: integer
+      address:
+        description: '* Адрес подопечного'
+        type: string
       fullName:
         description: '* Полное имя подопечного'
         type: string
@@ -428,10 +423,9 @@ definitions:
       userId:
         description: '* ID пользователя, которому принадлежит пожертвование'
         type: integer
-      wards:
-        allOf:
-        - $ref: '#/definitions/DatabaseServicev1.Ward'
-        description: '* Подопечный этого пожертвования'
+      wardId:
+        description: '* ID подопечный этого пожертвования'
+        type: integer
     type: object
   DatabaseServicev1.DeleteUserByModelRequest:
     properties:
@@ -460,10 +454,9 @@ definitions:
       userId:
         description: '* ID пользователя, которому принадлежит пожертвование'
         type: integer
-      ward:
-        allOf:
-        - $ref: '#/definitions/DatabaseServicev1.Ward'
-        description: '* Подопечный этого пожертвования'
+      wardId:
+        description: '* ID подопечного для которого предназначено данное пожертвование'
+        type: integer
     type: object
   DatabaseServicev1.DonationsResponse:
     properties:
@@ -544,10 +537,9 @@ definitions:
       userId:
         description: '* ID пользователя, которому принадлежит пожертвование'
         type: integer
-      wards:
-        allOf:
-        - $ref: '#/definitions/DatabaseServicev1.Ward'
-        description: '* Подопечный этого пожертвования'
+      wardId:
+        description: '* ID подопечный этого пожертвования'
+        type: integer
     type: object
   DatabaseServicev1.UpdateUserCardRequest1:
     properties:
@@ -593,9 +585,6 @@ definitions:
     type: object
   DatabaseServicev1.UpdateUserRequest:
     properties:
-      AvatarPath:
-        description: '* Локальный путь к аватару пользователя'
-        type: string
       card:
         description: '* Массив банковских карт пользователя'
         items:
@@ -661,15 +650,20 @@ definitions:
     type: object
   DatabaseServicev1.Ward:
     properties:
-      AvatarPath:
-        description: '* Локальный путь к аватару подопечного'
+      address:
+        description: '* Адрес подопечного'
         type: string
+      collected:
+        description: '* Количество собранных средств'
+        type: number
       createdAt:
         description: '* Дата создания сущности в базе данных'
         type: string
-      donationId:
-        description: '* ID пожертвования к которому относится данный подопечный'
-        type: integer
+      donations:
+        description: '* пожертвования для подопечного'
+        items:
+          $ref: '#/definitions/DatabaseServicev1.Donations'
+        type: array
       fullName:
         description: '* Полное имя подопечного'
         type: string
@@ -677,7 +671,7 @@ definitions:
         description: '* ID подопечного в базе данных'
         type: integer
       necessary:
-        description: '* Необходимая сумма денег на необходимость'
+        description: '* Необходимая сумма денег на потребность'
         type: number
       title:
         description: '* Дополнительный текст к подопечному'
@@ -686,8 +680,7 @@ definitions:
         description: '* Дата последнего обновления сущности в базе данных'
         type: string
       want:
-        description: '* Необходимость подопечного (то в чем он нуждается, например
-          "Лекарства")'
+        description: '* Потребность подопечного (то в чем он нуждается, например "Лекарства")'
         type: string
     type: object
   DatabaseServicev1.WardsResponse:
@@ -717,6 +710,15 @@ definitions:
       token:
         type: string
     type: object
+  server.PaymentRequest:
+    properties:
+      amount:
+        type: number
+      description:
+        type: string
+      toWardId:
+        type: integer
+    type: object
   server.RegistrationRequest:
     properties:
       card:
@@ -734,7 +736,6 @@ definitions:
       username:
         type: string
     type: object
-host: 89.179.244.210:8010
 info:
   contact: {}
   description: Сервер маршрутизации
@@ -836,6 +837,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Банковская карта компании
       tags:
       - CardCompany
@@ -900,9 +903,11 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Обновление банковской карты компании
       tags:
-      - Cards
+      - CardCompany
   /api/v1/card/company/{id}:
     delete:
       consumes:
@@ -933,6 +938,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Удаление банковской карты компании
       tags:
       - CardCompany
@@ -965,6 +972,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Поиск банковской карты компании
       tags:
       - CardCompany
@@ -998,6 +1007,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Удаление банковской карты компании по модели
       tags:
       - CardCompany
@@ -1025,6 +1036,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Список всех банковских карт
       tags:
       - Cards
@@ -1090,6 +1103,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Удаление банковской карты пользователя
       tags:
       - Cards
@@ -1122,6 +1137,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Поиск банковской карты
       tags:
       - Cards
@@ -1160,6 +1177,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Обновление банковской карты
       tags:
       - Cards
@@ -1193,6 +1212,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Удаление банковской карты по модели
       tags:
       - Cards
@@ -1220,6 +1241,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Список всех компаний
       tags:
       - Company
@@ -1284,6 +1307,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Обновление компании
       tags:
       - Company
@@ -1350,6 +1375,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Поиск компании
       tags:
       - Company
@@ -1383,6 +1410,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Извлечение банковской карты компании
       tags:
       - Company
@@ -1417,6 +1446,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Добавляет банковскую карту компании
       tags:
       - Company
@@ -1450,6 +1481,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Удаление компании по модели
       tags:
       - Company
@@ -1483,6 +1516,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Удаление компании
       tags:
       - Company
@@ -1574,6 +1609,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Обновление пожертвования
       tags:
       - Donations
@@ -1607,6 +1644,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Удаление пожертвования
       tags:
       - Donations
@@ -1639,7 +1678,44 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Поиск пожертвования
+      tags:
+      - Donations
+  /api/v1/donations/{id}/user:
+    get:
+      consumes:
+      - application/json
+      description: Извлечение пользователя из пожертвования по ID пожертвования
+      parameters:
+      - description: Donation ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.FindDonationWardsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
+      summary: Извлечение пользователя из пожертвования
       tags:
       - Donations
   /api/v1/donations/{id}/wards:
@@ -1672,6 +1748,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Извлечение подопечных пожертвования
       tags:
       - Donations
@@ -1705,9 +1783,47 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Удаление пожертвования по модели
       tags:
       - Donations
+  /api/v1/payment:
+    post:
+      consumes:
+      - application/json
+      description: Пожертвования
+      parameters:
+      - description: Данные для оплаты
+        in: body
+        name: payment
+        required: true
+        schema:
+          $ref: '#/definitions/server.PaymentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
+      summary: Пожертвования
+      tags:
+      - Payments
   /api/v1/users:
     get:
       consumes:
@@ -1732,6 +1848,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Список всех пользователей
       tags:
       - Users
@@ -1764,6 +1882,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Создание пользователя
       tags:
       - Users
@@ -1901,6 +2021,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Меняет тип пользователя
       tags:
       - Users
@@ -1972,6 +2094,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Извлечение карт пользователя
       tags:
       - Users
@@ -2005,6 +2129,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Извлечение компании пользователя
       tags:
       - Users
@@ -2038,7 +2164,116 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Извлечение пожертвований пользователя
+      tags:
+      - Users
+  /api/v1/users/{id}/photo:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление фото пользователя по ID
+      parameters:
+      - description: ID пользователя
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
+      summary: Удаление фото пользователя
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Поиск фото профиля пользователя по ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - image/png
+      - ' image/jpeg'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: file
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      summary: Поиск фото профиля пользователя
+      tags:
+      - Users
+    post:
+      consumes:
+      - multipart/form-data
+      description: Устанавливает фото пользователя по ID
+      parameters:
+      - description: ID пользователя
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Фото пользователя
+        in: formData
+        name: photo
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.HTTPCodes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
+      summary: Устанавливает фото пользователя
       tags:
       - Users
   /api/v1/users/addCard:
@@ -2072,6 +2307,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Добавляет банковскую карту пользователю
       tags:
       - Users
@@ -2140,6 +2377,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Удаление пользователя по модели
       tags:
       - Users
@@ -2267,6 +2506,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Создание подопечного
       tags:
       - Wards
@@ -2299,6 +2540,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Обновление подопечного
       tags:
       - Wards
@@ -2332,6 +2575,8 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Удаление подопечного
       tags:
       - Wards
@@ -2367,6 +2612,41 @@ paths:
       summary: Поиск подопечного
       tags:
       - Wards
+  /api/v1/wards/{id}/donations:
+    get:
+      consumes:
+      - application/json
+      description: Извлечение пожертвований подопечного по его ID
+      parameters:
+      - description: Ward ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DatabaseServicev1.DonationsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
+      summary: Извлечение пожертвований подопечного
+      tags:
+      - Wards
   /api/v1/wards/deleteModel:
     post:
       consumes:
@@ -2397,7 +2677,14 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/server.HTTPError'
+      security:
+      - BearerAuth: []
       summary: Удаление подопечного по модели
       tags:
       - Wards
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

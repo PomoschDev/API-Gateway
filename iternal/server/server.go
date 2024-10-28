@@ -18,6 +18,7 @@ type Router struct {
 	r               *mux.Router
 	mu              sync.Mutex
 	databaseService DatabaseServicev1.DatabaseServiceClient
+	cfg             *config.Config
 }
 
 const apiStr = "/api/v1/"
@@ -28,17 +29,18 @@ func New(cfg *config.Config, grpcClient *grpc.Api) *http.Server {
 		r:               mux.NewRouter(),
 		mu:              sync.Mutex{},
 		databaseService: grpcClient.Client,
+		cfg:             cfg,
 	}
 
-	return router.loadEndpoints(cfg)
+	return router.loadEndpoints()
 }
 
 func getEndpoint(endpoint string) string {
 	return fmt.Sprintf("%s%s", apiStr, endpoint)
 }
 
-func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
-	addr := fmt.Sprintf(":%d", cfg.APIServer.Port)
+func (route *Router) loadEndpoints() *http.Server {
+	addr := fmt.Sprintf(":%d", route.cfg.APIServer.Port)
 
 	//Эндпоинты auth
 	authRoute := route.r.PathPrefix(getEndpoint("auth")).Subrouter()
@@ -91,9 +93,17 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 	wardsPublicRoute := route.r.PathPrefix(getEndpoint("wards")).Subrouter()
 	wardsPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
 
+	//Эндпоинты wardsPrivate
+	paymentPrivateRoute := route.r.PathPrefix(getEndpoint("payment")).Subrouter()
+	paymentPrivateRoute.Use(cors.Default().Handler, route.authMiddleware)
+
+	//Эндпоинты wardsPublic
+	paymentPublicRoute := route.r.PathPrefix(getEndpoint("payment")).Subrouter()
+	paymentPublicRoute.Use(cors.Default().Handler, route.publicMiddleware)
+
 	//Swagger
 	{
-		if cfg.Swagger {
+		if route.cfg.Swagger {
 			route.r.PathPrefix("/swagger/").Handler(httpSwagger.Handler(
 				httpSwagger.URL("/swagger/doc.json"), //The url pointing to API definition
 				httpSwagger.DeepLinking(true),
@@ -124,9 +134,11 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 				http.MethodOptions)
 			usersPrivateRoute.HandleFunc("/addCard", route.AddCardToUser).Methods(http.MethodPost,
 				http.MethodOptions)
-			/*usersPrivateRoute.HandleFunc("/addCard", route.AddCardToUser).Methods(http.MethodPost,
-			http.MethodOptions)*/
 			usersPrivateRoute.HandleFunc("/deleteModel", route.DeleteUserByModel).Methods(http.MethodPost,
+				http.MethodOptions)
+			usersPrivateRoute.HandleFunc("/{id:[0-9]+}/photo", route.DeleteUserPhoto).Methods(http.MethodDelete,
+				http.MethodOptions)
+			usersPrivateRoute.HandleFunc("/{id:[0-9]+}/photo", route.SetUserPhoto).Methods(http.MethodPost,
 				http.MethodOptions)
 		}
 
@@ -142,6 +154,7 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 				http.MethodOptions)
 			usersPublicRoute.HandleFunc("/", route.FindUserByPhone).Queries("phone", "{phone}").Methods(http.MethodGet,
 				http.MethodOptions)
+			usersPublicRoute.HandleFunc("/{id:[0-9]+}/photo", route.GetUserPhoto).Methods(http.MethodGet, http.MethodOptions)
 		}
 	}
 
@@ -157,7 +170,7 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 				http.MethodOptions)
 			companiesPrivateRoute.HandleFunc("/{id:[0-9]+}", route.DeleteCompanyByID).Methods(http.MethodDelete, http.MethodOptions)
 			companiesPrivateRoute.HandleFunc("", route.UpdateCompany).Methods(http.MethodPut, http.MethodOptions)
-			companiesPrivateRoute.HandleFunc("/addCard", route.AddCardToUser).Methods(http.MethodPost,
+			companiesPrivateRoute.HandleFunc("/addCard", route.AddCardToCompany).Methods(http.MethodPost,
 				http.MethodOptions)
 		}
 
@@ -217,6 +230,8 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 		{
 			donationsPrivateRoute.HandleFunc("/{id:[0-9]+}/wards", route.FindDonationWards).Methods(http.MethodGet,
 				http.MethodOptions)
+			donationsPrivateRoute.HandleFunc("/{id:[0-9]+}/user", route.FindDonationUser).Methods(http.MethodGet,
+				http.MethodOptions)
 			donationsPrivateRoute.HandleFunc("/{id:[0-9]+}", route.Donation).Methods(http.MethodGet,
 				http.MethodOptions)
 			donationsPrivateRoute.HandleFunc("/deleteModel", route.DeleteDonationByModel).Methods(http.
@@ -249,6 +264,8 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 				http.MethodOptions)
 			wardsPrivateRoute.HandleFunc("", route.UpdateWard).Methods(http.MethodPut,
 				http.MethodOptions)
+			wardsPrivateRoute.HandleFunc("/{id:[0-9]+}/donations", route.FindWardDonations).Methods(http.MethodGet,
+				http.MethodOptions)
 		}
 
 		//Публичные
@@ -256,6 +273,14 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 			wardsPublicRoute.HandleFunc("", route.Wards).Methods(http.MethodGet, http.MethodOptions)
 			wardsPublicRoute.HandleFunc("/{id:[0-9]+}", route.Ward).Methods(http.MethodGet,
 				http.MethodOptions)
+		}
+	}
+
+	//Платежи
+	{
+		//Приватные
+		{
+			paymentPrivateRoute.HandleFunc("", route.Payment).Methods(http.MethodPost, http.MethodOptions)
 		}
 	}
 
@@ -271,9 +296,9 @@ func (route *Router) loadEndpoints(cfg *config.Config) *http.Server {
 
 	srv := &http.Server{
 		Addr:         addr,
-		WriteTimeout: cfg.APIServer.Timeout,
-		ReadTimeout:  cfg.APIServer.Timeout,
-		IdleTimeout:  cfg.APIServer.Timeout,
+		WriteTimeout: route.cfg.APIServer.Timeout,
+		ReadTimeout:  route.cfg.APIServer.Timeout,
+		IdleTimeout:  route.cfg.APIServer.Timeout,
 		Handler:      cors.AllowAll().Handler(handler),
 	}
 

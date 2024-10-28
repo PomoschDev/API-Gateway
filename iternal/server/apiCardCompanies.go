@@ -15,6 +15,7 @@ import (
 // @Tags         CardCompany
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Success      200  {object}  DatabaseServicev1.CardsCompaniesResponse
 // @Failure      400  {object}  HTTPError
 // @Failure      404  {object}  HTTPError
@@ -89,6 +90,7 @@ func (route Router) CreateCardCompany(w http.ResponseWriter, r *http.Request) {
 // @Tags         CardCompany
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      int  true  "Card ID"
 // @Success      200  {object}  DatabaseServicev1.CardCompany
 // @Failure      400  {object}  HTTPError
@@ -127,6 +129,7 @@ func (route Router) CardCompany(w http.ResponseWriter, r *http.Request) {
 // @Tags         CardCompany
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        card body DatabaseServicev1.CardCompany false "Сущность банковской карты компании"
 // @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
@@ -161,6 +164,7 @@ func (route Router) DeleteCardCompaniesByModel(w http.ResponseWriter, r *http.Re
 // @Tags         CardCompany
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      int  true  "ID банковской карты компании"
 // @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
@@ -195,9 +199,10 @@ func (route Router) DeleteCardCompanyById(w http.ResponseWriter, r *http.Request
 // UpdateCardCompany godoc
 // @Summary      Обновление банковской карты компании
 // @Description  Обновление банковской карты компании
-// @Tags         Cards
+// @Tags         CardCompany
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        card body DatabaseServicev1.CardCompany false "Модель для обновления"
 // @Success      200  {object}  DatabaseServicev1.CardCompany
 // @Failure      400  {object}  HTTPError

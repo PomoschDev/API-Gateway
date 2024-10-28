@@ -19,11 +19,17 @@ type GRPCServerConfig struct {
 	Timeout time.Duration `yaml:"timeout"`
 }
 
+type Jwt struct {
+	Secret  string `yaml:"secret"`
+	Expires string `yaml:"expires"`
+}
+
 type Config struct {
 	Env        string           `yaml:"env" env-default:"local"`
 	APIServer  ServerConfig     `yaml:"api_server"`
 	GRPCServer GRPCServerConfig `yaml:"grpc_server"`
 	Swagger    bool             `yaml:"swagger"`
+	Jwt        Jwt              `yaml:"jwt"`
 }
 
 func MustLoad() *Config {

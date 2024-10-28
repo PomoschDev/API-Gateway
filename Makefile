@@ -5,7 +5,7 @@ EXE_NAME="./apigateway.exe"
 ARGS ?= "--config=./config/local.yaml"
 DOCKER_DIR="docker"
 
-all: build remove_log run
+all: build run
 
 build:
 	@echo Build and compile
@@ -24,7 +24,6 @@ compose_clean:
 	@echo Docker without repository
 	@cd ${DOCKER_DIR} && docker compose up -d
 
-remove_log:
-	@echo Delete dir with log
-	@del /s /q log -y
-	@rmdir log
+doc:
+	@echo Make swagger docs
+	@swag init

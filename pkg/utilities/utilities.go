@@ -9,6 +9,7 @@ import (
 	"math/rand"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 func jsonPrettyPrint(in string) string {
@@ -120,4 +121,13 @@ func GRPCErrToHttpErr(grpcErr error) (int, string) {
 	}
 
 	return httpCode, errStr
+}
+
+// ParseDurationFromString - Парсит время из строки формата m,h,d
+func ParseDurationFromString(durationStr string) (time.Duration, error) {
+	parsedValue, err := time.ParseDuration(durationStr)
+	if err != nil {
+		return 0, err
+	}
+	return parsedValue, nil
 }

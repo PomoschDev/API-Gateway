@@ -5,8 +5,12 @@ import (
 	"apiGateway/pkg/logger"
 	"apiGateway/pkg/utilities"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
+	"io"
 	"net/http"
+	"path/filepath"
+	"strings"
 )
 
 // GetUsers godoc
@@ -15,6 +19,7 @@ import (
 // @Tags         Users
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Success      200  {object}  DatabaseServicev1.UsersResponse
 // @Failure      400  {object}  HTTPError
 // @Failure      404  {object}  HTTPError
@@ -113,6 +118,7 @@ func (route Router) UpdateUser(w http.ResponseWriter, r *http.Request) {
 // @Tags         Users
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        user body DatabaseServicev1.CreateUserRequest false "Сущность пользователя"
 // @Success      200  {object}  DatabaseServicev1.CreateUserResponse
 // @Failure      400  {object}  HTTPError
@@ -335,6 +341,7 @@ func (route Router) ComparePassword(w http.ResponseWriter, r *http.Request) {
 // @Tags         Users
 // @Accept       mpfd
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      uint64  true  "ID пользователя"
 // @Param        type formData  uint64  true  "Type поле пользователя, 0 - юридическое лицо, 1 - физическое лицо"
 // @Success      200  {object}  DatabaseServicev1.ChangeUserTypeResponse
@@ -432,6 +439,7 @@ func (route Router) FindUserByPhone(w http.ResponseWriter, r *http.Request) {
 // @Tags         Users
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      int  true  "User ID"
 // @Success      200  {object}  DatabaseServicev1.Company
 // @Failure      400  {object}  HTTPError
@@ -470,6 +478,7 @@ func (route Router) FindUserCompany(w http.ResponseWriter, r *http.Request) {
 // @Tags         Users
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      int  true  "User ID"
 // @Success      200  {object}  DatabaseServicev1.FindUserDonationsResponse
 // @Failure      400  {object}  HTTPError
@@ -508,6 +517,7 @@ func (route Router) FindUserDonations(w http.ResponseWriter, r *http.Request) {
 // @Tags         Users
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        id   path      int  true  "User ID"
 // @Success      200  {object}  DatabaseServicev1.FindUserCardResponse
 // @Failure      400  {object}  HTTPError
@@ -546,6 +556,7 @@ func (route Router) FindUserCard(w http.ResponseWriter, r *http.Request) {
 // @Tags         Users
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        card body DatabaseServicev1.AddCardToUserRequest false "Сущность банковской карты"
 // @Success      200  {object}  DatabaseServicev1.CreateUserResponse
 // @Failure      400  {object}  HTTPError
@@ -580,6 +591,7 @@ func (route Router) AddCardToUser(w http.ResponseWriter, r *http.Request) {
 // @Tags         Users
 // @Accept       json
 // @Produce      json
+// @Security     BearerAuth
 // @Param        user body DatabaseServicev1.DeleteUserByModelRequest false "Модель пользователя"
 // @Success      200  {object}  DatabaseServicev1.HTTPCodes
 // @Failure      400  {object}  HTTPError
@@ -606,4 +618,265 @@ func (route Router) DeleteUserByModel(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		logger.Error("%s", err.Error())
 	}
+}
+
+// GetUserPhoto godoc
+// @Summary      Поиск фото профиля пользователя
+// @Description  Поиск фото профиля пользователя по ID
+// @Tags         Users
+// @Accept       json
+// @Produce      image/png, image/jpeg
+// @Param        id   path      int  true  "User ID"
+// @Success      200  {file}  image
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/users/{id}/photo [get]
+func (route Router) GetUserPhoto(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)["id"]
+	id := utilities.StrToUint(vars)
+
+	if id <= 0 {
+		SetHTTPError(w, "Поле \"ID\" не может быть меньше или равно 0", http.StatusBadRequest)
+		return
+	}
+
+	request := &DatabaseServicev1.GetUserAvatarRequest{UserId: id}
+
+	stream, err := route.databaseService.GetUserAvatar(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+	defer stream.Context().Done()
+
+	var data []byte
+	imageInfo := new(DatabaseServicev1.ImageInfo)
+
+	chErr := make(chan error, 1)
+
+	go func() {
+		defer close(chErr)
+	loop:
+		for {
+			req := new(DatabaseServicev1.GetUserAvatarResponse)
+			err := stream.RecvMsg(req)
+			if err == io.EOF {
+				chErr <- nil
+				break loop
+			}
+
+			if err != nil {
+				chErr <- err
+				break loop
+			}
+
+			switch u := req.GetData().(type) {
+			case *DatabaseServicev1.GetUserAvatarResponse_Info:
+				{
+					imageInfo = u.Info
+					data = make([]byte, 0, imageInfo.Size)
+					w.Header().Set("Content-Type", fmt.Sprintf("image/%s", imageInfo.Type))
+				}
+			case *DatabaseServicev1.GetUserAvatarResponse_ChunkData:
+				{
+					data = append(data, u.ChunkData...)
+				}
+			}
+		}
+	}()
+
+	err = <-chErr
+
+	if err != nil {
+		SetGRPCError(w, err)
+		return
+	}
+
+	_, err = w.Write(data)
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// DeleteUserPhoto godoc
+// @Summary      Удаление фото пользователя
+// @Description  Удаление фото пользователя по ID
+// @Tags         Users
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id   path      int  true  "ID пользователя"
+// @Success      200  {object}  DatabaseServicev1.HTTPCodes
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/users/{id}/photo [delete]
+func (route Router) DeleteUserPhoto(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)["id"]
+	id := utilities.StrToUint(vars)
+
+	if id <= 0 {
+		SetHTTPError(w, "Поле \"ID\" не может быть меньше или равно 0", http.StatusBadRequest)
+		return
+	}
+
+	request := &DatabaseServicev1.DeleteUserAvatarRequest{UserId: id}
+
+	response, err := route.databaseService.DeleteUserAvatar(r.Context(), request)
+	if err != nil {
+		logger.Error("Ошибка при выполнении запроса: %v", err)
+		SetGRPCError(w, err)
+		return
+	}
+
+	str := utilities.ToJSON(response)
+
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("%s", err.Error())
+	}
+}
+
+// SetUserPhoto godoc
+// @Summary      Устанавливает фото пользователя
+// @Description  Устанавливает фото пользователя по ID
+// @Tags         Users
+// @Accept       mpfd
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id   path      int  true  "ID пользователя"
+// @Param 		 photo formData file true "Фото пользователя"
+// @Success      200  {object}  DatabaseServicev1.HTTPCodes
+// @Failure      400  {object}  HTTPError
+// @Failure      404  {object}  HTTPError
+// @Failure      500  {object}  HTTPError
+// @Router       /api/v1/users/{id}/photo [post]
+func (route Router) SetUserPhoto(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)["id"]
+	id := utilities.StrToUint(vars)
+	const chunkSize = 1024 // Размер части в байтах
+	defer r.Context().Done()
+
+	if id <= 0 {
+		SetHTTPError(w, "Поле \"ID\" не может быть меньше или равно 0", http.StatusBadRequest)
+		return
+	}
+
+	err := r.ParseMultipartForm(10 << 20)
+	if err != nil {
+		SetHTTPError(w, "Ошибка при чтении ParseMultipartForm", http.StatusInternalServerError)
+		return
+	}
+
+	// Получите файл из формы
+	file, handler, err := r.FormFile("photo")
+	if err != nil {
+		SetHTTPError(w, "Ошибка при чтении изображения", http.StatusBadRequest)
+		logger.Error("Ошибка FormFile: %v", err)
+		return
+	}
+	defer file.Close()
+
+	imageType := strings.Replace(filepath.Ext(handler.Filename), ".", "", -1)
+
+	// Выводим информацию о файле
+	logger.Info("Получен файл: %v, размер: %v, MIME-тип: %v\n", handler.Filename, handler.Size,
+		handler.Header.Get("Content-Type"))
+
+	if imageType != "png" && imageType != "jpg" && imageType != "jpeg" {
+		SetHTTPError(w, "Неверное расширение изображения", http.StatusBadRequest)
+		logger.Error("Формата файла: %s", imageType)
+		return
+	}
+
+	stream, err := route.databaseService.SetUserAvatar(r.Context())
+	if err != nil {
+		SetHTTPError(w, "Ошибка при попытке открыть поток", http.StatusInternalServerError)
+		logger.Error("Ошибка при попытке открыть поток: %v", err)
+		return
+	}
+
+	// Отправка UserId
+	reqUserId := &DatabaseServicev1.SetUserAvatarRequest{
+		Data: &DatabaseServicev1.SetUserAvatarRequest_UserId{UserId: id},
+	}
+
+	if err := stream.SendMsg(reqUserId); err != nil {
+		SetHTTPError(w, "Ошибка на стороне сервера", http.StatusInternalServerError)
+		logger.Error("Ошибка при попытке отправить сообщение в канал: %v", err)
+		return
+	}
+
+	// Отправка ImageType
+	reqImageType := &DatabaseServicev1.SetUserAvatarRequest{
+		Data: &DatabaseServicev1.SetUserAvatarRequest_ImageType{ImageType: imageType},
+	}
+	if err := stream.SendMsg(reqImageType); err != nil {
+		SetHTTPError(w, "Ошибка на стороне сервера", http.StatusInternalServerError)
+		logger.Error("Ошибка при попытке отправить сообщение в канал: %v", err)
+		return
+	}
+
+	data := make([]byte, handler.Size/chunkSize)
+	logger.Info("Длина фрагмента: %d", len(data))
+	chErr := make(chan error, 1)
+
+	go func() {
+		defer func() {
+			close(chErr)
+			stream.CloseSend()
+		}()
+	loop:
+		for {
+			n, err := file.Read(data)
+			//logger.Info("Читаем: %d", n)
+			if err == io.EOF {
+				logger.Info("Достигли конца")
+				chErr <- nil
+				break loop
+			}
+
+			if err != nil {
+				logger.Error("Ошибка при чтении: %v", err)
+				chErr <- err
+				return
+			}
+
+			data = data[:n]
+			reqChunk := &DatabaseServicev1.SetUserAvatarRequest{
+				Data: &DatabaseServicev1.SetUserAvatarRequest_ChunkData{ChunkData: data},
+			}
+
+			//logger.Info("Фрагмент: %b", data)
+
+			err = stream.SendMsg(reqChunk)
+			if err != nil && err != io.EOF {
+				logger.Error("Ошибка при отправке: %v", err)
+				chErr <- err
+				return
+			}
+		}
+	}()
+
+	logger.Info("Ждем канал")
+	err = <-chErr
+	logger.Info("Дождались")
+	if err != nil {
+		SetGRPCError(w, err)
+		logger.Error("Ошибка при отправке данных в канал: %v", err)
+		return
+	}
+
+	response := new(DatabaseServicev1.HTTPCodes)
+
+	err = stream.RecvMsg(response)
+	if err != nil {
+		SetGRPCError(w, err)
+		logger.Error("Ошибка при попытке получить ответ: %v", err)
+		return
+	}
+
+	w.WriteHeader(int(response.Code))
 }

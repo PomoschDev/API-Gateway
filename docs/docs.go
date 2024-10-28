@@ -126,6 +126,11 @@ const docTemplate = `{
         },
         "/api/v1/card/company": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Банковская карта компании в базе данных",
                 "consumes": [
                     "application/json"
@@ -165,6 +170,11 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Обновление банковской карты компании",
                 "consumes": [
                     "application/json"
@@ -173,7 +183,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Cards"
+                    "CardCompany"
                 ],
                 "summary": "Обновление банковской карты компании",
                 "parameters": [
@@ -265,6 +275,11 @@ const docTemplate = `{
         },
         "/api/v1/card/company/deleteModel": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Удаляет банковскую карту компании опираясь на всю сущность модели",
                 "consumes": [
                     "application/json"
@@ -316,6 +331,11 @@ const docTemplate = `{
         },
         "/api/v1/card/company/{id}": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Поиск банковской карты компании по ID",
                 "consumes": [
                     "application/json"
@@ -364,6 +384,11 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Удаление банковской карты компании по ID",
                 "consumes": [
                     "application/json"
@@ -414,6 +439,11 @@ const docTemplate = `{
         },
         "/api/v1/cards": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Массив банковских карт в базе данных",
                 "consumes": [
                     "application/json"
@@ -504,6 +534,11 @@ const docTemplate = `{
         },
         "/api/v1/cards/deleteModel": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Удаляет банковскую карту опираясь на всю сущность модели",
                 "consumes": [
                     "application/json"
@@ -555,6 +590,11 @@ const docTemplate = `{
         },
         "/api/v1/cards/{id}": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Поиск банковской карты по ID",
                 "consumes": [
                     "application/json"
@@ -603,6 +643,11 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Обновление банковской карты",
                 "consumes": [
                     "application/json"
@@ -660,6 +705,11 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Удаление банковской карты пользователя по ID",
                 "consumes": [
                     "application/json"
@@ -710,6 +760,11 @@ const docTemplate = `{
         },
         "/api/v1/companies": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Массив компаний в базе данных",
                 "consumes": [
                     "application/json"
@@ -749,6 +804,11 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Обновление сущности компании",
                 "consumes": [
                     "application/json"
@@ -899,6 +959,11 @@ const docTemplate = `{
         },
         "/api/v1/companies/addCard": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Добавляет банковскую карту компании, поле companyId это ID компании в базе данных, которой будем добавлять карту",
                 "consumes": [
                     "application/json"
@@ -950,6 +1015,11 @@ const docTemplate = `{
         },
         "/api/v1/companies/deleteModel": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Удаляет компании опираясь на всю сущность модели",
                 "consumes": [
                     "application/json"
@@ -1001,6 +1071,11 @@ const docTemplate = `{
         },
         "/api/v1/companies/{id}": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Поиск компании по ID",
                 "consumes": [
                     "application/json"
@@ -1051,6 +1126,11 @@ const docTemplate = `{
         },
         "/api/v1/companies/{id}/card": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Извлечение банковской карты компании по ее ID",
                 "consumes": [
                     "application/json"
@@ -1101,6 +1181,11 @@ const docTemplate = `{
         },
         "/api/v1/company/{id}": {
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Удаление компании по ID",
                 "consumes": [
                     "application/json"
@@ -1190,6 +1275,11 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Обновление пожертвования",
                 "consumes": [
                     "application/json"
@@ -1290,6 +1380,11 @@ const docTemplate = `{
         },
         "/api/v1/donations/deleteModel": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Удаляет пожертвование опираясь на всю сущность модели",
                 "consumes": [
                     "application/json"
@@ -1341,6 +1436,11 @@ const docTemplate = `{
         },
         "/api/v1/donations/{id}": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Поиск пожертвовани по ID",
                 "consumes": [
                     "application/json"
@@ -1389,6 +1489,11 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Удаление пожертвования по ID",
                 "consumes": [
                     "application/json"
@@ -1437,8 +1542,68 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/donations/{id}/user": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Извлечение пользователя из пожертвования по ID пожертвования",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Donations"
+                ],
+                "summary": "Извлечение пользователя из пожертвования",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Donation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.FindDonationWardsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/donations/{id}/wards": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Извлечение подопечных пожертвования по ID пожертвования",
                 "consumes": [
                     "application/json"
@@ -1487,8 +1652,70 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/payment": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Пожертвования",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Пожертвования",
+                "parameters": [
+                    {
+                        "description": "Данные для оплаты",
+                        "name": "payment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/server.PaymentRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/users": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Массив пользователей в базе данных",
                 "consumes": [
                     "application/json"
@@ -1528,6 +1755,11 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Создание новой сущности пользователя",
                 "consumes": [
                     "application/json"
@@ -1629,6 +1861,11 @@ const docTemplate = `{
         },
         "/api/v1/users/addCard": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Добавляет банковскую карту пользователю, поле userId это ID пользователя в базе данных, которому будем добавлять карту",
                 "consumes": [
                     "application/json"
@@ -1732,6 +1969,11 @@ const docTemplate = `{
         },
         "/api/v1/users/deleteModel": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Удаляет пользователя опираясь на всю сущность модели",
                 "consumes": [
                     "application/json"
@@ -2040,6 +2282,11 @@ const docTemplate = `{
                 }
             },
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Обновление типа пользователя (0 - юридическое лицо, 1 - физическое лицо)",
                 "consumes": [
                     "multipart/form-data"
@@ -2097,6 +2344,11 @@ const docTemplate = `{
         },
         "/api/v1/users/{id}/card": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Извлечение карт пользователя по его ID",
                 "consumes": [
                     "application/json"
@@ -2147,6 +2399,11 @@ const docTemplate = `{
         },
         "/api/v1/users/{id}/company": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Извлечение компании пользователя по его ID",
                 "consumes": [
                     "application/json"
@@ -2197,6 +2454,11 @@ const docTemplate = `{
         },
         "/api/v1/users/{id}/donation": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Извлечение пожертвований пользователя по его ID",
                 "consumes": [
                     "application/json"
@@ -2222,6 +2484,170 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/DatabaseServicev1.FindUserDonationsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/users/{id}/photo": {
+            "get": {
+                "description": "Поиск фото профиля пользователя по ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "image/png",
+                    " image/jpeg"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Поиск фото профиля пользователя",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Устанавливает фото пользователя по ID",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Устанавливает фото пользователя",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID пользователя",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "Фото пользователя",
+                        "name": "photo",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Удаление фото пользователя по ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Удаление фото пользователя",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID пользователя",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
                         }
                     },
                     "400": {
@@ -2286,6 +2712,11 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Обновление подопечного",
                 "consumes": [
                     "application/json"
@@ -2335,6 +2766,11 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Создание подопечного",
                 "consumes": [
                     "application/json"
@@ -2386,6 +2822,11 @@ const docTemplate = `{
         },
         "/api/v1/wards/deleteModel": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Удаляет подопечного опираясь на всю сущность модели",
                 "consumes": [
                     "application/json"
@@ -2485,6 +2926,11 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Удаление подопечного по ID",
                 "consumes": [
                     "application/json"
@@ -2510,6 +2956,61 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/DatabaseServicev1.HTTPCodes"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/server.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/wards/{id}/donations": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Извлечение пожертвований подопечного по его ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Wards"
+                ],
+                "summary": "Извлечение пожертвований подопечного",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Ward ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DatabaseServicev1.DonationsResponse"
                         }
                     },
                     "400": {
@@ -2926,13 +3427,9 @@ const docTemplate = `{
                     "description": "* ID пользователя, чье это пожертвование",
                     "type": "integer"
                 },
-                "wards": {
-                    "description": "* Подопечный данного пожертвования",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/DatabaseServicev1.Ward"
-                        }
-                    ]
+                "wardId": {
+                    "description": "* ID подопечный этого пожертвования",
+                    "type": "integer"
                 }
             }
         },
@@ -2963,13 +3460,9 @@ const docTemplate = `{
                     "description": "* ID пользователя, которому принадлежит пожертвование",
                     "type": "integer"
                 },
-                "wards": {
-                    "description": "* Подопечный этого пожертвования",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/DatabaseServicev1.Ward"
-                        }
-                    ]
+                "wardId": {
+                    "description": "* ID подопечный этого пожертвования",
+                    "type": "integer"
                 }
             }
         },
@@ -3026,10 +3519,6 @@ const docTemplate = `{
         "DatabaseServicev1.CreateUserResponse": {
             "type": "object",
             "properties": {
-                "AvatarPath": {
-                    "description": "* Локальный путь к аватару пользователя",
-                    "type": "string"
-                },
                 "card": {
                     "description": "* Банковские карты пользователя",
                     "type": "array",
@@ -3093,9 +3582,9 @@ const docTemplate = `{
         "DatabaseServicev1.CreateWardRequest": {
             "type": "object",
             "properties": {
-                "donationId": {
-                    "description": "* ID пожертвования",
-                    "type": "integer"
+                "address": {
+                    "description": "* Адрес подопечного",
+                    "type": "string"
                 },
                 "fullName": {
                     "description": "* Полное имя подопечного",
@@ -3155,13 +3644,9 @@ const docTemplate = `{
                     "description": "* ID пользователя, которому принадлежит пожертвование",
                     "type": "integer"
                 },
-                "wards": {
-                    "description": "* Подопечный этого пожертвования",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/DatabaseServicev1.Ward"
-                        }
-                    ]
+                "wardId": {
+                    "description": "* ID подопечный этого пожертвования",
+                    "type": "integer"
                 }
             }
         },
@@ -3205,13 +3690,9 @@ const docTemplate = `{
                     "description": "* ID пользователя, которому принадлежит пожертвование",
                     "type": "integer"
                 },
-                "ward": {
-                    "description": "* Подопечный этого пожертвования",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/DatabaseServicev1.Ward"
-                        }
-                    ]
+                "wardId": {
+                    "description": "* ID подопечного для которого предназначено данное пожертвование",
+                    "type": "integer"
                 }
             }
         },
@@ -3335,13 +3816,9 @@ const docTemplate = `{
                     "description": "* ID пользователя, которому принадлежит пожертвование",
                     "type": "integer"
                 },
-                "wards": {
-                    "description": "* Подопечный этого пожертвования",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/DatabaseServicev1.Ward"
-                        }
-                    ]
+                "wardId": {
+                    "description": "* ID подопечный этого пожертвования",
+                    "type": "integer"
                 }
             }
         },
@@ -3406,10 +3883,6 @@ const docTemplate = `{
         "DatabaseServicev1.UpdateUserRequest": {
             "type": "object",
             "properties": {
-                "AvatarPath": {
-                    "description": "* Локальный путь к аватару пользователя",
-                    "type": "string"
-                },
                 "card": {
                     "description": "* Массив банковских карт пользователя",
                     "type": "array",
@@ -3503,17 +3976,24 @@ const docTemplate = `{
         "DatabaseServicev1.Ward": {
             "type": "object",
             "properties": {
-                "AvatarPath": {
-                    "description": "* Локальный путь к аватару подопечного",
+                "address": {
+                    "description": "* Адрес подопечного",
                     "type": "string"
+                },
+                "collected": {
+                    "description": "* Количество собранных средств",
+                    "type": "number"
                 },
                 "createdAt": {
                     "description": "* Дата создания сущности в базе данных",
                     "type": "string"
                 },
-                "donationId": {
-                    "description": "* ID пожертвования к которому относится данный подопечный",
-                    "type": "integer"
+                "donations": {
+                    "description": "* пожертвования для подопечного",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DatabaseServicev1.Donations"
+                    }
                 },
                 "fullName": {
                     "description": "* Полное имя подопечного",
@@ -3524,7 +4004,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "necessary": {
-                    "description": "* Необходимая сумма денег на необходимость",
+                    "description": "* Необходимая сумма денег на потребность",
                     "type": "number"
                 },
                 "title": {
@@ -3536,7 +4016,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "want": {
-                    "description": "* Необходимость подопечного (то в чем он нуждается, например \"Лекарства\")",
+                    "description": "* Потребность подопечного (то в чем он нуждается, например \"Лекарства\")",
                     "type": "string"
                 }
             }
@@ -3583,6 +4063,20 @@ const docTemplate = `{
                 }
             }
         },
+        "server.PaymentRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "toWardId": {
+                    "type": "integer"
+                }
+            }
+        },
         "server.RegistrationRequest": {
             "type": "object",
             "properties": {
@@ -3609,13 +4103,20 @@ const docTemplate = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "89.179.244.210:8010",
+	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "API Gateway",

@@ -59,6 +59,7 @@ const (
 	DatabaseService_Donations_FullMethodName                  = "/service.DatabaseService/Donations"
 	DatabaseService_CreateDonations_FullMethodName            = "/service.DatabaseService/CreateDonations"
 	DatabaseService_FindDonationWards_FullMethodName          = "/service.DatabaseService/FindDonationWards"
+	DatabaseService_FindDonationUser_FullMethodName           = "/service.DatabaseService/FindDonationUser"
 	DatabaseService_FindDonationById_FullMethodName           = "/service.DatabaseService/FindDonationById"
 	DatabaseService_DeleteDonationByModel_FullMethodName      = "/service.DatabaseService/DeleteDonationByModel"
 	DatabaseService_DeleteDonationById_FullMethodName         = "/service.DatabaseService/DeleteDonationById"
@@ -69,6 +70,7 @@ const (
 	DatabaseService_DeleteWardByModel_FullMethodName          = "/service.DatabaseService/DeleteWardByModel"
 	DatabaseService_DeleteWardById_FullMethodName             = "/service.DatabaseService/DeleteWardById"
 	DatabaseService_UpdateWard_FullMethodName                 = "/service.DatabaseService/UpdateWard"
+	DatabaseService_FindWardDonationById_FullMethodName       = "/service.DatabaseService/FindWardDonationById"
 	DatabaseService_CreateSessions_FullMethodName             = "/service.DatabaseService/CreateSessions"
 	DatabaseService_Sessions_FullMethodName                   = "/service.DatabaseService/Sessions"
 	DatabaseService_FindSessionsById_FullMethodName           = "/service.DatabaseService/FindSessionsById"
@@ -78,6 +80,9 @@ const (
 	DatabaseService_DeleteSessionByModel_FullMethodName       = "/service.DatabaseService/DeleteSessionByModel"
 	DatabaseService_DeleteSessionById_FullMethodName          = "/service.DatabaseService/DeleteSessionById"
 	DatabaseService_DeleteSessionByUserId_FullMethodName      = "/service.DatabaseService/DeleteSessionByUserId"
+	DatabaseService_SetUserAvatar_FullMethodName              = "/service.DatabaseService/SetUserAvatar"
+	DatabaseService_DeleteUserAvatar_FullMethodName           = "/service.DatabaseService/DeleteUserAvatar"
+	DatabaseService_GetUserAvatar_FullMethodName              = "/service.DatabaseService/GetUserAvatar"
 )
 
 // DatabaseServiceClient is the client API for DatabaseService service.
@@ -208,6 +213,9 @@ type DatabaseServiceClient interface {
 	// Поиск подопечных по ID пожертвования
 	FindDonationWards(ctx context.Context, in *FindDonationWardsRequest, opts ...grpc.CallOption) (*FindDonationWardsResponse, error)
 	// *
+	// Поиск пользователей по ID пожертвования
+	FindDonationUser(ctx context.Context, in *FindDonationUserRequest, opts ...grpc.CallOption) (*FindDonationUserResponse, error)
+	// *
 	// Поиск пожертвования по ID
 	FindDonationById(ctx context.Context, in *FindDonationByIdRequest, opts ...grpc.CallOption) (*CreateDonationsResponse, error)
 	// *
@@ -238,6 +246,8 @@ type DatabaseServiceClient interface {
 	// Обновление подопечного
 	UpdateWard(ctx context.Context, in *Ward, opts ...grpc.CallOption) (*Ward, error)
 	// *
+	FindWardDonationById(ctx context.Context, in *FindWardDonationByIdRequest, opts ...grpc.CallOption) (*DonationsResponse, error)
+	// *
 	// Создание новой сессии
 	CreateSessions(ctx context.Context, in *CreateSessionRequest, opts ...grpc.CallOption) (*CreateSessionResponse, error)
 	// *
@@ -264,6 +274,15 @@ type DatabaseServiceClient interface {
 	// *
 	// Удаляет сессию по ее UserID
 	DeleteSessionByUserId(ctx context.Context, in *DeleteSessionByUserIdRequest, opts ...grpc.CallOption) (*HTTPCodes, error)
+	// *
+	// Устанавливает фото для пользователя
+	SetUserAvatar(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[SetUserAvatarRequest, HTTPCodes], error)
+	// *
+	// Удаление пользовательского фото
+	DeleteUserAvatar(ctx context.Context, in *DeleteUserAvatarRequest, opts ...grpc.CallOption) (*HTTPCodes, error)
+	// *
+	// Получение пользовательского фото
+	GetUserAvatar(ctx context.Context, in *GetUserAvatarRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[GetUserAvatarRequest], error)
 }
 
 type databaseServiceClient struct {
@@ -674,6 +693,16 @@ func (c *databaseServiceClient) FindDonationWards(ctx context.Context, in *FindD
 	return out, nil
 }
 
+func (c *databaseServiceClient) FindDonationUser(ctx context.Context, in *FindDonationUserRequest, opts ...grpc.CallOption) (*FindDonationUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FindDonationUserResponse)
+	err := c.cc.Invoke(ctx, DatabaseService_FindDonationUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *databaseServiceClient) FindDonationById(ctx context.Context, in *FindDonationByIdRequest, opts ...grpc.CallOption) (*CreateDonationsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateDonationsResponse)
@@ -774,6 +803,16 @@ func (c *databaseServiceClient) UpdateWard(ctx context.Context, in *Ward, opts .
 	return out, nil
 }
 
+func (c *databaseServiceClient) FindWardDonationById(ctx context.Context, in *FindWardDonationByIdRequest, opts ...grpc.CallOption) (*DonationsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DonationsResponse)
+	err := c.cc.Invoke(ctx, DatabaseService_FindWardDonationById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *databaseServiceClient) CreateSessions(ctx context.Context, in *CreateSessionRequest, opts ...grpc.CallOption) (*CreateSessionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateSessionResponse)
@@ -863,6 +902,48 @@ func (c *databaseServiceClient) DeleteSessionByUserId(ctx context.Context, in *D
 	}
 	return out, nil
 }
+
+func (c *databaseServiceClient) SetUserAvatar(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[SetUserAvatarRequest, HTTPCodes], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &DatabaseService_ServiceDesc.Streams[0], DatabaseService_SetUserAvatar_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[SetUserAvatarRequest, HTTPCodes]{ClientStream: stream}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type DatabaseService_SetUserAvatarClient = grpc.ClientStreamingClient[SetUserAvatarRequest, HTTPCodes]
+
+func (c *databaseServiceClient) DeleteUserAvatar(ctx context.Context, in *DeleteUserAvatarRequest, opts ...grpc.CallOption) (*HTTPCodes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HTTPCodes)
+	err := c.cc.Invoke(ctx, DatabaseService_DeleteUserAvatar_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *databaseServiceClient) GetUserAvatar(ctx context.Context, in *GetUserAvatarRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[GetUserAvatarRequest], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &DatabaseService_ServiceDesc.Streams[1], DatabaseService_GetUserAvatar_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[GetUserAvatarRequest, GetUserAvatarRequest]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type DatabaseService_GetUserAvatarClient = grpc.ServerStreamingClient[GetUserAvatarRequest]
 
 // DatabaseServiceServer is the server API for DatabaseService service.
 // All implementations must embed UnimplementedDatabaseServiceServer
@@ -992,6 +1073,9 @@ type DatabaseServiceServer interface {
 	// Поиск подопечных по ID пожертвования
 	FindDonationWards(context.Context, *FindDonationWardsRequest) (*FindDonationWardsResponse, error)
 	// *
+	// Поиск пользователей по ID пожертвования
+	FindDonationUser(context.Context, *FindDonationUserRequest) (*FindDonationUserResponse, error)
+	// *
 	// Поиск пожертвования по ID
 	FindDonationById(context.Context, *FindDonationByIdRequest) (*CreateDonationsResponse, error)
 	// *
@@ -1022,6 +1106,8 @@ type DatabaseServiceServer interface {
 	// Обновление подопечного
 	UpdateWard(context.Context, *Ward) (*Ward, error)
 	// *
+	FindWardDonationById(context.Context, *FindWardDonationByIdRequest) (*DonationsResponse, error)
+	// *
 	// Создание новой сессии
 	CreateSessions(context.Context, *CreateSessionRequest) (*CreateSessionResponse, error)
 	// *
@@ -1048,6 +1134,15 @@ type DatabaseServiceServer interface {
 	// *
 	// Удаляет сессию по ее UserID
 	DeleteSessionByUserId(context.Context, *DeleteSessionByUserIdRequest) (*HTTPCodes, error)
+	// *
+	// Устанавливает фото для пользователя
+	SetUserAvatar(grpc.ClientStreamingServer[SetUserAvatarRequest, HTTPCodes]) error
+	// *
+	// Удаление пользовательского фото
+	DeleteUserAvatar(context.Context, *DeleteUserAvatarRequest) (*HTTPCodes, error)
+	// *
+	// Получение пользовательского фото
+	GetUserAvatar(*GetUserAvatarRequest, grpc.ServerStreamingServer[GetUserAvatarRequest]) error
 	mustEmbedUnimplementedDatabaseServiceServer()
 }
 
@@ -1178,6 +1273,9 @@ func (UnimplementedDatabaseServiceServer) CreateDonations(context.Context, *Crea
 func (UnimplementedDatabaseServiceServer) FindDonationWards(context.Context, *FindDonationWardsRequest) (*FindDonationWardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindDonationWards not implemented")
 }
+func (UnimplementedDatabaseServiceServer) FindDonationUser(context.Context, *FindDonationUserRequest) (*FindDonationUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindDonationUser not implemented")
+}
 func (UnimplementedDatabaseServiceServer) FindDonationById(context.Context, *FindDonationByIdRequest) (*CreateDonationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindDonationById not implemented")
 }
@@ -1208,6 +1306,9 @@ func (UnimplementedDatabaseServiceServer) DeleteWardById(context.Context, *Delet
 func (UnimplementedDatabaseServiceServer) UpdateWard(context.Context, *Ward) (*Ward, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateWard not implemented")
 }
+func (UnimplementedDatabaseServiceServer) FindWardDonationById(context.Context, *FindWardDonationByIdRequest) (*DonationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindWardDonationById not implemented")
+}
 func (UnimplementedDatabaseServiceServer) CreateSessions(context.Context, *CreateSessionRequest) (*CreateSessionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSessions not implemented")
 }
@@ -1234,6 +1335,15 @@ func (UnimplementedDatabaseServiceServer) DeleteSessionById(context.Context, *De
 }
 func (UnimplementedDatabaseServiceServer) DeleteSessionByUserId(context.Context, *DeleteSessionByUserIdRequest) (*HTTPCodes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSessionByUserId not implemented")
+}
+func (UnimplementedDatabaseServiceServer) SetUserAvatar(grpc.ClientStreamingServer[SetUserAvatarRequest, HTTPCodes]) error {
+	return status.Errorf(codes.Unimplemented, "method SetUserAvatar not implemented")
+}
+func (UnimplementedDatabaseServiceServer) DeleteUserAvatar(context.Context, *DeleteUserAvatarRequest) (*HTTPCodes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteUserAvatar not implemented")
+}
+func (UnimplementedDatabaseServiceServer) GetUserAvatar(*GetUserAvatarRequest, grpc.ServerStreamingServer[GetUserAvatarRequest]) error {
+	return status.Errorf(codes.Unimplemented, "method GetUserAvatar not implemented")
 }
 func (UnimplementedDatabaseServiceServer) mustEmbedUnimplementedDatabaseServiceServer() {}
 func (UnimplementedDatabaseServiceServer) testEmbeddedByValue()                         {}
@@ -1976,6 +2086,24 @@ func _DatabaseService_FindDonationWards_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatabaseService_FindDonationUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindDonationUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).FindDonationUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_FindDonationUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).FindDonationUser(ctx, req.(*FindDonationUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatabaseService_FindDonationById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FindDonationByIdRequest)
 	if err := dec(in); err != nil {
@@ -2156,6 +2284,24 @@ func _DatabaseService_UpdateWard_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatabaseService_FindWardDonationById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindWardDonationByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).FindWardDonationById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_FindWardDonationById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).FindWardDonationById(ctx, req.(*FindWardDonationByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DatabaseService_CreateSessions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateSessionRequest)
 	if err := dec(in); err != nil {
@@ -2317,6 +2463,42 @@ func _DatabaseService_DeleteSessionByUserId_Handler(srv interface{}, ctx context
 	}
 	return interceptor(ctx, in, info, handler)
 }
+
+func _DatabaseService_SetUserAvatar_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(DatabaseServiceServer).SetUserAvatar(&grpc.GenericServerStream[SetUserAvatarRequest, HTTPCodes]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type DatabaseService_SetUserAvatarServer = grpc.ClientStreamingServer[SetUserAvatarRequest, HTTPCodes]
+
+func _DatabaseService_DeleteUserAvatar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteUserAvatarRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatabaseServiceServer).DeleteUserAvatar(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DatabaseService_DeleteUserAvatar_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatabaseServiceServer).DeleteUserAvatar(ctx, req.(*DeleteUserAvatarRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatabaseService_GetUserAvatar_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(GetUserAvatarRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(DatabaseServiceServer).GetUserAvatar(m, &grpc.GenericServerStream[GetUserAvatarRequest, GetUserAvatarRequest]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type DatabaseService_GetUserAvatarServer = grpc.ServerStreamingServer[GetUserAvatarRequest]
 
 // DatabaseService_ServiceDesc is the grpc.ServiceDesc for DatabaseService service.
 // It's only intended for direct use with grpc.RegisterService,
@@ -2486,6 +2668,10 @@ var DatabaseService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DatabaseService_FindDonationWards_Handler,
 		},
 		{
+			MethodName: "FindDonationUser",
+			Handler:    _DatabaseService_FindDonationUser_Handler,
+		},
+		{
 			MethodName: "FindDonationById",
 			Handler:    _DatabaseService_FindDonationById_Handler,
 		},
@@ -2526,6 +2712,10 @@ var DatabaseService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DatabaseService_UpdateWard_Handler,
 		},
 		{
+			MethodName: "FindWardDonationById",
+			Handler:    _DatabaseService_FindWardDonationById_Handler,
+		},
+		{
 			MethodName: "CreateSessions",
 			Handler:    _DatabaseService_CreateSessions_Handler,
 		},
@@ -2561,7 +2751,22 @@ var DatabaseService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "DeleteSessionByUserId",
 			Handler:    _DatabaseService_DeleteSessionByUserId_Handler,
 		},
+		{
+			MethodName: "DeleteUserAvatar",
+			Handler:    _DatabaseService_DeleteUserAvatar_Handler,
+		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "SetUserAvatar",
+			Handler:       _DatabaseService_SetUserAvatar_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "GetUserAvatar",
+			Handler:       _DatabaseService_GetUserAvatar_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "DatabaseService/DatabaseService.proto",
 }

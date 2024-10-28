@@ -3,11 +3,13 @@ package server
 import (
 	DatabaseServicev1 "apiGateway/iternal/DatabaseService"
 	"apiGateway/pkg/logger"
+	"apiGateway/pkg/token"
 	"apiGateway/pkg/utilities"
 	"encoding/json"
 	"github.com/nyaruka/phonenumbers"
 	"net/http"
 	"regexp"
+	"unicode"
 )
 
 type LoginRequest struct {
@@ -62,14 +64,15 @@ func (route Router) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if _, err := route.databaseService.FindUserByPhone(r.Context(),
-		&DatabaseServicev1.FindUserByPhoneRequest{Phone: request.Phone}); err != nil {
+	user, err := route.databaseService.FindUserByPhone(r.Context(),
+		&DatabaseServicev1.FindUserByPhoneRequest{Phone: request.Phone})
+	if err != nil {
 		SetGRPCError(w, err)
 		return
 	}
 
 	comparePasswordRequest := new(DatabaseServicev1.ComparePasswordRequest)
-	err := utilities.Transformation(request, comparePasswordRequest)
+	err = utilities.Transformation(request, comparePasswordRequest)
 	if err != nil {
 		SetHTTPError(w, "Ошибка на стороне сервера", http.StatusInternalServerError)
 		return
@@ -86,13 +89,29 @@ func (route Router) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := &LoginResponse{Token: "GoodToken"}
+	jwtToken, err := token.CreateToken(user, route.cfg)
+	if err != nil {
+		logger.Error("Ошибка при создании JWT токена: %v", err)
+		SetHTTPError(w, "Ошибка при создании JWT токена", http.StatusInternalServerError)
+		return
+	}
+
+	response := &LoginResponse{Token: jwtToken}
 
 	str := utilities.ToJSON(response)
 	_, err = w.Write([]byte(str))
 	if err != nil {
 		logger.Error("%s", err.Error())
 	}
+}
+
+func hasUppercase(s string) bool {
+	for _, r := range s {
+		if unicode.IsUpper(r) {
+			return true
+		}
+	}
+	return false
 }
 
 // Registration godoc
@@ -137,5 +156,52 @@ func (route Router) Registration(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusNotImplemented)
+	if registrationRequest.Password == "" || len(registrationRequest.Password) == 0 {
+		SetHTTPError(w, "Пароль не может быть пустым", http.StatusBadRequest)
+		return
+	}
+
+	if len(registrationRequest.Password) < 8 {
+		SetHTTPError(w, "Пароль не может быть меньше 8 символов", http.StatusBadRequest)
+		return
+	}
+
+	if !hasUppercase(registrationRequest.Password) {
+		SetHTTPError(w, "Должна быть хотя бы одна заглавная буква", http.StatusBadRequest)
+		return
+	}
+
+	newUser := &DatabaseServicev1.CreateUserRequest{
+		Email:     registrationRequest.Email,
+		Username:  registrationRequest.Username,
+		Password:  registrationRequest.Password,
+		Phone:     registrationRequest.Phone,
+		Card:      []*DatabaseServicev1.CreateCardRequest{registrationRequest.Card},
+		Role:      "user",
+		Company:   registrationRequest.Company,
+		Type:      registrationRequest.Type,
+		Donations: nil,
+	}
+
+	respService, err := route.databaseService.CreateUser(r.Context(), newUser)
+	if err != nil {
+		SetGRPCError(w, err)
+		return
+	}
+
+	jwtToken, err := token.CreateToken(respService, route.cfg)
+	if err != nil {
+		logger.Error("Ошибка при создании JWT токена: %v", err)
+		SetHTTPError(w, "Ошибка при создании JWT токена", http.StatusInternalServerError)
+		return
+	}
+
+	response := &LoginResponse{Token: jwtToken}
+
+	str := utilities.ToJSON(response)
+
+	_, err = w.Write([]byte(str))
+	if err != nil {
+		logger.Error("Ошибка при формировании ответа: %v", err)
+	}
 }
