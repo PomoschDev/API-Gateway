@@ -7,3 +7,6 @@ grpc_server:
   port: 44044
   timeout: 5s
 swagger: false
+jwt:
+  secret: secret
+  expires: 30m
